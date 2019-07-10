@@ -18,10 +18,6 @@ class FloatingParticles extends Component {
   }
 
   drawParticles() {
-    var margin = { left: 20, top: 20, right: 20, bottom: 20 },
-      width = window.innerWidth,
-      height = window.innerHeight;
-
     const compositionTypes = [
       "elementary carbon",
       "organic matter",
@@ -38,16 +34,21 @@ class FloatingParticles extends Component {
       particles[index] = {
         x: Math.floor(Math.random() * width),
         y: Math.floor(Math.random() * height),
-        component:
+        compositionType:
           compositionTypes[Math.floor(Math.random() * compositionTypes.length)],
         r: Math.floor(Math.random() * 3) * 5
       };
     }
 
+    var margin = { left: 40, top: 20, right: 20, bottom: 20 },
+      width = window.innerWidth - margin.left - margin.right,
+      height = window.innerHeight - margin.top - margin.bottom;
     var svg = d3
       .select(this.svgElement.current)
-      .attr("width", width)
-      .attr("height", height);
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + [margin.left, margin.top] + ")");
 
     var compositionTypeScale = d3
       .scalePoint()
@@ -55,7 +56,7 @@ class FloatingParticles extends Component {
       .domain(compositionTypes)
       .padding(0.5);
 
-    var compositionTypeLabels = svg
+    var compositionTypesLabels = svg
       .selectAll("text.typeLabels")
       .data(compositionTypeScale.domain())
       .enter()
@@ -67,43 +68,43 @@ class FloatingParticles extends Component {
       .attr("text-anchor", "middle")
       .attr("fill", "#fff");
 
-    var xTypeForce = d3.forceX(d => {
-      console.log(d.component);
-      compositionTypeScale(d.component);
-    });
-    let locationBtnClicked = false;
-    document.getElementById("locations").onclick = function() {
-      if (!locationBtnClicked) {
-        simulation.force("x", xTypeForce);
-        compositionTypeLabels
+    var xCompositionTypeForce = d3.forceX(d =>
+      compositionTypeScale(d.compositionType)
+    );
+
+    var compostionTypeSplit = false;
+    document.getElementById("compositionTypes").onclick = function() {
+      if (!compostionTypeSplit) {
+        simulation.force("x", xCompositionTypeForce);
+        compositionTypesLabels
           .transition()
           .attr("x", d => compositionTypeScale(d))
           .attr("fill", "#777");
       } else {
         simulation.force("x", centerXForce);
-        compositionTypeLabels
+        compositionTypesLabels
           .transition()
           .attr("x", width / 2)
           .attr("fill", "#fff");
       }
-      locationBtnClicked = !locationBtnClicked;
+      compostionTypeSplit = !compostionTypeSplit;
       simulation.alpha(1).restart();
     };
 
-    var chargeForce = d3.forceManyBody().strength(-5);
+    var chargeForce = d3.forceManyBody().strength(-20);
     var centerXForce = d3.forceX(width / 2);
-    // var centerYForce = d3.forceY(height / 2);
+    var centerYForce = d3.forceY(height / 2);
     var forceCollide = d3
       .forceCollide()
       .strength(1)
-      .radius(2)
+      .radius(d => d.r)
       .iterations(2);
     var simulation = d3
       .forceSimulation()
       .force("charge", chargeForce)
-      .force("collide", forceCollide);
-    //   .force("x", centerXForce)
-    //   .force("y", centerYForce);
+      .force("collide", forceCollide)
+      .force("x", centerXForce)
+      .force("y", centerYForce);
 
     var node = svg
       .selectAll("circle")
@@ -111,26 +112,29 @@ class FloatingParticles extends Component {
       .enter()
       .append("circle")
       .attr("r", d => d.r)
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y)
+
       .attr("fill", d => {
-        switch (d.component) {
-          case 1:
+        switch (d.compositionType) {
+          case compositionTypes[0]:
             return "#52744D";
-          case 2:
+          case compositionTypes[1]:
             return "#AFCE6D";
-          case 3:
+          case compositionTypes[2]:
             return "#F2F0B5";
-          case 4:
+          case compositionTypes[3]:
             return "#D97C51";
-          case 5:
+          case compositionTypes[4]:
             return "#C12D4E";
+          case compositionTypes[5]:
+            return "#2d66c1";
+          case compositionTypes[6]:
+            return "#972dc1";
+          case compositionTypes[7]:
+            return "#c12d83";
           default:
             break;
         }
       });
-
-    console.log(particles[0].x);
 
     simulation.nodes(particles).on("tick", () => {
       node.attr("cx", d => d.x).attr("cy", d => d.y);
@@ -141,8 +145,8 @@ class FloatingParticles extends Component {
     return (
       <div>
         <svg ref={this.svgElement} />
-        <button id="locations" className="button">
-          Locations
+        <button id="compositionTypes" className="button">
+          Composition Types
         </button>
       </div>
     );
