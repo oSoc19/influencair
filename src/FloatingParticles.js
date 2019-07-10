@@ -69,7 +69,7 @@ class FloatingParticles extends Component {
 
     var xTypeForce = d3.forceX(d => {
       console.log(d.component);
-      compositionTypeScale(d.composition);
+      compositionTypeScale(d.component);
     });
     let locationBtnClicked = false;
     document.getElementById("locations").onclick = function() {
