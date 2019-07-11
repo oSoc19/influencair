@@ -28,7 +28,7 @@ class FloatingParticles extends Component {
   ];
   particles = this.generateParticles();
   margin = { left: 60, top: 20, right: 20, bottom: 20 };
-  width = window.innerWidth - this.margin.left - this.margin.right;
+  width = window.innerWidth - this.margin.left - this.margin.right - 200;
   height = window.innerHeight - this.margin.top - this.margin.bottom;
 
   componentDidMount() {
@@ -92,10 +92,11 @@ class FloatingParticles extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { subchapter } = nextProps;
-    let { width, height, margin } = this;
+    const { story } = nextProps;
+    if (!story) return;
 
-    if (subchapter === 1) {
+    let { width, height, margin } = this;
+    if (story.subChapter === 1) {
       var compositionTypeScale = d3
         .scalePoint()
         .range([margin.left * 3, width - margin.right * 4])
@@ -139,7 +140,7 @@ class FloatingParticles extends Component {
       }
       compostionTypeSplit = !compostionTypeSplit;
       this.simulation.alpha(1).restart();
-    } else if (subchapter === 2) {
+    } else if (story.subChapter === 2) {
       var causesScale = d3
         .scalePoint()
         .range([height - margin.bottom, margin.top * 4])

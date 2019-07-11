@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import SideBar from "./Sidebar";
+import FloatingParticles from "./FloatingParticles";
 import story from "./story.json";
 
 const scrollHeight = 10000;
@@ -9,14 +10,14 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      current_story: story[0],
+      currentStory: story[0],
       scroll: 0
     };
   }
   componentDidMount() {
     window.addEventListener("scroll", () => {
       this.setState({
-        current_story: story[Math.floor(window.scrollY / 100)],
+        currentStory: story[Math.floor(window.scrollY / 100)],
         scroll: window.scrollY
       });
     });
@@ -26,9 +27,12 @@ export default class App extends Component {
       <div className="App" style={{ height: scrollHeight }}>
         <div className="GridContainer">
           <div className="Col1">
-            <SideBar storie={this.state.current_story} />
+            <SideBar story={this.state.currentStory} />
           </div>
-          <div className="Col2">{this.state.scroll}</div>
+          <div className="Col2">
+            {this.state.scroll}
+            <FloatingParticles story={this.state.currentStory} />
+          </div>
         </div>
       </div>
     );
