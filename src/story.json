@@ -8,19 +8,162 @@
         "info": ""
     },
     {
-        "story": 1,
-        "chapter": 1,
-        "subChapter": 1,
-        "description": "Show particles, ",
+        "story": 0,
+        "chapter": 0,
+        "subChapter": 0,
+        "description": "Brussels slides left away from the screen",
+        "text": "",
+        "info": ""
+    },
+    {
+        "story": 0,
+        "chapter": 0,
+        "subChapter": 0,
+        "description": "Air quality slides right away from the screen",
         "text": "",
         "info": ""
     },
     {
         "story": 1,
         "chapter": 1,
-        "subChapter": 2,
-        "description": "",
-        "text": "",
+        "subChapter": 1, 
+        "description": "Appearance of the question of air quality",
+        "text": "What is air quality",
         "info": ""
-    }
-]
+    },
+    {
+        "story": 1,
+        "chapter": 1,
+        "subChapter": 2, 
+        "description": "show random particles ",
+        "text": "Air consist of gasses and Particles",
+        "info": ""
+    },
+    {
+        "story": 1,
+        "chapter": 1,
+        "subChapter": 3, 
+        "description": "Some particles go to the first compound of the beam at the bottom of the page: Black Carbon",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    { 
+        "story": 1,
+        "chapter": 1,
+        "subChapter": 4, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Black carbon: is a component of fine particulate matter, it is formed through the incomplete combustion of fossil fuels, biofuel, and biomass. ",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 5, 
+        "description": "Some particles go to the second compound of the beam at the bottom of the page. the second compound comes after the first one: Ammonium ",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 6, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Ammonium: is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate is a component of fine particulate matter. It is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate. Most ammonium is soluble in water.",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 7, 
+        "description": "Some particles go to the third compound of the beam at the bottom of the page. the third compound comes after the second one: Sea salt",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 8, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Sea salt: is a component of fine particulate matter. and is produced by the evaporation of seawater",
+        "info": ""
+    },
+    {
+      "story": 1,
+        "chapter": 1,
+        "subChapter": 9, 
+        "description": "Some particles go to the fourth compound of the beam at the bottom of the page. the fourth compound comes after the third one: Sulphate",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 10, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Sulphate: is a component of fine particulate matter. Sulphates occur as microscopic particles (aerosols) resulting from fossil fuel and biomass combustion. They increase the acidity of the atmosphere and form acid rain.",
+        "info": ""
+    },
+    {
+      "story": 1,
+        "chapter": 1,
+        "subChapter": 11, 
+        "description": "Some particles go to the fifth compound of the beam at the bottom of the page. the fifth compound comes after the fourth one: Soil Dust",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 12, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Soil Dust: is a component of fine particulate matter. Soil dust comes from wind-raised dust from parched earth surface and traffic dust from badly maintained roads.",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 13, 
+        "description": "Some particles go to the sixth compound of the beam at the bottom of the page. the sixth compound comes after the fifth one: Others",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 14, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Others: is still a component of fine particulate matter. These particles are not measurable but still there.",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 15, 
+        "description": "Some particles go to the seventh compound of the beam at the bottom of the page. the seventh compound comes after the sixth one: Organic matter",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+       "story": 1,
+        "chapter": 1,
+        "subChapter": 16, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Organic Matter: is a component of fine particulate matter. It is matter composed of organic compounds that have come from the remains of organisms such as plants and animals and their waste products in the environment.",
+        "info": ""
+    },
+    {
+      "story": 1,
+        "chapter": 1,
+        "subChapter": 17, 
+        "description": "Some particles go to the eight compound of the beam at the bottom of the page. the eight compound comes after the seventh one: Nitrate",
+        "text": "Particles consist of",
+        "info": ""
+    },
+    {
+    "story": 1,
+        "chapter": 1,
+        "subChapter": 18, 
+        "description": "Just above the beam a tag explain what this part of the beam is about",
+        "text": "Nitrate: is a component of fine particulate matter. Nitrate salts are found naturally on earth as large deposits, particularly of nitratine, a major source of sodium nitrate.",
+        "info": ""
+    }]
