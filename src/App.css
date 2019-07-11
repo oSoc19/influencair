@@ -31,3 +31,18 @@
     transform: rotate(360deg);
   }
 }
+
+.GridContainer{
+  display: grid;
+  grid-gap: 50px;
+}
+
+.Col1{
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.Col2{
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
