@@ -28,7 +28,7 @@ class FloatingParticles extends Component {
   ];
   particles = this.generateParticles();
   margin = { left: 60, top: 20, right: 20, bottom: 20 };
-  width = window.innerWidth - this.margin.left - this.margin.right - 200;
+  width = this.props.width - this.margin.left - this.margin.right;
   height = window.innerHeight - this.margin.top - this.margin.bottom;
 
   componentDidMount() {
