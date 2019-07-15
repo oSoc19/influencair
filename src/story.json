@@ -342,4 +342,12 @@
         "description": "The entire sentence will come after the fading of the previous sentence. Still keep in mind the particles will be visible fullscreen the entire time (with a blank space in between them. After the sentence you will get a list which emphatises the different causes of PM particles. (maybe give the list a different color?) ",
         "text": "These particles of air pollution cause a number of diseases ranging from; Asthma, cancer, pumonary illness, respitorary & cardiovascular problems.",
         "info": ""
+    },
+    {
+      "story": 3,
+        "chapter": 1,
+        "subChapter": 1,
+        "description": "The particles move back to fullscreen over the entire page and in the header of the page (centered) the next sentence will show. This sentence will be visible the entire story.",
+        "text": "Particulate matter Then and Now",
+        "info": ""
     }]
