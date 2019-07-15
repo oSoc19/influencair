@@ -3,40 +3,44 @@ import * as d3 from "d3";
 import "d3-force";
 
 class FloatingParticles extends Component {
-  svgElement = React.createRef();
-  compositionTypes = [
-    "Elementary carbon",
-    "Organic matter",
-    "Sea salt",
-    "Nitrate",
-    "Ammonium",
-    "Sulphate",
-    "Soil dust",
-    "Others"
-  ];
-  causes = [
-    "Others",
-    "Waste",
-    "Product use",
-    "Road transport",
-    "Non-road transport",
-    "Industrial",
-    "Industrial energy use",
-    "Energy production + distribution",
-    "Commercial",
-    "Agriculture"
-  ];
-  particles = this.generateParticles();
-  margin = { left: 60, top: 20, right: 20, bottom: 20 };
-  width = this.props.width - this.margin.left - this.margin.right;
-  height = window.innerHeight - this.margin.top - this.margin.bottom;
+  constructor() {
+    super();
+    this.svgElement = React.createRef();
+    this.compositionTypes = [
+      "Elementary carbon",
+      "Organic matter",
+      "Sea salt",
+      "Nitrate",
+      "Ammonium",
+      "Sulphate",
+      "Soil dust",
+      "Others"
+    ];
+    this.causes = [
+      "Others",
+      "Waste",
+      "Product use",
+      "Road transport",
+      "Non-road transport",
+      "Industrial",
+      "Industrial energy use",
+      "Energy production + distribution",
+      "Commercial",
+      "Agriculture"
+    ];
+    this.margin = { left: 60, top: 20, right: 20, bottom: 20 };
+  }
 
   componentDidMount() {
-    let { width, height, margin } = this;
+    const { margin, compositionTypes, causes } = this;
+    const width = this.props.width - margin.left - margin.right;
+    const height = this.props.height - margin.top - margin.bottom;
+    const particles = this.generateParticles();
+
     this.svg = d3
       .select(this.svgElement.current)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", this.props.width)
+      .attr("height", this.props.height)
       .append("g")
       .attr("transform", "translate(" + [margin.left, margin.top] + ")");
 
@@ -58,35 +62,76 @@ class FloatingParticles extends Component {
 
     var node = this.svg
       .selectAll("circle")
-      .data(this.particles)
+      .data(particles)
       .enter()
       .append("circle")
       .attr("r", d => d.r)
 
       .attr("fill", d => {
         switch (d.compositionType) {
-          case this.compositionTypes[0]:
+          case compositionTypes[0]:
             return "#52744D";
-          case this.compositionTypes[1]:
+          case compositionTypes[1]:
             return "#AFCE6D";
-          case this.compositionTypes[2]:
+          case compositionTypes[2]:
             return "#F2F0B5";
-          case this.compositionTypes[3]:
+          case compositionTypes[3]:
             return "#D97C51";
-          case this.compositionTypes[4]:
+          case compositionTypes[4]:
             return "#C12D4E";
-          case this.compositionTypes[5]:
+          case compositionTypes[5]:
             return "#2d66c1";
-          case this.compositionTypes[6]:
+          case compositionTypes[6]:
             return "#972dc1";
-          case this.compositionTypes[7]:
+          case compositionTypes[7]:
             return "#c12d83";
           default:
             break;
         }
       });
 
-    this.simulation.nodes(this.particles).on("tick", () => {
+    this.compositionTypeScale = d3
+      .scalePoint()
+      .range([margin.left * 3, width - margin.right * 4])
+      .domain(this.compositionTypes)
+      .padding(0.5);
+
+    this.compositionTypesLabels = this.svg
+      .selectAll("text.typeLabels")
+      .data(this.compositionTypeScale.domain())
+      .enter()
+      .append("text")
+      .attr("class", "typeLabels")
+      .text(d => d)
+      .attr("x", width / 2)
+      .attr("y", margin.top * 3)
+      .attr("text-anchor", "middle")
+      .attr("fill", "transparent");
+
+    this.xCompositionTypeForce = d3.forceX(d =>
+      this.compositionTypeScale(d.compositionType)
+    );
+
+    this.causesScale = d3
+      .scalePoint()
+      .range([height - margin.bottom, margin.top * 4])
+      .domain(causes)
+      .padding(0.5);
+
+    this.causesLabels = this.svg
+      .selectAll("text.causesLabels")
+      .data(this.causesScale.domain())
+      .enter()
+      .append("text")
+      .attr("class", "causesLabels")
+      .text(d => d)
+      .attr("x", margin.left * 2)
+      .attr("y", height - height / 2)
+      .attr("text-anchor", "middle")
+      .attr("fill", "transparent");
+
+    this.yCausesFOrce = d3.forceY(d => this.causesScale(d.cause));
+    this.simulation.nodes(particles).on("tick", () => {
       node.attr("cx", d => d.x).attr("cy", d => d.y);
     });
   }
@@ -95,37 +140,17 @@ class FloatingParticles extends Component {
     const { story } = nextProps;
     if (!story) return;
 
-    let { width, height, margin } = this;
+    const width = this.props.width - this.margin.left - this.margin.right;
+    const height = this.props.height - this.margin.top - this.margin.bottom;
+    const { isBackwardScroll } = this.props;
+
     if (story.subChapter === 1) {
-      var compositionTypeScale = d3
-        .scalePoint()
-        .range([margin.left * 3, width - margin.right * 4])
-        .domain(this.compositionTypes)
-        .padding(0.5);
-
-      var compositionTypesLabels = this.svg
-        .selectAll("text.typeLabels")
-        .data(compositionTypeScale.domain())
-        .enter()
-        .append("text")
-        .attr("class", "typeLabels")
-        .text(d => d)
-        .attr("x", width / 2)
-        .attr("y", margin.top * 3)
-        .attr("text-anchor", "middle")
-        .attr("fill", "#fff");
-
-      var xCompositionTypeForce = d3.forceX(d =>
-        compositionTypeScale(d.compositionType)
-      );
-
-      var compostionTypeSplit = false;
-      if (!compostionTypeSplit) {
+      if (!isBackwardScroll) {
         this.simulation.force("center", null);
-        this.simulation.force("x", xCompositionTypeForce);
-        compositionTypesLabels
+        this.simulation.force("x", this.xCompositionTypeForce);
+        this.compositionTypesLabels
           .transition()
-          .attr("x", d => compositionTypeScale(d))
+          .attr("x", d => this.compositionTypeScale(d))
           .attr("fill", "#777");
       } else {
         this.centerXForce = d3.forceX(width / 2);
@@ -133,55 +158,29 @@ class FloatingParticles extends Component {
         this.simulation
           .force("x", this.centerXForce)
           .force("y", this.centerYForce);
-        compositionTypesLabels
+        this.compositionTypesLabels
           .transition()
           .attr("x", width / 2)
-          .attr("fill", "#fff");
+          .attr("fill", "transparent");
       }
-      compostionTypeSplit = !compostionTypeSplit;
       this.simulation.alpha(1).restart();
     } else if (story.subChapter === 2) {
-      var causesScale = d3
-        .scalePoint()
-        .range([height - margin.bottom, margin.top * 4])
-        .domain(this.causes)
-        .padding(0.5);
-
-      var causesLabels = this.svg
-        .selectAll("text.causesLabels")
-        .data(causesScale.domain())
-        .enter()
-        .append("text")
-        .attr("class", "causesLabels")
-        .text(d => d)
-        .attr("x", margin.left * 2)
-        .attr("y", height - height / 2)
-        .attr("text-anchor", "middle")
-        .attr("fill", "#fff");
-
-      var yCausesFOrce = d3.forceY(d => causesScale(d.cause));
-
-      var causeSplit = false;
-      if (!causeSplit) {
+      if (!isBackwardScroll) {
         this.simulation.force("center", null);
         this.centerYForce = d3.forceY(height / 2);
-        this.simulation.force("y", yCausesFOrce);
-        causesLabels
+        this.simulation.force("y", this.yCausesFOrce);
+        this.causesLabels
           .transition()
-          .attr("y", d => causesScale(d))
+          .attr("y", d => this.causesScale(d))
           .attr("fill", "#777");
       } else {
-        this.centerXForce = d3.forceX(width / 2);
         this.centerYForce = d3.forceY(height / 2);
-        this.simulation
-          .force("x", this.centerXForce)
-          .force("y", this.centerYForce);
-        causesLabels
+        this.simulation.force("y", this.centerYForce);
+        this.causesLabels
           .transition()
           .attr("y", height - height / 2)
-          .attr("fill", "#fff");
+          .attr("fill", "transparent");
       }
-      causeSplit = !causeSplit;
       this.simulation.alpha(1).restart();
     }
   }
@@ -194,8 +193,6 @@ class FloatingParticles extends Component {
     const particles = [];
     for (let index = 0; index < 200; index++) {
       particles[index] = {
-        x: Math.floor(Math.random() * this.width),
-        y: Math.floor(Math.random() * this.height),
         compositionType: this.compositionTypes[
           Math.floor(Math.random() * this.compositionTypes.length)
         ],
