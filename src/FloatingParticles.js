@@ -71,9 +71,9 @@ class FloatingParticles extends Component {
       .enter()
       .append("circle")
       .attr("r", d => d.r)
-      .attr("fill", this.compositionColor )
+      .attr("fill", this.compositionColor)
       .style("opacity", 0)
-      
+
     this.compositionColor = d => {
       switch (d.compositionType) {
         case compositionTypes[0]:
@@ -111,7 +111,7 @@ class FloatingParticles extends Component {
       .attr("class", "typeLabels")
       .text(d => d)
       .attr("x", width / 2)
-      .attr("y", margin.top * 3)
+      .attr("y", margin.top * 2)
       .attr("text-anchor", "middle")
       .attr("fill", "transparent");
 
@@ -140,7 +140,7 @@ class FloatingParticles extends Component {
       .attr("text-anchor", "middle")
       .attr("fill", "transparent");
 
-    
+
     this.yCausesForce = d3.forceY(d => this.causesScale(d.cause));
 
     this.simulation.nodes(particles).on("tick", () => {
@@ -166,7 +166,7 @@ class FloatingParticles extends Component {
     const width = this.props.width - this.margin.left - this.margin.right;
     const height = this.props.height - this.margin.top - this.margin.bottom;
 
-    
+
     let xForce, yForce, centerForce
 
     if (story.chapter === 0) {
@@ -175,9 +175,9 @@ class FloatingParticles extends Component {
       centerForce = null
 
       this.compositionTypesLabels
-          .transition()
-          .attr("x", width / 2)
-          .attr("fill", "transparent")
+        .transition()
+        .attr("x", width / 2)
+        .attr("fill", "transparent")
 
       this.node.transition().duration(200).ease(d3.easeLinear).style("opacity", 1).attr('fill', this.compositionColor)
     } else if (story.chapter === 1) {
@@ -186,14 +186,14 @@ class FloatingParticles extends Component {
         if (d.compositionTypeIndex > story.subChapter) {
           // Make sure all particles are on the right side of the sorting line
           if (d.posX < this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])) {
-            return this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) + (Math.random() * (width - this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]))) 
+            return this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) + (Math.random() * (width - this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])))
           } else {
             return d.posX
           }
         } else {
           return this.compositionTypeScale(d.compositionType)
-        } 
-        
+        }
+
       })
       yForce = d3.forceY(d => this.yCompositionScale(d.posY))
       centerForce = null
@@ -209,9 +209,10 @@ class FloatingParticles extends Component {
         this.compositionTypesLabels
           .transition()
           .attr("x", d => this.compositionTypeScale(d))
-          .attr("fill", "#777");
+          .attr("fill", "#777")
+          .style("font-weight", d => d === this.compositionTypes[story.subChapter] ? 'bold' : 'normal')
       } else {
-          this.causesLabels
+        this.causesLabels
           .transition()
           .attr("y", height - height / 2)
           .attr("fill", "transparent");
@@ -226,7 +227,7 @@ class FloatingParticles extends Component {
           .attr("y", d => this.causesScale(d))
           .attr("fill", "#777");
       } else {
-        
+
       }
 
     }

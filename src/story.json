@@ -1,353 +1,354 @@
 [
-    {
-        "story": 0,
-        "chapter": 0,
-        "subChapter": 0,
-        "description": "Show frame phrase, Brussels, airquality health. What about it",
-        "text": "Brussels, airquality health. What about it",
-        "info": ""
-    },
-    {
-        "story": 0,
-        "chapter": 0,
-        "subChapter": 1,
-        "description": "Brussels slides left away from the screen",
-        "text": "",
-        "info": ""
-    },
-    {
-        "story": 0,
-        "chapter": 0,
-        "subChapter": 2,
-        "description": "Health slides right away from the screen",
-        "text": "",
-        "info": ""
-    },
-    {
-        "story": 0,
-        "chapter": 0,
-        "subChapter": 3, 
-        "description": "Appearance of the question of air quality",
-        "text": "What is air quality",
-        "info": ""
-    },
-    {
-        "story": 1,
-        "chapter": 0,
-        "subChapter": 0, 
-        "description": "show random particles ",
-        "text": "Air consist of gasses and Particles",
-        "info": ""
-    },
-    {
-        "story": 1,
-        "chapter": 1,
-        "subChapter": 0, 
-        "description": "Some particles go to the first compound of the beam at the bottom of the page: Black Carbon",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    { 
-        "story": 1,
-        "chapter": 1,
-        "subChapter": 1, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Black carbon: is a component of fine particulate matter, it is formed through the incomplete combustion of fossil fuels, biofuel, and biomass. ",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 1,
-        "subChapter": 2, 
-        "description": "Some particles go to the second compound of the beam at the bottom of the page. the second compound comes after the first one: Ammonium ",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 1,
-        "subChapter": 3, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Ammonium: is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate is a component of fine particulate matter. It is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate. Most ammonium is soluble in water.",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 1,
-        "subChapter": 4, 
-        "description": "Some particles go to the third compound of the beam at the bottom of the page. the third compound comes after the second one: Sea salt",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 1,
-        "subChapter": 5, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Sea salt: is a component of fine particulate matter. and is produced by the evaporation of seawater",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 1,
-        "subChapter": 5, 
-        "description": "Some particles go to the fourth compound of the beam at the bottom of the page. the fourth compound comes after the third one: Sulphate",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 1,
-        "subChapter": 6, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Sulphate: is a component of fine particulate matter. Sulphates occur as microscopic particles (aerosols) resulting from fossil fuel and biomass combustion. They increase the acidity of the atmosphere and form acid rain.",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 1,
-        "subChapter": 7, 
-        "description": "Some particles go to the fifth compound of the beam at the bottom of the page. the fifth compound comes after the fourth one: Soil Dust",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 1,
-        "subChapter": 8, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Soil Dust: is a component of fine particulate matter. Soil dust comes from wind-raised dust from parched earth surface and traffic dust from badly maintained roads.",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 2,
-        "subChapter": 0, 
-        "description": "Some particles go to the sixth compound of the beam at the bottom of the page. the sixth compound comes after the fifth one: Others",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 2,
-        "subChapter": 1, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Others: is still a component of fine particulate matter. These particles are not measurable but still there.",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 0,
-        "subChapter": 13, 
-        "description": "Some particles go to the seventh compound of the beam at the bottom of the page. the seventh compound comes after the sixth one: Organic matter",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 0,
-        "subChapter": 14, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Organic Matter: is a component of fine particulate matter. It is matter composed of organic compounds that have come from the remains of organisms such as plants and animals and their waste products in the environment.",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 0,
-        "subChapter": 15, 
-        "description": "Some particles go to the eight compound of the beam at the bottom of the page. the eight compound comes after the seventh one: Nitrate",
-        "text": "Particles consist of",
-        "info": ""
-    },
-    {
+  {
+    "story": 0,
+    "chapter": 0,
+    "subChapter": 0,
+    "description": "Show frame phrase, Brussels, airquality health. What about it",
+    "text": "Brussels, airquality health. What about it",
+    "info": ""
+  },
+  {
+    "story": 0,
+    "chapter": 0,
+    "subChapter": 1,
+    "description": "Brussels slides left away from the screen",
+    "text": "",
+    "info": ""
+  },
+  {
+    "story": 0,
+    "chapter": 0,
+    "subChapter": 2,
+    "description": "Health slides right away from the screen",
+    "text": "",
+    "info": ""
+  },
+  {
+    "story": 0,
+    "chapter": 0,
+    "subChapter": 3,
+    "description": "Appearance of the question of air quality",
+    "text": "What is air quality",
+    "info": ""
+  },
+  {
     "story": 1,
-        "chapter": 0,
-        "subChapter": 16, 
-        "description": "Just above the beam a tag explain what this part of the beam is about",
-        "text": "Nitrate: is a component of fine particulate matter. Nitrate salts are found naturally on earth as large deposits, particularly of nitratine, a major source of sodium nitrate.",
-        "info": ""
-    },
-    {
-        "story": 1,
-        "chapter": 1,
-        "subChapter": 0,
-        "description": "introduction to the sources of these particles ",
-        "text": "These particles are caused by the following categories",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 1,
-        "subChapter": 1,
-        "description": "Let the particles divide randomly across the different categories. Doesn't really matter where and the amount. There is really not an exact amount. ",
-        "text": "These particles are caused by the following categories",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 2,
-        "subChapter": 0,
-        "description": "Intoduction to the size of PM particles. We start back with randomizing the particles across the screen. ",
-        "text": "How big are these particles?",
-        "info": ""
-    },
-    {
-       "story": 1,
-        "chapter": 2,
-        "subChapter": 1,
-        "description": "We zoom in on one of the particles on the randomized screen. Inside this particle (which is the diameter of a hair) you can see 7 particles PM10 and inside one PM10 you can see 4 PM2.5 particles. This is essential to show the size of these PM particles.  ",
-        "text": "How big are these particles?",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 2,
-        "subChapter": 2,
-        "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
-        "text": "Particulate matter is measured as PM10 and PM2.5.",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 2,
-        "subChapter": 3,
-        "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
-        "text": "Particulate matter is measured as PM10 and PM2.5.",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 2,
-        "subChapter": 4,
-        "description": "We zoom further to the first PM10 particle (you can still see the 4 PM2.5 particles. Because we visualize further on them witht the next scroll-move.   ",
-        "text": "PM10 is 5 to 7 times smaller than the diameter of a human hair.",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 2,
-        "subChapter": 5,
-        "description": "We zoom further to the PM1.5 particles.",
-        "text": "And the PM2.5 is 4 times smaller than the PM10 particles.",
-        "info": ""
-    },
-    {
-      "story": 1,
-        "chapter": 2,
-        "subChapter": 6,
-        "description": "We zoom out and see the PM2.5 particles moving towards a nose on the left. There you see them being inhaled through the nose towards some cells (in the body) and they go through one of the cells (which is through the bloodstream) This movement can take a few seconds. ",
-        "text": "So small, that when we breath them, it could enter our bloodstream, through our cell membrane.",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 0,
-        "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
-        "text": "What about your health?",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 1,
-        "description": "In the fullscreen of particles a line appears. The line represents a lifetime of a human being.",
-        "text": "What about your health?",
-        "info": ""
-    },
-    {
-        "story": 2,
-        "chapter": 0,
-        "subChapter": 2,
-        "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
-        "text": "What about your health?",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 3,
-        "description": "We see the fullscreen of particles and the word World Health Organisation appears in the middle of the screen. The particles move from apart in the middle so there is a free space in the middle.  ",
-        "text": "Our health is closely being watched by the World Health Organisation",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 4,
-        "description": "We still see the fullscreen with particles and the word World Health Orgisation. After this word the next sentence will appear. ",
-        "text": "The WHO is a specialized agency of the United Nations that is concerned with international public health.",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 5,
-        "description": "We still see the fullscreen with particles. But the next word will appear, and therefore the particles divide again with the blank space in between them. ",
-        "text": "What does their study reveal?",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 6,
-        "description": "We still see the fullscreen with particles with the divided blank part, but there will apear a black line. the width like half of the screen and centered in the middle and the line should be 4px (black) But the next sentence will appear below the previous sentence and above the black line.",
-        "text": "The World Health organisation discovered that high Exposures of PM10 & PM2.5 ",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 7,
-        "description": "That same line will be cut in half, so instead of the whole line you make it a little smaller. And then the next sentence after the previous sentence will appear. It will look like you add a few words to the rest of that sentence. ",
-        "text": "shortens our life expectancies. ",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 8,
-        "description": "The rest of the lines dissapear and the following sentence will appear with a chart giving a clear perspective about the annual percentage of acceptable MP values. ",
-        "text": "Therefore the WHO states a minimum of 10 Mg/m3 PM 10 per annual mean. Which is 25 Mg/m3 per 24-hours.",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 0,
-        "subChapter": 9,
-        "description": "The previous sentence and chart (created by Leenke?) will dissapear and the next sentence will appear",
-        "text": "So if you go above the limit per 24-hours, your life is slowly shortening.",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 1,
-        "subChapter": 0,
-        "description": "We go to chapter 2 of health where we discuss what PM particles can do to our body. We go back to the fullscreen with particles with the divided blank part. Within that blank part the next sentence will appear.",
-        "text": "But not only that!",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 1,
-        "subChapter": 1,
-        "description": "After the first sentence faded you get the next explanation with the following icon. There will be an incon with an exclamation mark. This exclamation mark emphatises the carcinogetic part. we will zoom in on this icon, while still keeping the text visible. This icon will be like a particle. So we still keep the particles-concept visisble. ",
-        "text": "PM 10 and PM 2.5 particles have been classified as carcinogenic to humans.",
-        "info": ""
-    },
-    {
-      "story": 2,
-        "chapter": 1,
-        "subChapter": 2,
-        "description": "The entire sentence will come after the fading of the previous sentence. Still keep in mind the particles will be visible fullscreen the entire time (with a blank space in between them. After the sentence you will get a list which emphatises the different causes of PM particles. (maybe give the list a different color?) ",
-        "text": "These particles of air pollution cause a number of diseases ranging from; Asthma, cancer, pumonary illness, respitorary & cardiovascular problems.",
-        "info": ""
-    },
-    {
-      "story": 3,
-        "chapter": 0,
-        "subChapter": 0,
-        "description": "The particles move back to fullscreen over the entire page and in the header of the page (centered) the next sentence will show. This sentence will be visible the entire story.",
-        "text": "Particulate matter Then and Now",
-        "info": ""
-    }]
+    "chapter": 0,
+    "subChapter": 0,
+    "description": "show random particles ",
+    "text": "Air consist of gasses and Particles",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 0,
+    "description": "Some particles go to the first compound of the beam at the bottom of the page: Black Carbon",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 1,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Black carbon: is a component of fine particulate matter, it is formed through the incomplete combustion of fossil fuels, biofuel, and biomass. ",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 2,
+    "description": "Some particles go to the second compound of the beam at the bottom of the page. the second compound comes after the first one: Ammonium ",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 3,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Ammonium: is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate is a component of fine particulate matter. It is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate. Most ammonium is soluble in water.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 4,
+    "description": "Some particles go to the third compound of the beam at the bottom of the page. the third compound comes after the second one: Sea salt",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 5,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Sea salt: is a component of fine particulate matter. and is produced by the evaporation of seawater",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 5,
+    "description": "Some particles go to the fourth compound of the beam at the bottom of the page. the fourth compound comes after the third one: Sulphate",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 6,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Sulphate: is a component of fine particulate matter. Sulphates occur as microscopic particles (aerosols) resulting from fossil fuel and biomass combustion. They increase the acidity of the atmosphere and form acid rain.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 7,
+    "description": "Some particles go to the fifth compound of the beam at the bottom of the page. the fifth compound comes after the fourth one: Soil Dust",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 0,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Soil Dust: is a component of fine particulate matter. Soil dust comes from wind-raised dust from parched earth surface and traffic dust from badly maintained roads.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 1,
+    "description": "Some particles go to the sixth compound of the beam at the bottom of the page. the sixth compound comes after the fifth one: Others",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 2,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Others: is still a component of fine particulate matter. These particles are not measurable but still there.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 3,
+    "description": "Some particles go to the seventh compound of the beam at the bottom of the page. the seventh compound comes after the sixth one: Organic matter",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 4,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Organic Matter: is a component of fine particulate matter. It is matter composed of organic compounds that have come from the remains of organisms such as plants and animals and their waste products in the environment.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 0,
+    "subChapter": 15,
+    "description": "Some particles go to the eight compound of the beam at the bottom of the page. the eight compound comes after the seventh one: Nitrate",
+    "text": "Particles consist of",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 0,
+    "subChapter": 16,
+    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "text": "Nitrate: is a component of fine particulate matter. Nitrate salts are found naturally on earth as large deposits, particularly of nitratine, a major source of sodium nitrate.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 0,
+    "description": "introduction to the sources of these particles ",
+    "text": "These particles are caused by the following categories",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 1,
+    "subChapter": 1,
+    "description": "Let the particles divide randomly across the different categories. Doesn't really matter where and the amount. There is really not an exact amount. ",
+    "text": "These particles are caused by the following categories",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 0,
+    "description": "Intoduction to the size of PM particles. We start back with randomizing the particles across the screen. ",
+    "text": "How big are these particles?",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 1,
+    "description": "We zoom in on one of the particles on the randomized screen. Inside this particle (which is the diameter of a hair) you can see 7 particles PM10 and inside one PM10 you can see 4 PM2.5 particles. This is essential to show the size of these PM particles.  ",
+    "text": "How big are these particles?",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 2,
+    "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
+    "text": "Particulate matter is measured as PM10 and PM2.5.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 3,
+    "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
+    "text": "Particulate matter is measured as PM10 and PM2.5.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 4,
+    "description": "We zoom further to the first PM10 particle (you can still see the 4 PM2.5 particles. Because we visualize further on them witht the next scroll-move.   ",
+    "text": "PM10 is 5 to 7 times smaller than the diameter of a human hair.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 5,
+    "description": "We zoom further to the PM1.5 particles.",
+    "text": "And the PM2.5 is 4 times smaller than the PM10 particles.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 6,
+    "description": "We zoom out and see the PM2.5 particles moving towards a nose on the left. There you see them being inhaled through the nose towards some cells (in the body) and they go through one of the cells (which is through the bloodstream) This movement can take a few seconds. ",
+    "text": "So small, that when we breath them, it could enter our bloodstream, through our cell membrane.",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 0,
+    "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
+    "text": "What about your health?",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 1,
+    "description": "In the fullscreen of particles a line appears. The line represents a lifetime of a human being.",
+    "text": "What about your health?",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 2,
+    "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
+    "text": "What about your health?",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 3,
+    "description": "We see the fullscreen of particles and the word World Health Organisation appears in the middle of the screen. The particles move from apart in the middle so there is a free space in the middle.  ",
+    "text": "Our health is closely being watched by the World Health Organisation",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 4,
+    "description": "We still see the fullscreen with particles and the word World Health Orgisation. After this word the next sentence will appear. ",
+    "text": "The WHO is a specialized agency of the United Nations that is concerned with international public health.",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 5,
+    "description": "We still see the fullscreen with particles. But the next word will appear, and therefore the particles divide again with the blank space in between them. ",
+    "text": "What does their study reveal?",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 6,
+    "description": "We still see the fullscreen with particles with the divided blank part, but there will apear a black line. the width like half of the screen and centered in the middle and the line should be 4px (black) But the next sentence will appear below the previous sentence and above the black line.",
+    "text": "The World Health organisation discovered that high Exposures of PM10 & PM2.5 ",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 7,
+    "description": "That same line will be cut in half, so instead of the whole line you make it a little smaller. And then the next sentence after the previous sentence will appear. It will look like you add a few words to the rest of that sentence. ",
+    "text": "shortens our life expectancies. ",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 8,
+    "description": "The rest of the lines dissapear and the following sentence will appear with a chart giving a clear perspective about the annual percentage of acceptable MP values. ",
+    "text": "Therefore the WHO states a minimum of 10 Mg/m3 PM 10 per annual mean. Which is 25 Mg/m3 per 24-hours.",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 0,
+    "subChapter": 9,
+    "description": "The previous sentence and chart (created by Leenke?) will dissapear and the next sentence will appear",
+    "text": "So if you go above the limit per 24-hours, your life is slowly shortening.",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 1,
+    "subChapter": 0,
+    "description": "We go to chapter 2 of health where we discuss what PM particles can do to our body. We go back to the fullscreen with particles with the divided blank part. Within that blank part the next sentence will appear.",
+    "text": "But not only that!",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 1,
+    "subChapter": 1,
+    "description": "After the first sentence faded you get the next explanation with the following icon. There will be an incon with an exclamation mark. This exclamation mark emphatises the carcinogetic part. we will zoom in on this icon, while still keeping the text visible. This icon will be like a particle. So we still keep the particles-concept visisble. ",
+    "text": "PM 10 and PM 2.5 particles have been classified as carcinogenic to humans.",
+    "info": ""
+  },
+  {
+    "story": 2,
+    "chapter": 1,
+    "subChapter": 2,
+    "description": "The entire sentence will come after the fading of the previous sentence. Still keep in mind the particles will be visible fullscreen the entire time (with a blank space in between them. After the sentence you will get a list which emphatises the different causes of PM particles. (maybe give the list a different color?) ",
+    "text": "These particles of air pollution cause a number of diseases ranging from; Asthma, cancer, pumonary illness, respitorary & cardiovascular problems.",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 0,
+    "subChapter": 0,
+    "description": "The particles move back to fullscreen over the entire page and in the header of the page (centered) the next sentence will show. This sentence will be visible the entire story.",
+    "text": "Particulate matter Then and Now",
+    "info": ""
+  }
+]
