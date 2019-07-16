@@ -1,4 +1,4 @@
-var dailyAverageDataPM10 = {
+var DailyAverageDataPM10 = {
   phenomenon: "pm10",
   firstDate: "30-07-2018",
   lastDate: "09-07-2019",
@@ -1382,7 +1382,7 @@ var dailyAverageDataPM10 = {
 ]
 };
 
-var dailyAverageDataPM25 = {
+var DailyAverageDataPM25 = {
   phenomenon: "pm25",
   firstDate: "30-07-2018",
   lastDate: "09-07-2019",
@@ -2766,4 +2766,4 @@ var dailyAverageDataPM25 = {
 ]
 };
 
-export { dailyAverageDataPM10, dailyAverageDataPM25 };
+export { DailyAverageDataPM10, DailyAverageDataPM25 };
