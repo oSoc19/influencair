@@ -104,6 +104,11 @@ class FloatingParticles extends Component {
       .force("collide", this.forceCollide)
       .force("x", this.xForce)
       .force("y", this.yForce)
+    this.simulation.nodes(particles).on("tick", () => {
+      this.node
+        .attr("cx", d => isNaN(d.x) ? 0 : d.x)
+        .attr("cy", d => isNaN(d.y) ? 0 : d.y);
+    });
 
     this.svg = d3
       .select(this.svgElement.current)
@@ -121,12 +126,6 @@ class FloatingParticles extends Component {
       .attr("fill", d => d.compositionColor)
       .attr("opacity", 0)
 
-    this.hair = this.svg
-      .append("circle")
-      .attr('r', 70)
-      .attr('fill', '#34df23')
-      .attr('opacity', 0)
-      .attr('transform', d => `translate(0, ${- height})`)
 
     this.compositionTypeScale = d3
       .scalePoint()
@@ -198,12 +197,73 @@ class FloatingParticles extends Component {
       .attr("fill", "#777")
       .attr('opacity', 0)
 
+    this.hair = this.svg
+      .append('g')
+      .attr('opacity', 0)
+      .attr('transform', d => `translate(0, ${- height})`)
 
-    this.simulation.nodes(particles).on("tick", () => {
-      this.node
-        .attr("cx", d => isNaN(d.x) ? 0 : d.x)
-        .attr("cy", d => isNaN(d.y) ? 0 : d.y);
-    });
+
+
+    this.hair.append("circle")
+      .attr('r', 70)
+      .attr('fill', '#34df23')
+    this.hair.append('circle')
+      .attr('r', 10)
+      .attr('fill', '#34df23')
+      .attr('transform', d => `translate(80, 0)`)
+    this.hair.append('circle')
+      .attr('r', 2.5)
+      .attr('fill', '#34df23')
+      .attr('transform', d => `translate(92.5, 0)`)
+
+    this.hairMeasurements = this.hair
+      .append('g')
+      .attr('class', 'hairMeasurements')
+      .attr('opacity', 0)
+
+    this.hairMeasurements
+      .append('line')
+      .attr('x1', -70)
+      .attr('x2', -70)
+      .attr('y1', 0)
+      .attr('y2', 90)
+      .attr('stroke', 'black')
+    this.hairMeasurements
+      .append('line')
+      .attr('x1', 70)
+      .attr('x2', 70)
+      .attr('y1', 0)
+      .attr('y2', 90)
+      .attr('stroke', 'black')
+    this.hairMeasurements
+      .append('line')
+      .attr('x1', 90)
+      .attr('x2', 90)
+      .attr('y1', 0)
+      .attr('y2', 30)
+      .attr('stroke', 'black')
+    this.hairMeasurements
+      .append('line')
+      .attr('x1', 95)
+      .attr('x2', 95)
+      .attr('y1', 0)
+      .attr('y2', 22.5)
+      .attr('stroke', 'black')
+    this.hairMeasurements
+      .append('text')
+      .text('Human hair')
+      .attr("text-anchor", "middle")
+    this.hairMeasurements
+      .append('text')
+      .text('PM10')
+      .attr("text-anchor", "middle")
+      .attr('transform', 'translate(80,0) scale(0.14)')
+    this.hairMeasurements
+      .append('text')
+      .text('PM25')
+      .attr("text-anchor", "middle")
+      .attr('transform', 'translate(92.5,0) scale(0.035)')
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -284,7 +344,7 @@ class FloatingParticles extends Component {
         .attr("r", d => d.r)
         .attr('opacity', 1)
 
-      
+
       this.compositionTypesLabels
         .attr("text-anchor", "middle")
         .transition()
@@ -296,7 +356,7 @@ class FloatingParticles extends Component {
         .transition()
         .attr("y", height - height / 2)
         .attr("opacity", 0)
-      
+
       // Bar chart Animation & Styling
       this.barchart
         .transition()
@@ -398,25 +458,52 @@ class FloatingParticles extends Component {
       forceCollide = null
       chargeForce = null
 
-      // Particle styling
-      this.node
-        .transition()
-        .duration(300)
-        .attr('fill', '#bfbfbf')
-        .attr("r", d => d.size)
-        .attr('opacity', 1)
+      if (story.subChapter === 0) {
+        // Particle styling
+        this.node
+          .transition()
+          .duration(300)
+          .attr('fill', '#bfbfbf')
+          .attr("r", d => d.size)
+          .attr('opacity', 1)
 
-      // Hair animation + styling
-      this.hair
-        .transition()
-        .duration(300)
-        .attr('opacity', 1)
-        .attr('transform', d => `translate(${(width / 2) - 70 - 10}, ${height / 2})`)
+        // Hair animation + styling
+        this.hair
+          .transition()
+          .delay(300)
+          .duration(500)
+          .attr('opacity', 1)
+          .ease(d3.easeQuadIn)
+          .attr('transform', d => `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(1)`)
 
-      // Remove causesLabels
-      this.causesLabels
-        .transition()
-        .attr('opacity', 0)
+        // Remove causesLabels
+        this.causesLabels
+          .transition()
+          .attr('opacity', 0)
+
+      } else if (story.subChapter === 1) {
+        // Particle styling
+        this.node
+          .transition()
+          .attr('opacity', 0)
+
+        // Hair animation + styling
+        this.hair
+          .transition()
+          .duration(300)
+          .ease(d3.easeSinIn)
+          .attr('transform', `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(2)`)
+
+        this.hairMeasurements
+          .transition()
+          .attr('opacity', 0)
+      } else if (story.subChapter === 2) {
+
+        // Hair animation + styling
+        this.hairMeasurements
+          .transition()
+          .attr('opacity', 1)
+      }
     }
 
     // Simulate forces on the Particles

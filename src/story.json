@@ -149,9 +149,17 @@
   {
     "story": 1,
     "chapter": 4,
-    "subChapter": 2,
+    "subChapter": 1,
     "description": "We zoom in on one of the particles on the randomized screen. Inside this particle (which is the diameter of a hair) you can see 7 particles PM10 and inside one PM10 you can see 4 PM2.5 particles. This is essential to show the size of these PM particles.  ",
     "text": "How big are these particles?",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 4,
+    "subChapter": 2,
+    "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
+    "text": "Particulate matter is measured as PM10 and PM2.5.",
     "info": ""
   },
   {
@@ -166,14 +174,6 @@
     "story": 1,
     "chapter": 4,
     "subChapter": 4,
-    "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
-    "text": "Particulate matter is measured as PM10 and PM2.5.",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 4,
-    "subChapter": 5,
     "description": "We zoom further to the first PM10 particle (you can still see the 4 PM2.5 particles. Because we visualize further on them witht the next scroll-move.   ",
     "text": "PM10 is 5 to 7 times smaller than the diameter of a human hair.",
     "info": ""
