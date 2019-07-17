@@ -44,29 +44,13 @@
     "chapter": 1,
     "subChapter": 0,
     "description": "Some particles go to the first compound of the beam at the bottom of the page: Black Carbon",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 1,
-    "subChapter": 1,
-    "description": "Just above the beam a tag explain what this part of the beam is about",
     "text": "Black carbon: is a component of fine particulate matter, it is formed through the incomplete combustion of fossil fuels, biofuel, and biomass. ",
     "info": ""
   },
   {
     "story": 1,
     "chapter": 1,
-    "subChapter": 2,
-    "description": "Some particles go to the second compound of the beam at the bottom of the page. the second compound comes after the first one: Ammonium ",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 1,
-    "subChapter": 3,
+    "subChapter": 1,
     "description": "Just above the beam a tag explain what this part of the beam is about",
     "text": "Ammonium: is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate is a component of fine particulate matter. It is found in a variety of salts such as ammonium carbonate, ammonium chloride and ammonium nitrate. Most ammonium is soluble in water.",
     "info": ""
@@ -74,31 +58,15 @@
   {
     "story": 1,
     "chapter": 1,
-    "subChapter": 4,
-    "description": "Some particles go to the third compound of the beam at the bottom of the page. the third compound comes after the second one: Sea salt",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 1,
-    "subChapter": 5,
-    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "subChapter": 2,
+    "description": "Some particles go to the second compound of the beam at the bottom of the page. the second compound comes after the first one: Ammonium ",
     "text": "Sea salt: is a component of fine particulate matter. and is produced by the evaporation of seawater",
     "info": ""
   },
   {
     "story": 1,
     "chapter": 1,
-    "subChapter": 5,
-    "description": "Some particles go to the fourth compound of the beam at the bottom of the page. the fourth compound comes after the third one: Sulphate",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 1,
-    "subChapter": 6,
+    "subChapter": 3,
     "description": "Just above the beam a tag explain what this part of the beam is about",
     "text": "Sulphate: is a component of fine particulate matter. Sulphates occur as microscopic particles (aerosols) resulting from fossil fuel and biomass combustion. They increase the acidity of the atmosphere and form acid rain.",
     "info": ""
@@ -106,63 +74,31 @@
   {
     "story": 1,
     "chapter": 1,
-    "subChapter": 7,
-    "description": "Some particles go to the fifth compound of the beam at the bottom of the page. the fifth compound comes after the fourth one: Soil Dust",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 2,
-    "subChapter": 0,
-    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "subChapter": 4,
+    "description": "Some particles go to the third compound of the beam at the bottom of the page. the third compound comes after the second one: Sea salt",
     "text": "Soil Dust: is a component of fine particulate matter. Soil dust comes from wind-raised dust from parched earth surface and traffic dust from badly maintained roads.",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 2,
-    "subChapter": 1,
-    "description": "Some particles go to the sixth compound of the beam at the bottom of the page. the sixth compound comes after the fifth one: Others",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 2,
-    "subChapter": 2,
+    "chapter": 1,
+    "subChapter": 5,
     "description": "Just above the beam a tag explain what this part of the beam is about",
     "text": "Others: is still a component of fine particulate matter. These particles are not measurable but still there.",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 2,
-    "subChapter": 3,
-    "description": "Some particles go to the seventh compound of the beam at the bottom of the page. the seventh compound comes after the sixth one: Organic matter",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 2,
-    "subChapter": 4,
-    "description": "Just above the beam a tag explain what this part of the beam is about",
+    "chapter": 1,
+    "subChapter": 5,
+    "description": "Some particles go to the fourth compound of the beam at the bottom of the page. the fourth compound comes after the third one: Sulphate",
     "text": "Organic Matter: is a component of fine particulate matter. It is matter composed of organic compounds that have come from the remains of organisms such as plants and animals and their waste products in the environment.",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 3,
-    "subChapter": 0,
-    "description": "Some particles go to the eight compound of the beam at the bottom of the page. the eight compound comes after the seventh one: Nitrate",
-    "text": "Particles consist of",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 0,
-    "subChapter": 16,
+    "chapter": 1,
+    "subChapter": 6,
     "description": "Just above the beam a tag explain what this part of the beam is about",
     "text": "Nitrate: is a component of fine particulate matter. Nitrate salts are found naturally on earth as large deposits, particularly of nitratine, a major source of sodium nitrate.",
     "info": ""
@@ -170,14 +106,27 @@
   {
     "story": 1,
     "chapter": 1,
+    "subChapter": 7,
+    "description": "Some particles go to the fifth compound of the beam at the bottom of the page. the fifth compound comes after the fourth one: Soil Dust"
+  },
+  {
+    "story": 1,
+    "chapter": 2,
+    "subChapter": 0,
+    "description": "BarChart with all percentages",
+    "test": ""
+  },
+  {
+    "story": 1,
+    "chapter": 3,
     "subChapter": 0,
     "description": "introduction to the sources of these particles ",
-    "text": "These particles are caused by the following categories",
+    "text": "",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 1,
+    "chapter": 3,
     "subChapter": 1,
     "description": "Let the particles divide randomly across the different categories. Doesn't really matter where and the amount. There is really not an exact amount. ",
     "text": "These particles are caused by the following categories",
@@ -185,31 +134,29 @@
   },
   {
     "story": 1,
-    "chapter": 2,
+    "chapter": 4,
     "subChapter": 0,
-    "description": "Intoduction to the size of PM particles. We start back with randomizing the particles across the screen. ",
+    "description": "Intoduction to the size of PM particles. We start back with randomizing the particles across the screen."
+  },
+  {
+    "story": 1,
+    "chapter": 4,
+    "subChapter": 0,
+    "description": "",
     "text": "How big are these particles?",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 2,
-    "subChapter": 1,
+    "chapter": 4,
+    "subChapter": 2,
     "description": "We zoom in on one of the particles on the randomized screen. Inside this particle (which is the diameter of a hair) you can see 7 particles PM10 and inside one PM10 you can see 4 PM2.5 particles. This is essential to show the size of these PM particles.  ",
     "text": "How big are these particles?",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 2,
-    "subChapter": 2,
-    "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
-    "text": "Particulate matter is measured as PM10 and PM2.5.",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 2,
+    "chapter": 4,
     "subChapter": 3,
     "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
     "text": "Particulate matter is measured as PM10 and PM2.5.",
@@ -217,24 +164,32 @@
   },
   {
     "story": 1,
-    "chapter": 2,
+    "chapter": 4,
     "subChapter": 4,
+    "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
+    "text": "Particulate matter is measured as PM10 and PM2.5.",
+    "info": ""
+  },
+  {
+    "story": 1,
+    "chapter": 4,
+    "subChapter": 5,
     "description": "We zoom further to the first PM10 particle (you can still see the 4 PM2.5 particles. Because we visualize further on them witht the next scroll-move.   ",
     "text": "PM10 is 5 to 7 times smaller than the diameter of a human hair.",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 2,
-    "subChapter": 5,
+    "chapter": 4,
+    "subChapter": 6,
     "description": "We zoom further to the PM1.5 particles.",
     "text": "And the PM2.5 is 4 times smaller than the PM10 particles.",
     "info": ""
   },
   {
     "story": 1,
-    "chapter": 2,
-    "subChapter": 6,
+    "chapter": 4,
+    "subChapter": 7,
     "description": "We zoom out and see the PM2.5 particles moving towards a nose on the left. There you see them being inhaled through the nose towards some cells (in the body) and they go through one of the cells (which is through the bloodstream) This movement can take a few seconds. ",
     "text": "So small, that when we breath them, it could enter our bloodstream, through our cell membrane.",
     "info": ""
