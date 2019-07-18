@@ -1,85 +1,22 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 import "d3-force";
-
-const compositionTypes = [
-  {
-    name: 'Elementary carbon',
-    amount: 4,
-    color: '#OOOOOO'
-  },
-  {
-    name: 'Organic matter',
-    amount: 20,
-    color: '#68ad0e'
-  },
-  {
-    name: 'Sea salt',
-    amount: 8,
-    color: '#e3deba'
-  },
-  {
-    name: 'Nitrate',
-    amount: 21,
-    color: '#e8cd1a'
-  },
-  {
-    name: 'Ammonium',
-    amount: 7,
-    color: '#39e69e'
-  },
-  {
-    name: 'Sulphate',
-    amount: 12,
-    color: '#1791e8'
-  },
-  {
-    name: 'Soil dust',
-    amount: 14,
-    color: '#9e6b28'
-  },
-  {
-    name: 'Others',
-    amount: 14,
-    color: '#de2170'
-  },
-]
-
-for (let index = 0, prev = 0; index < compositionTypes.length; index++) {
-  compositionTypes[index].barChart = {
-    start: prev,
-    mid: prev + (compositionTypes[index].amount / 2),
-    end: prev + compositionTypes[index].amount
-  }
-  prev = prev + compositionTypes[index].amount
-}
-
+import compositionTypes from './resources/data/particleComposition'
+import causes from './resources/data/particleCause'
 
 class FloatingParticles extends Component {
   constructor() {
     super();
     this.svgElement = React.createRef();
     this.compositionTypes = compositionTypes.map(a => a.name)
-
-    this.causes = [
-      "Others",
-      "Waste",
-      "Product use",
-      "Road transport",
-      "Non-road transport",
-      "Industrial",
-      "Industrial energy use",
-      "Energy production + distribution",
-      "Commercial",
-      "Agriculture"
-    ];
+    this.causes = causes.map(a => a.name)
     this.margin = { left: 60, top: 20, right: 20, bottom: 20 };
   }
   componentDidMount() {
     const { margin, causes } = this;
     const width = this.props.width - margin.left - margin.right;
     const height = this.props.height - margin.top - margin.bottom;
-    const particles = this.generateParticles(width, height);
+    const particles = this.generateParticles(this.props.width, this.props.height);
 
     // Simulation forces
     this.chargeForce = d3
@@ -108,24 +45,29 @@ class FloatingParticles extends Component {
       this.node
         .attr("cx", d => isNaN(d.x) ? 0 : d.x)
         .attr("cy", d => isNaN(d.y) ? 0 : d.y);
-    });
+    })
 
-    this.svg = d3
-      .select(this.svgElement.current)
-      .attr("width", this.props.width)
-      .attr("height", this.props.height)
-      .append("g")
-      .attr("transform", "translate(" + [margin.left, margin.top] + ")");
+    // scalers
+    this.yCompositionScale = d3
+      .scaleLinear()
+      .domain([height, 0])
+      .range([margin.top * 4, height - margin.bottom])
 
-    this.node = this.svg
-      .selectAll("circle")
-      .data(particles)
-      .enter()
-      .append("circle")
-      .attr("r", d => d.r)
-      .attr("fill", d => d.compositionColor)
-      .attr("opacity", 0)
+    this.yCausesScale = d3
+      .scalePoint()
+      .domain(causes)
+      .range([height - margin.bottom, margin.top * 4])
+      .padding(0.5)
 
+    this.xScaleForCauses = d3
+      .scaleLinear()
+      .domain([0, this.props.width])
+      .range([margin.left * 5, width - margin.right * 4])
+
+    this.yScaleForCauses = d3
+      .scaleLinear()
+      .domain([0, this.props.height])
+      .range([margin.top * 4, height - margin.bottom])
 
     this.compositionTypeScale = d3
       .scalePoint()
@@ -136,7 +78,25 @@ class FloatingParticles extends Component {
     this.barChartTypeScale = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([this.margin.left * 3, width - this.margin.right * 4])
+      .range([margin.left * 3, width - margin.right * 4])
+
+    // SVG
+    this.svg = d3
+      .select(this.svgElement.current)
+      .attr("width", this.props.width)
+      .attr("height", this.props.height)
+      .append("g")
+      .attr("transform", "translate(" + [margin.left, margin.top] + ")")
+
+
+    this.node = this.svg
+      .selectAll("circle")
+      .data(particles)
+      .enter()
+      .append("circle")
+      .attr("r", d => d.r)
+      .attr("fill", d => d.compositionColor)
+      .attr("opacity", 0)
 
     this.barchart = this.svg.append("g").attr('opacity', 0)
     for (let index = 0; index < compositionTypes.length; index++) {
@@ -174,19 +134,10 @@ class FloatingParticles extends Component {
     this.xCompositionTypeForce = d3.forceX(d =>
       this.compositionTypeScale(d.compositionType)
     )
-    this.yCompositionScale = d3.scaleLinear()
-      .domain([0, height])
-      .range([height - margin.bottom, margin.top * 4])
-
-    this.causesScale = d3
-      .scalePoint()
-      .range([height - margin.bottom, margin.top * 4])
-      .domain(causes)
-      .padding(0.5);
 
     this.causesLabels = this.svg
       .selectAll("text.causesLabels")
-      .data(this.causesScale.domain())
+      .data(this.yCausesScale.domain())
       .enter()
       .append("text")
       .attr("class", "causesLabels")
@@ -201,8 +152,6 @@ class FloatingParticles extends Component {
       .append('g')
       .attr('opacity', 0)
       .attr('transform', d => `translate(0, ${- height})`)
-
-
 
     this.hair.append("circle")
       .attr('r', 70)
@@ -269,6 +218,7 @@ class FloatingParticles extends Component {
   componentWillReceiveProps(nextProps) {
     const { story } = nextProps;
     const { isBackwardScroll } = this.props
+    let useForce = true
 
     // this is when we go back to previous story
     if (story && story.story === 0 && isBackwardScroll) {
@@ -383,18 +333,20 @@ class FloatingParticles extends Component {
       this.node
         .attr('fill', d => d.compositionColor)
         .transition()
-        .duration(300)
+        .duration(500)
         .ease(d3.easeLinear)
         .attr("r", d => 10)
         .attr('opacity', 1)
+        .on('start', () => { this.props.blockScroll(true) })
 
       // Bar chart Animation & Styling
       this.barchart
         .transition()
-        .delay(300)
-        .duration(500)
+        .delay(500)
+        .duration(200)
         .ease(d3.easeLinear)
         .attr("opacity", 1)
+        .on('end', () => { this.props.blockScroll(false) })
 
       // Label styling
       this.compositionTypesLabels
@@ -409,49 +361,67 @@ class FloatingParticles extends Component {
 
       this.causesLabels
         .transition()
-        .attr("y", d => this.causesScale(d))
+        .attr("y", d => this.yCausesScale(d))
         .attr('opacity', 0)
 
     } else if (story.chapter === 3) {
-      // Chapter 3:
-      // Show all the particles into the air
-      yForce = d3.forceY(d => this.causesScale(d.cause))
-      //xForce = this.xCompositionTypeForce
-      xForce = d3.forceX(d => d.posX)
-      forceCollide = this.forceCollide
-      chargeForce = this.chargeForce
+      if (story.subChapter === 0) {
+        // Chapter 3:
+        // Show all the particles into the air
+        yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
+        xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
+        forceCollide = this.forceCollide
+        chargeForce = this.chargeForce
 
-      this.node
-        .attr('fill', d => d.compositionColor)
-        .attr("r", d => d.r)
-        .attr('opacity', 1)
+        this.node
+          .attr('fill', d => d.compositionColor)
+          .attr("r", d => d.r)
+          .attr('opacity', 1)
 
-      this.barchart
-        .transition()
-        .duration(100)
-        .ease(d3.easeLinear)
-        .attr("opacity", 0)
+        this.barchart
+          .transition()
+          .duration(100)
+          .ease(d3.easeLinear)
+          .attr("opacity", 0)
 
-      this.compositionTypesLabels
-        .attr("text-anchor", "middle")
-        .transition()
-        .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
-        .style("font-weight", 'normal')
-        .attr('opacity', 0)
+        this.compositionTypesLabels
+          .attr("text-anchor", "middle")
+          .transition()
+          .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
+          .style("font-weight", 'normal')
+          .attr('opacity', 0)
 
-      this.causesLabels
-        .transition()
-        .attr("y", d => this.causesScale(d))
-        .attr('opacity', 1)
+        this.causesLabels
+          .transition()
+          .attr("y", d => this.yCausesScale(d))
+          .attr('opacity', 1)
 
-      this.hair
-        .transition()
-        .duration(100)
-        .attr('opacity', 0)
-        .attr('transform', d => `translate(0, ${- height})`)
+        this.hair
+          .transition()
+          .duration(100)
+          .attr('opacity', 0)
+          .attr('transform', d => `translate(0, ${- height})`)
+
+      } else if (story.subChapter === 1) {
+        const scaler = d3.scaleLinear().domain([0, 1]).range([0.01, 0.05])
+        yForce = d3.forceY(d => this.yCausesScale(d.cause)).strength(0.08)
+        xForce = d3.forceX(d => this.xScaleForCauses(0)).strength(d => scaler(d.causeNumber))
+        forceCollide = null
+        chargeForce = d3.forceManyBody().strength(-0.001)
+
+        this.node
+          .transition()
+          .duration(600)
+          .attr('fill', '#bfbfbf')
+
+      } else if (story.subChapter === 2) {
+        yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
+        xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
+        forceCollide = this.forceCollide
+        chargeForce = this.chargeForce
+      }
 
     } else if (story.chapter === 4) {
-
       // Particle manipulation
       yForce = d3.forceY(d => height / 2)
       xForce = d3.forceX(d => d.size === 2.5 ? (width / 2) + 12.5 : (width / 2))
@@ -506,23 +476,23 @@ class FloatingParticles extends Component {
       }
     }
 
-    // Simulate forces on the Particles
-    this.simulation
-      .force("x", xForce)
-      .force("y", yForce)
-      .force("charge", chargeForce)
-      .force("collide", forceCollide)
-    this.simulation.alpha(1).restart();
+    if (useForce) {
+      // Simulate forces on the Particles
+      this.simulation
+        .force("x", xForce)
+        .force("y", yForce)
+        .force("charge", chargeForce)
+        .force("collide", forceCollide).alphaDecay(0.001)
+      this.simulation.alpha(1).restart()
+    }
   }
 
   generateRandomInteger(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
   }
-
   generateRandomFloat(min, max) {
     return min + Math.random() * (max + 1 - min)
   }
-
   invertColor(hex, bw) {
     // https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
     const padZero = (str, len) => {
@@ -565,7 +535,6 @@ class FloatingParticles extends Component {
       particles[index] = {
         x,
         y,
-        cause: this.causes[Math.floor(Math.random() * this.causes.length)],
         size,
         r: size === 2.5 ? this.generateRandomFloat(1, 2.5) : this.generateRandomFloat(2.5, 10),
         posX: x,
@@ -583,6 +552,23 @@ class FloatingParticles extends Component {
       if (index === prev + ((particles.length / 100) * composition.amount)) {
         type++
         prev = index
+      }
+    }
+
+    particles.sort(() => Math.random() - 0.5)
+
+    // generate cause distribution
+    for (let index = 0, type = 0, prev = 0, number = 1; index < particles.length; index++) {
+      const particle = particles[index]
+      const cause = causes[type]
+      particle.cause = cause.name
+      particle.causeIndex = type
+      particle.causeNumber = number * (1 / ((particles.length / 100) * cause.amount))
+      number++
+      if (index === prev + ((particles.length / 100) * cause.amount)) {
+        type++
+        prev = index
+        number = 1
       }
     }
     return particles;
