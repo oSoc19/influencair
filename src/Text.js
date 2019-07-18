@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
-import influencair from "./influencair.svg";
+import influencair from "./resources/images/influencair.svg";
 
 import "d3-force";
 import "./App.css";

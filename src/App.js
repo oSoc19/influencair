@@ -4,7 +4,6 @@ import SideBar from "./Sidebar";
 import FloatingParticles from "./FloatingParticles";
 import Text from "./Text";
 import story from "./story.json";
-import influencair from "./influencair.svg";
 
 const scrollHeight = 15000;
 const sideBarWidth = 300;
