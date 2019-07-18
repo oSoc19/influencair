@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import SideBar from "./Sidebar";
 import FloatingParticles from "./FloatingParticles";
+import Text from "./Text";
 import story from "./story.json";
+import influencair from "./influencair.svg";
 
 const scrollHeight = 10000;
 const sideBarWidth = 300;
@@ -55,6 +57,13 @@ export default class App extends Component {
               />
             </div>
             <div className="Col2">
+              <Text
+                story={this.state.currentStory}
+                width={this.state.storyWidth}
+                height={this.state.storyHeight}
+                isBackwardScroll={this.state.isBackwardScroll}
+              />
+
               <FloatingParticles
                 story={this.state.currentStory}
                 width={this.state.storyWidth}

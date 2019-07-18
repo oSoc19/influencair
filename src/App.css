@@ -30,3 +30,12 @@ pre {
 .top {
   position: absolute;
 }
+
+.background_img {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  height: 120vmin;
+  position: absolute;
+  right: 50px;
+  z-index: -1;
+}
