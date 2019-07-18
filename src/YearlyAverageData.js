@@ -1,3 +1,4 @@
+//yearly
 var YearlyAverageDataPM10 = {
     phenomenon: "pm10",
     firstDate: "1997",

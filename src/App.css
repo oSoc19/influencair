@@ -31,6 +31,10 @@ pre {
   position: absolute;
 }
 
+text {
+  font-family: "Roboto", sans-serif;
+}
+
 .background_img {
   grid-column-start: 2;
   grid-column-end: 2;
