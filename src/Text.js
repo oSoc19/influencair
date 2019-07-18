@@ -11,9 +11,11 @@ class Text extends Component {
   margin = { left: 60, top: 20, right: 20, bottom: 20 };
   width = this.props.width - this.margin.left - this.margin.right;
   height = this.props.height - this.margin.top - this.margin.bottom;
+  spacing = 10;
 
   componentDidMount() {
-    const { margin, width, height } = this;
+    const { width, height, spacing } = this;
+
     this.svg = d3
       .select(this.svgElement.current)
       .attr("width", this.props.width)
@@ -40,7 +42,7 @@ class Text extends Component {
     this.airQualityBox = this.airQuality.node().getBBox();
     this.airQuality.attr(
       "x",
-      this.brusselsBox.width / 2 + this.airQualityBox.width / 2
+      this.brusselsBox.width / 2 + this.airQualityBox.width / 2 + spacing
     );
 
     this.health = this.groupText.append("text").text("Health. ");
@@ -49,7 +51,8 @@ class Text extends Component {
       "x",
       this.brusselsBox.width / 2 +
         this.airQualityBox.width +
-        this.healthBox.width / 2
+        this.healthBox.width / 2 +
+        2 * spacing
     );
 
     this.whatIs = this.groupText
@@ -76,7 +79,7 @@ class Text extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { width, height } = this;
+    const { width, height, spacing } = this;
     const { story, isBackwardScroll } = nextProps;
     if (!story) return;
 
@@ -109,7 +112,9 @@ class Text extends Component {
             .attr("transform", "translate(0,0)")
             .attr(
               "x",
-              this.brusselsBox.width / 2 + this.airQualityBox.width / 2
+              this.brusselsBox.width / 2 +
+                this.airQualityBox.width / 2 +
+                spacing
             )
             .on("end", function() {
               d3.select(this).text("Air quality.");
@@ -171,7 +176,7 @@ class Text extends Component {
           .attr("x", 0)
           .attr(
             "transform",
-            "translate(" + (width / 14 + WhatIsBox.width + 40) + ")"
+            "translate(" + (width / 14 + WhatIsBox.width + 4 * spacing) + ")"
           )
           .on("end", function() {
             d3.select(this).text("Air quality");
@@ -185,7 +190,7 @@ class Text extends Component {
           .attr(
             "transform",
             "translate(" +
-              (this.airQualityBox.width + WhatIsBox.width + 40) +
+              (this.airQualityBox.width + WhatIsBox.width + 3 * spacing) +
               ")"
           );
 
