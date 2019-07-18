@@ -1,4 +1,4 @@
-.GridContainer{
+.GridContainer {
   display: grid;
   grid-gap: 0px;
   grid-template-columns: 200px auto;
@@ -8,12 +8,12 @@
   height: 100vh;
 }
 
-.Col1{
+.Col1 {
   grid-column-start: 1;
   grid-column-end: 1;
 }
 
-.Col2{
+.Col2 {
   grid-column-start: 2;
   grid-column-end: 2;
 }
@@ -25,4 +25,8 @@ pre {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+}
+
+.top {
+  position: absolute;
 }
