@@ -44,8 +44,10 @@ class PMPlotComponent extends Component{
 
     componentWillReceiveProps(nextProps) {
       
-      const differentStory = this.props.story.story !== nextProps.story.story
-      if(differentStory)
+      const differentStory = this.props.story.story !== nextProps.story.story;
+      const differentChapter = this.props.story.chapter !== nextProps.story.chapter;
+      const differentSubChapter = this.props.story.subChapter !== nextProps.story.subChapter;
+      if(differentStory || differentChapter || differentSubChapter)
       {
          console.log("receivedProps");
          this.prepareDataLineGraph(nextProps);
@@ -54,18 +56,16 @@ class PMPlotComponent extends Component{
 
     shouldComponentUpdate(nextProps)
     {
-      const differentStory = this.props.story.story !== nextProps.story.story
-      if(differentStory)
-      {
-         console.log("ShouldUpdate");
-      }
-      return differentStory;
+      const differentStory = this.props.story.story !== nextProps.story.story;
+      const differentChapter = this.props.story.chapter !== nextProps.story.chapter;
+      const differentSubChapter = this.props.story.subChapter !== nextProps.story.subChapter;
+      return differentStory || differentChapter || differentSubChapter;
     }
     
     prepareDataLineGraph(nextProps) {
       const {story} = nextProps;
       console.log("PrepareDataLineGraph - story: ", story.story);
-      if(story && story.story === 1)
+      if(story && story.story === 2  && story.chapter === 0 && story.subChapter === 0)
       {
         console.log("Change to yearly");
         let lineGraphData = [];
@@ -91,7 +91,7 @@ class PMPlotComponent extends Component{
           }
         });
       }
-      else if (story && story.story === 2)
+      else if (story && story.story === 2 && story.chapter === 0 && story.subChapter ===1)
       {
         console.log("Change to daily");
         let lineGraphData = [];
@@ -123,6 +123,11 @@ class PMPlotComponent extends Component{
         const { rangeY} = this.state;
         console.log("Render");
         console.log(this.state);
+        if(this.props.story && this.props.story.story !== 2 )
+        {
+          return null
+        }
+
         return (
           <div className="top">
             <XYPlot
@@ -199,6 +204,7 @@ class PMPlotComponent extends Component{
             />
             <XAxis
               tickValues={this.state.graphData.TickValues}
+              tickLabelAngle={-45}
               style={{
                 title: { fontSize: "18px" },
                 line: { stroke: "#ADDDE1" },
