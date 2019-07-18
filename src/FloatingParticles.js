@@ -148,6 +148,18 @@ class FloatingParticles extends Component {
       .attr("fill", "#777")
       .attr('opacity', 0)
 
+    this.causesBars = this.svg
+      .selectAll("bar.causesbar")
+      .data(this.yCausesScale.domain())
+      .enter()
+      .append('rect')
+      .attr('transform', d => `translate(${(margin.left * 5) - 10}, ${this.yCausesScale(d) - 10})`)
+      .attr("fill", "#777")
+      .attr('height', 20)
+      .attr('width', 0)
+      .attr('rx', '5px')
+      .attr('opacity', 0)
+
     this.hair = this.svg
       .append('g')
       .attr('opacity', 0)
@@ -402,7 +414,14 @@ class FloatingParticles extends Component {
           .attr('opacity', 0)
           .attr('transform', d => `translate(0, ${- height})`)
 
+        this.causesBars
+          .attr('opacity', 0)
+          .transition()
+          .duration(20)
+          .attr('width', 0)
+
       } else if (story.subChapter === 1) {
+
         const scaler = d3.scaleLinear().domain([0, 1]).range([0.01, 0.05])
         yForce = d3.forceY(d => this.yCausesScale(d.cause)).strength(0.08)
         xForce = d3.forceX(d => this.xScaleForCauses(0)).strength(d => scaler(d.causeNumber))
@@ -414,11 +433,26 @@ class FloatingParticles extends Component {
           .duration(600)
           .attr('fill', '#bfbfbf')
 
+        this.causesBars
+          .attr('opacity', 1)
+          .transition()
+          .ease(d3.easeSinIn)
+          .duration(2000)
+          .attr('width', d => causes.find(c => c.name === d).amount * 10)
+          .on('start', d => this.props.blockScroll(true))
+          .on('end', d => this.props.blockScroll(false))
+
       } else if (story.subChapter === 2) {
         yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
         xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
         forceCollide = this.forceCollide
         chargeForce = this.chargeForce
+
+        this.causesBars
+          .transition()
+          .duration(300)
+          .attr('opacity', 1)
+          .attr('width', 0)
       }
 
     } else if (story.chapter === 4) {
@@ -473,6 +507,10 @@ class FloatingParticles extends Component {
         this.hairMeasurements
           .transition()
           .attr('opacity', 1)
+      } else if (story.subChapter === 6) {
+        this.hair
+          .transition()
+          .attr('opacity', 0)
       }
     }
 
