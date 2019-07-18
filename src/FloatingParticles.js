@@ -571,7 +571,6 @@ class FloatingParticles extends Component {
         number = 1
       }
     }
-    console.log(particles)
     return particles;
   }
 
