@@ -32,8 +32,7 @@ export default class App extends Component {
         return
       }
       this.setState({
-        currentStory:
-          story[Math.floor(window.scrollY / (scrollHeight / story.length))],
+        currentStory: story[Math.floor(window.scrollY / (scrollHeight / story.length))],
         scroll: window.scrollY,
         isBackwardScroll: window.scrollY < this.state.scroll
       });
@@ -73,6 +72,7 @@ export default class App extends Component {
                   width={this.state.storyWidth}
                   height={this.state.storyHeight}
                   isBackwardScroll={this.state.isBackwardScroll}
+                  blockScroll={this.blockScroll}
                 />
 
                 <FloatingParticles
