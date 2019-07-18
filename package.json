@@ -7,6 +7,8 @@
     "d3-force": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-pose": "^4.0.8",
+    "react-pose-text": "^3.1.0",
     "react-scripts": "3.0.1"
   },
   "scripts": {
