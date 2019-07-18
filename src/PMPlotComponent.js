@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import "../node_modules/react-vis/dist/style.css";
 import {
     XAxis,
     YAxis,
@@ -9,68 +10,134 @@ import {
     Highlight,
     ChartLabel
   } from "react-vis";
+import {YearlyAverageDataPM25} from "./YearlyAverageData.js";
+import {DailyAverageDataPM25} from "./dailyAverageData.js";
 
 class PMPlotComponent extends Component{
     constructor() {
         super();
+        let lineGraphData = [];
+        
+          YearlyAverageDataPM25.yearlyAverages.map((element, index) =>
+          lineGraphData.push({
+            x: element["year"],
+            y: element["value"]
+          })
+        );  
         this.state = {
-          lastDrawLocation: null,
           hoverValue: null,
+          rangeY: {top:25, bottom:0},
           graphData: {
-            Data: [],
-            TickValues: [],
-            WHOGuideline: 0,
-            XText: "XText",
-            YText: "YText"
+            Data: lineGraphData,
+            TickValues: [
+              "2005","2006","2007",
+              "2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018"
+            ],
+            WHOGuideline: 10,
+            XText: "Years",
+            YText: "PM2.5"
           }
         };
     }
 
-    componentWillMount() {
-        this.prepareDataLineGraph();
+    
+
+    componentWillReceiveProps(nextProps) {
+      
+      const differentStory = this.props.story.story !== nextProps.story.story
+      if(differentStory)
+      {
+         console.log("receivedProps");
+         this.prepareDataLineGraph(nextProps);
+      }
+    }
+
+    shouldComponentUpdate(nextProps)
+    {
+      const differentStory = this.props.story.story !== nextProps.story.story
+      if(differentStory)
+      {
+         console.log("ShouldUpdate");
+      }
+      return differentStory;
     }
     
-    prepareDataLineGraph() {
+    prepareDataLineGraph(nextProps) {
+      const {story} = nextProps;
+      console.log("PrepareDataLineGraph - story: ", story.story);
+      if(story && story.story === 1)
+      {
+        console.log("Change to yearly");
         let lineGraphData = [];
-             
-        this.props.Data.map((element, index) =>
+        
+          YearlyAverageDataPM25.yearlyAverages.map((element, index) =>
+          lineGraphData.push({
+            x: element["year"],
+            y: element["value"]
+          })
+        );  
+    
+        this.setState({
+          rangeY: {top:25, bottom:0},
+          graphData: {
+            Data: lineGraphData,
+            TickValues: [
+              "2005","2006","2007",
+              "2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018"
+            ],
+            WHOGuideline: 10,
+            XText: "Years",
+            YText: "PM2.5"
+          }
+        });
+      }
+      else if (story && story.story === 2)
+      {
+        console.log("Change to daily");
+        let lineGraphData = [];
+        
+          DailyAverageDataPM25.dailyAverages.map((element, index) =>
           lineGraphData.push({
             x: element["Date"],
             y: element["Value"]
           })
-        );
+        );  
     
         this.setState({
+          rangeY: {top:40, bottom:0},
           graphData: {
             Data: lineGraphData,
-            TickValues: this.props.TickValues,
-            WHOGuideline: this.props.WHOGuideline,
-            XText: this.props.XText,
-            YText: this.props.YText
+            TickValues: [
+              "01-01-2018","01-02-2018","01-03-2018","01-04-2018","01-05-2018","01-06-2018","01-07-2018","01-08-2018","01-09-2018","01-10-2018",
+              "01-11-2018","01-12-2018","01-01-2019","01-02-2019","01-03-2019","01-04-2019","01-05-2019","01-06-2019","01-07-2019"
+            ],
+            WHOGuideline: 25,
+            XText: "Days",
+            YText: "PM2.5"
           }
         });
+      }
     }
 
     render(){
-        const { lastDrawLocation} = this.state;
-        /* if (this.state.graphData.Data.length === 0) {
-          console.log('state is undefined')
-          return null;
-        } */
+        const { rangeY} = this.state;
+        console.log("Render");
+        console.log(this.state);
         return (
-    <XYPlot
+          <div className="top">
+            <XYPlot
             xType="ordinal"
-            animation
-            xDomain={
-              lastDrawLocation && [
-                lastDrawLocation.left,
-                lastDrawLocation.right
+            animation={'noWobble'}
+            /* xDomain={
+              rangeRect && [
+                rangeRect.left,
+                rangeRect.right
               ]
-            }
+            } */
             yDomain={
-              lastDrawLocation && [
-                lastDrawLocation.bottom,
-                lastDrawLocation.top
+              rangeY && [
+                rangeY.bottom,
+                rangeY.top
               ]
             }
             height={250}
@@ -78,22 +145,25 @@ class PMPlotComponent extends Component{
             margin={{ bottom: 80, left: 50, right: 10, top: 20 }}
           >
             <LineSeries
+              animation={'noWobble'}
               className="series"
               data={this.state.graphData.Data}
-              onNearestX={(value, { index }) =>
-                this.setState({ hoverValue: value, index })
-              }
-              onSeriesMouseOut={() => this.setState({ hoverValue: null })}
+              // onNearestX={(value, { index }) =>
+              //   this.setState({ hoverValue: value, index })
+              // }
+              // onSeriesMouseOut={() => this.setState({ hoverValue: null })}
             />
             {console.log(this.state.graphData.Data.length)}
             {console.log(this.state.graphData.Data[this.state.graphData.Data.length - 1])}
+            
             <LineSeries
+              animation={'noWobble'}
               className="WHO guideline"
               color="red"
               data={[{x: this.state.graphData.Data[0].x, y: this.state.graphData.WHOGuideline}, {x: this.state.graphData.Data[this.state.graphData.Data.length - 1].x, y:  this.state.graphData.WHOGuideline}]}
             />
 
-            {this.state.hoverValue && (
+            {/* {this.state.hoverValue && (
               <Hint
                 value={this.state.hoverValue}
                 style={{
@@ -119,7 +189,7 @@ class PMPlotComponent extends Component{
                   <div>{this.state.hoverValue.y}</div>
                 </div>
               </Hint>
-            )}
+            )} */}
             <YAxis
               style={{
                 line: { stroke: "#ADDDE1" },
@@ -167,21 +237,23 @@ class PMPlotComponent extends Component{
             />
 
             {/* <Highlight
-              onBrushEnd={area => this.setState({ lastDrawLocationPM25: area })}
+              onBrushEnd={area => this.setState({ rangeRectPM25: area })}
               onDrag={area => {
                 this.setState({
-                  lastDrawLocationPM25: {
+                  rangeRectPM25: {
                     bottom:
-                      lastDrawLocationPM25.bottom + (area.top - area.bottom),
-                    left: lastDrawLocationPM25.left - (area.right - area.left),
+                      rangeRectPM25.bottom + (area.top - area.bottom),
+                    left: rangeRectPM25.left - (area.right - area.left),
                     right:
-                      lastDrawLocationPM25.right - (area.right - area.left),
-                    top: lastDrawLocationPM25.top + (area.top - area.bottom)
+                      rangeRectPM25.right - (area.right - area.left),
+                    top: rangeRectPM25.top + (area.top - area.bottom)
                   }
                 });
               }}
             /> */}
           </XYPlot>
+          </div>
+        
         );
     }
 }
