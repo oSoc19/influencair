@@ -76,6 +76,18 @@ class Text extends Component {
           2
       )
       .attr("y", this.brusselsBox.height);
+
+    this.airComponents = this.groupText
+      .append("text")
+      .text("Air consists of gasses and particles.")
+      .style("opacity", 0)
+      .attr(
+        "x",
+        (this.brusselsBox.width / 2 +
+          this.airQualityBox.width +
+          this.healthBox.width / 2) /
+          2
+      );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,6 +96,8 @@ class Text extends Component {
     if (!story) return;
 
     if (story.story === 0) {
+      this.airComponents.style("opacity", 0);
+      this.question.style("opacity", 1);
       if (story.subChapter === 1) {
         this.brussels
           .transition()
@@ -99,6 +113,7 @@ class Text extends Component {
             .duration(1000);
         }
       } else if (story.subChapter === 2) {
+        this.brussels.style("opacity", 0);
         this.health
           .transition()
           .duration(1000)
@@ -162,6 +177,9 @@ class Text extends Component {
             .style("opacity", 1);
         }
       } else if (story.subChapter === 3) {
+        this.brussels.style("opacity", 0);
+        this.health.style("opacity", 0);
+        this.airComponents.style("opacity", 0);
         this.whatIs
           .transition()
           .duration(1000)
@@ -205,6 +223,19 @@ class Text extends Component {
         }
       }
     } else if (story.story === 1) {
+      if (story.chapter === 0) {
+        this.svg.style("opacity", 1);
+        this.airComponents
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+      } else {
+        this.svg.style("opacity", 0);
+      }
+
+      this.brussels.style("opacity", 0);
+      this.health.style("opacity", 0);
+      this.question.style("opacity", 0);
       this.questionMark
         .transition()
         .attr("transform", "translate(0, -" + height + ")")
