@@ -50,9 +50,9 @@ class Text extends Component {
     this.health.attr(
       "x",
       this.brusselsBox.width / 2 +
-      this.airQualityBox.width +
-      this.healthBox.width / 2 +
-      2 * spacing
+        this.airQualityBox.width +
+        this.healthBox.width / 2 +
+        2 * spacing
     );
 
     this.whatIs = this.groupText
@@ -73,7 +73,7 @@ class Text extends Component {
         (this.brusselsBox.width / 2 +
           this.airQualityBox.width +
           this.healthBox.width / 2) /
-        2
+          2
       )
       .attr("y", this.brusselsBox.height);
 
@@ -95,7 +95,11 @@ class Text extends Component {
     const { story, isBackwardScroll } = nextProps;
     if (!story) return;
 
-    if (story.story === this.props.story.story && story.subChapter === this.props.story.subChapter) return
+    if (
+      story.story === this.props.story.story &&
+      story.subChapter === this.props.story.subChapter
+    )
+      return;
 
     if (story.story === 0) {
       this.airComponents.style("opacity", 0);
@@ -105,8 +109,7 @@ class Text extends Component {
           .transition()
           .duration(400)
           .attr("transform", "translate(-" + width + ")")
-          .style("opacity", 0)
-
+          .style("opacity", 0);
 
         if (isBackwardScroll) {
           this.brussels
@@ -131,10 +134,10 @@ class Text extends Component {
             .attr(
               "x",
               this.brusselsBox.width / 2 +
-              this.airQualityBox.width / 2 +
-              spacing
+                this.airQualityBox.width / 2 +
+                spacing
             )
-            .on("end", function () {
+            .on("end", function() {
               d3.select(this).text("Air quality.");
             });
 
@@ -159,10 +162,10 @@ class Text extends Component {
               (this.brusselsBox.width / 2 +
                 this.airQualityBox.width +
                 this.healthBox.width / 2) /
-              2
+                2
             )
             .attr("y", this.brusselsBox.height)
-            .on("end", function () {
+            .on("end", function() {
               d3.select(this).text("What about it?");
             });
 
@@ -172,10 +175,10 @@ class Text extends Component {
             .attr(
               "transform",
               "translate(" +
-              this.brusselsBox.width / 2 +
-              this.airQualityBox.width +
-              this.healthBox.width / 2 +
-              ")"
+                this.brusselsBox.width / 2 +
+                this.airQualityBox.width +
+                this.healthBox.width / 2 +
+                ")"
             )
             .style("opacity", 1);
         }
@@ -199,7 +202,7 @@ class Text extends Component {
             "transform",
             "translate(" + (width / 14 + WhatIsBox.width + 4 * spacing) + ")"
           )
-          .on("end", function () {
+          .on("end", function() {
             d3.select(this).text("Air quality");
           });
 
@@ -211,8 +214,8 @@ class Text extends Component {
           .attr(
             "transform",
             "translate(" +
-            (this.airQualityBox.width + WhatIsBox.width + 3 * spacing) +
-            ")"
+              (this.airQualityBox.width + WhatIsBox.width + 3 * spacing) +
+              ")"
           );
 
         this.question
@@ -225,7 +228,6 @@ class Text extends Component {
           this.airQuality.style("opacity", 1);
         }
       }
-<<<<<<< HEAD
     } else if (story.story === 1) {
       if (story.chapter === 0) {
         this.svg.style("opacity", 1);
@@ -240,9 +242,7 @@ class Text extends Component {
       this.brussels.style("opacity", 0);
       this.health.style("opacity", 0);
       this.question.style("opacity", 0);
-=======
     } else if (story.story === 1 && story.subChapter === 0) {
->>>>>>> f655509fccb38a4e2e2089c60a507b40a76121a5
       this.questionMark
         .transition()
         .attr("transform", "translate(0, -" + height + ")")
@@ -260,15 +260,17 @@ class Text extends Component {
         .attr("transform", "translate(0, -" + height + ")")
         .style("opacity", 0)
         .duration(500)
-        .on('start', () => { this.props.blockScroll(true) })
-        .on('end', () => { this.props.blockScroll(false) })
-
+        .on("start", () => {
+          this.props.blockScroll(true);
+        })
+        .on("end", () => {
+          this.props.blockScroll(false);
+        });
 
       d3.select(this.imgElement.current)
         .transition()
         .style("opacity", 0)
-        .duration(500)
-
+        .duration(500);
     }
   }
 
@@ -277,7 +279,7 @@ class Text extends Component {
       <div>
         <svg className="top" ref={this.svgElement} />
         <img
-          alt='something'
+          alt="influencair"
           className="background_img"
           ref={this.imgElement}
           src={influencair}
