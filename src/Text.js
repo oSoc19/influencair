@@ -385,6 +385,7 @@ class Text extends Component {
             const newText = 'Particulate matter (PM) consist of:' // 41
             const text = 'Particulate matter (PM)' // 24
             const posList = []
+            if (originText === newText) return
             for (let index = originText.length; index >= text.length; index--) {
               posList.push(index)
             }
@@ -411,6 +412,7 @@ class Text extends Component {
               const newText = 'Particulate matter (PM) originates from:' // 41
               const text = 'Particulate matter (PM)' // 24
               const posList = []
+              if (originText === newText) return
               for (let index = originText.length; index >= text.length; index--) {
                 posList.push(index)
               }
