@@ -62,7 +62,7 @@ class FloatingParticles extends Component {
     this.xScaleForCauses = d3
       .scaleLinear()
       .domain([0, this.props.width])
-      .range([margin.left * 5, width - margin.right * 4])
+      .range([(margin.left * 4) + 20, width - margin.right * 4])
 
     this.yScaleForCauses = d3
       .scaleLinear()
@@ -142,9 +142,9 @@ class FloatingParticles extends Component {
       .append("text")
       .attr("class", "causesLabels")
       .text(d => d)
-      .attr("x", margin.left * 2)
+      .attr("x", margin.left * 4)
       .attr("y", height - height / 2)
-      .attr("text-anchor", "middle")
+      .attr("text-anchor", "end")
       .attr("fill", "#777")
       .attr('opacity', 0)
 
@@ -153,11 +153,11 @@ class FloatingParticles extends Component {
       .data(this.yCausesScale.domain())
       .enter()
       .append('rect')
-      .attr('transform', d => `translate(${(margin.left * 5) - 10}, ${this.yCausesScale(d) - 10})`)
+      .attr('transform', d => `translate(${(margin.left * 4) + 8}, ${this.yCausesScale(d) - 16})`)
       .attr("fill", "#777")
-      .attr('height', 20)
+      .attr('height', 24)
       .attr('width', 0)
-      .attr('rx', '5px')
+      .attr('rx', '12px')
       .attr('opacity', 0)
 
     this.hair = this.svg
@@ -450,8 +450,8 @@ class FloatingParticles extends Component {
 
         } else if (story.subChapter === 1) {
 
-          const scaler = d3.scaleLinear().domain([0, 1]).range([0.01, 0.05])
-          yForce = d3.forceY(d => this.yCausesScale(d.cause)).strength(0.08)
+          const scaler = d3.scaleLinear().domain([0, 1]).range([0.02, 0.05])
+          yForce = d3.forceY(d => this.yCausesScale(d.cause) - 5).strength(0.09)
           xForce = d3.forceX(d => this.xScaleForCauses(0)).strength(d => scaler(d.causeNumber))
           forceCollide = null
           chargeForce = d3.forceManyBody().strength(-0.001)
