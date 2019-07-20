@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
-import influencair from "./resources/images/influencair.svg";
+import { ReactComponent as Influencair } from "./resources/images/influencair.svg";
 
 import "d3-force";
 import "./App.css";
@@ -15,262 +15,300 @@ class Text extends Component {
 
   componentDidMount() {
     const { width, height, spacing } = this;
+    const { story, chapter, subChapter } = this.props.story
 
     this.svg = d3
       .select(this.svgElement.current)
-      .attr("width", this.props.width)
-      .attr("height", this.props.height);
+      .attr('width', this.props.width)
+      .attr('height', this.props.height);
 
     this.groupText = this.svg
-      .append("g")
-      .attr(
-        "transform",
-        "translate(" + (2 * width) / 5 + ", " + height / 5 + ")"
-      )
-      .attr("text-anchor", "middle")
-      .attr("font-family", "sans-serif")
-      .attr("fill", "#F15740")
-      .attr("font-size", "45px");
+      .append('g')
+      .attr('text-anchor', 'middle')
+      .attr('font-family', 'sans-serif')
+      .attr('fill', '#F15740')
+      .attr('font-size', '45px');
 
+    /* Brussels */
     this.brussels = this.groupText
-      .append("text")
-      .text("Brussels. ")
-      .attr("x", 0);
-    this.brusselsBox = this.brussels.node().getBBox();
+      .append('text')
+      .text('Brussels .')
+      .attr('y', height / 6)
+      .attr("x", this.width / 2)
+      .attr('opacity', 0)
+    this.brusselsBox = this.brussels
+      .node()
+      .getBBox()
+    this.brusselsX = this.width / 2
 
-    this.airQuality = this.groupText.append("text").text("Air quality. ");
-    this.airQualityBox = this.airQuality.node().getBBox();
-    this.airQuality.attr(
-      "x",
-      this.brusselsBox.width / 2 + this.airQualityBox.width / 2 + spacing
-    );
+    /* AirQuality */
+    this.airQuality = this.groupText
+      .append('text')
+      .text(' Air quality ')
+      .attr('opacity', 0)
+      .attr('y', height / 6)
+    this.airQualityBox = this.airQuality
+      .node()
+      .getBBox()
+    this.airQualityX = this.width / 2 + this.brusselsBox.width + spacing
+    this.airQuality
+      .attr("x", this.airQualityX)
 
-    this.health = this.groupText.append("text").text("Health. ");
-    this.healthBox = this.health.node().getBBox();
-    this.health.attr(
-      "x",
-      this.brusselsBox.width / 2 +
-        this.airQualityBox.width +
-        this.healthBox.width / 2 +
-        2 * spacing
-    );
+    /* Health */
+    this.health = this.groupText
+      .append('text')
+      .text('. Health')
+      .attr('opacity', 0)
+      .attr('y', height / 6)
+    this.healthBox = this.health
+      .node()
+      .getBBox()
+    this.healthX = this.width / 2 + this.brusselsBox.width + this.airQualityBox.width
+    this.health
+      .attr('x', this.healthX)
+
 
     this.whatIs = this.groupText
-      .append("text")
-      .text("What is  ")
-      .style("opacity", 0);
+      .append('text')
+      .text('What is ')
+      .attr('opacity', 0)
+      .attr('y', height / 6)
+    this.whatIsBox = this.whatIs
+      .node()
+      .getBBox()
+    this.whatIs.attr('x', this.airQualityX - (this.airQualityBox.width / 2) - (this.whatIsBox.width / 2) - spacing)
 
     this.questionMark = this.groupText
-      .append("text")
-      .text("?")
-      .style("opacity", 0);
+      .append('text')
+      .text('?')
+      .attr('opacity', 0)
+      .attr('y', height / 6)
+    this.questionMarkBox = this.questionMark
+      .node()
+      .getBBox()
+    this.questionMark.attr('x', this.airQualityX + (this.airQualityBox.width / 2) + spacing + (this.questionMarkBox.width / 2))
 
     this.question = this.groupText
-      .append("text")
-      .text("What about it?")
-      .attr(
-        "x",
-        (this.brusselsBox.width / 2 +
-          this.airQualityBox.width +
-          this.healthBox.width / 2) /
-          2
-      )
-      .attr("y", this.brusselsBox.height);
+      .append('text')
+      .text('What about it?')
+      .attr('x', this.airQualityX)
+      .attr('y', (height / 6) + this.airQualityBox.height + spacing)
+      .attr('opacity', 0)
 
     this.airComponents = this.groupText
       .append("text")
       .text("Air consists of gasses and particles.")
-      .style("opacity", 0)
-      .attr(
-        "x",
-        (this.brusselsBox.width / 2 +
-          this.airQualityBox.width +
-          this.healthBox.width / 2) /
-          2
-      );
+      .attr("opacity", 0)
+      .attr('x', this.airQualityX)
+      .attr('y', (height / 6) + this.airQualityBox.height + spacing)
+
+    this.animateBrussels(this.props.story)
+    this.animateHealth(this.props.story)
+    this.animateAirQuality(this.props.story)
+    this.animateQuestion(this.props.story)
   }
-
-  componentWillReceiveProps(nextProps) {
-    const { width, height, spacing } = this;
-    const { story, isBackwardScroll } = nextProps;
-    if (!story) return;
-
-    if (
-      story.story === this.props.story.story &&
-      story.subChapter === this.props.story.subChapter
-    )
-      return;
-
-    if (story.story === 0) {
-      this.airComponents.style("opacity", 0);
-      this.question.style("opacity", 1);
-      if (story.subChapter === 1) {
-        this.brussels
-          .transition()
-          .duration(400)
-          .attr("transform", "translate(-" + width + ")")
-          .style("opacity", 0);
-
-        if (isBackwardScroll) {
+  animateBrussels(storyObj) {
+    const { story, chapter, subChapter } = storyObj
+    if (story === 0) {
+      if (chapter === 0) {
+        if (subChapter === 0) {
+          this.brussels
+            .attr('opacity', 1)
+        } else if (subChapter === 1) {
           this.brussels
             .transition()
-            .attr("transform", "translate(0)")
-            .style("opacity", 1)
-            .duration(400);
+            .duration(400)
+            .attr('transform', `translate(0,0)`)
+            .attr('opacity', 1)
+        } else if (subChapter === 2) {
+          this.brussels
+            .transition()
+            .duration(400)
+            .attr('transform', `translate(-${this.width},0)`)
+            .attr('opacity', 0)
+        } else {
+          this.brussels
+            .attr('transform', `translate(-${this.width},0)`)
+            .attr('opacity', 0)
         }
-      } else if (story.subChapter === 2) {
-        this.brussels.style("opacity", 0);
-        this.health
-          .transition()
-          .duration(1000)
-          .attr("transform", "translate(" + width + ")")
-          .style("opacity", 0);
-
-        if (isBackwardScroll) {
-          this.airQuality
-            .transition()
-            .duration(1000)
-            .attr("transform", "translate(0,0)")
-            .attr(
-              "x",
-              this.brusselsBox.width / 2 +
-                this.airQualityBox.width / 2 +
-                spacing
-            )
-            .on("end", function() {
-              d3.select(this).text("Air quality.");
-            });
-
-          this.questionMark
-            .transition()
-            .duration(1500)
-            .style("opacity", 0)
-            .attr("transform", "translate(" + width + ")");
-
-          this.whatIs
-            .transition()
-            .duration(1500)
-            .style("opacity", 0)
-            .attr("transform", "translate(" + width + ")");
-
-          this.question
-            .transition()
-            .duration(1000)
-            .attr("transform", "translate(0,0)")
-            .attr(
-              "x",
-              (this.brusselsBox.width / 2 +
-                this.airQualityBox.width +
-                this.healthBox.width / 2) /
-                2
-            )
-            .attr("y", this.brusselsBox.height)
-            .on("end", function() {
-              d3.select(this).text("What about it?");
-            });
-
+      }
+    } else {
+      this.brussels
+        .attr('transform', `translate(-${this.width},0)`)
+        .attr('opacity', 0)
+    }
+  }
+  animateHealth(storyObj) {
+    const { story, chapter, subChapter } = storyObj
+    if (story === 0) {
+      if (chapter === 0) {
+        if (subChapter === 0) {
+          this.health
+            .attr('opacity', 1)
+        } else if (subChapter === 1) {
           this.health
             .transition()
-            .duration(1000)
-            .attr(
-              "transform",
-              "translate(" +
-                this.brusselsBox.width / 2 +
-                this.airQualityBox.width +
-                this.healthBox.width / 2 +
-                ")"
-            )
-            .style("opacity", 1);
-        }
-      } else if (story.subChapter === 3) {
-        this.brussels.style("opacity", 0);
-        this.health.style("opacity", 0);
-        this.airComponents.style("opacity", 0);
-        this.whatIs
-          .transition()
-          .duration(1000)
-          .attr("x", 0)
-          .style("opacity", 1)
-          .attr("transform", "translate(" + width / 14 + ")");
-        const WhatIsBox = this.whatIs.node().getBBox();
-
-        this.airQuality
-          .transition()
-          .duration(1000)
-          .attr("x", 0)
-          .attr(
-            "transform",
-            "translate(" + (width / 14 + WhatIsBox.width + 4 * spacing) + ")"
-          )
-          .on("end", function() {
-            d3.select(this).text("Air quality");
-          });
-
-        this.questionMark
-          .transition()
-          .duration(1000)
-          .attr("x", 0)
-          .style("opacity", 1)
-          .attr(
-            "transform",
-            "translate(" +
-              (this.airQualityBox.width + WhatIsBox.width + 3 * spacing) +
-              ")"
-          );
-
-        this.question
-          .transition()
-          .duration(1000)
-          .attr("transform", "translate(0, " + height + ")");
-
-        if (isBackwardScroll) {
-          d3.select(this.imgElement.current).style("opacity", 1);
-          this.airQuality.style("opacity", 1);
+            .duration(400)
+            .delay(400)
+            .attr('transform', 'translate(0)')
+            .attr('opacity', 1)
+        } else if (subChapter === 2) {
+          this.health
+            .transition()
+            .duration(400)
+            .delay(400)
+            .attr('transform', `translate(${this.width})`)
+            .attr('opacity', 0)
+        } else if (subChapter > 2) {
+          this.health
+            .attr('transform', `translate(${this.width})`)
+            .attr('opacity', 0)
         }
       }
-    } else if (story.story === 1) {
-      if (story.chapter === 0) {
-        this.svg.style("opacity", 1);
-        this.airComponents
-          .transition()
-          .duration(1000)
-          .style("opacity", 1);
-      } else {
-        this.svg.style("opacity", 0);
+    } else {
+      this.health
+        .attr('transform', `translate(${this.width})`)
+        .attr('opacity', 0)
+    }
+  }
+  animateAirQuality(storyObj) {
+    const { story, chapter, subChapter } = storyObj
+    if (story === 0) {
+      if (chapter === 0) {
+        if (subChapter === 0) {
+          this.airQuality
+            .attr('opacity', 1)
+            .attr('transform', 'translate(0,0)')
+        } else if (subChapter === 1) {
+          this.questionMark
+            .transition()
+            .duration(500)
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+          this.whatIs
+            .transition()
+            .duration(500)
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+          this.airQuality
+            .transition()
+            .duration(200)
+            .attr('opacity', 1)
+            .attr('transform', 'translate(0,0)')
+        } else if (subChapter === 2) {
+          this.whatIs
+            .transition()
+            .duration(500)
+            .delay(800)
+            .attr('opacity', 1)
+            .attr('transform', `translate(0,0)`)
+          this.questionMark
+            .transition()
+            .duration(500)
+            .delay(800)
+            .attr('opacity', 1)
+            .attr('transform', `translate(0,0)`)
+          this.airQuality
+            .transition()
+            .duration(500)
+            .delay(800)
+            .attr('opacity', 1)
+            .attr('transform', `translate(0,0)`)
+        } else if (subChapter > 2) {
+          this.questionMark
+            .transition()
+            .duration(500)
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+          this.whatIs
+            .transition()
+            .duration(500)
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+          this.airQuality
+            .transition()
+            .duration(500)
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+        } else if (subChapter > 3) {
+          this.questionMark
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+          this.whatIs
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+          this.airQuality
+            .attr('opacity', 0)
+            .attr('transform', `translate(${this.width},0)`)
+        }
       }
-
-      this.brussels.style("opacity", 0);
-      this.health.style("opacity", 0);
-      this.question.style("opacity", 0);
-    } else if (story.story === 1 && story.subChapter === 0) {
+    } else {
       this.questionMark
-        .transition()
-        .attr("transform", "translate(0, -" + height + ")")
-        .style("opacity", 0)
-        .duration(500);
-
+        .attr('opacity', 0)
+        .attr('transform', `translate(${this.width},0)`)
       this.whatIs
-        .transition()
-        .attr("transform", "translate(0, -" + height + ")")
-        .style("opacity", 0)
-        .duration(500);
-
+        .attr('opacity', 0)
+        .attr('transform', `translate(${this.width},0)`)
       this.airQuality
-        .transition()
-        .attr("transform", "translate(0, -" + height + ")")
-        .style("opacity", 0)
-        .duration(500)
-        .on("start", () => {
-          this.props.blockScroll(true);
-        })
-        .on("end", () => {
-          this.props.blockScroll(false);
-        });
+        .attr('opacity', 0)
+        .attr('transform', `translate(${this.width},0)`)
+    }
+  }
+  animateQuestion(storyObj) {
+    const { story, chapter, subChapter } = storyObj
+    if (story === 0) {
+      if (chapter === 0) {
+        if (subChapter === 0) {
+          this.question
+            .attr('opacity', 1)
+        } else if (subChapter === 1) {
+          this.question
+            .transition()
+            .duration(500)
+            .delay(800)
+            .attr('opacity', 1)
+            .attr('transform', `translate(0,0)`)
+        } else if (subChapter === 2) {
+          this.question
+            .transition()
+            .delay(800)
+            .duration(500)
+            .attr('opacity', 0)
+            .ease(d3.easeQuadOut)
+            .attr('transform', `translate(0,${this.height})`)
+        } else if (subChapter > 2) {
+          this.question
+            .attr('opacity', 0)
+            .attr('transform', `translate(0,${this.height})`)
+        }
+      }
+    } else {
+      this.question
+        .attr('opacity', 0)
+        .attr('transform', `translate(0,${this.height})`)
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.story) return;
+    const { story, chapter, subChapter } = nextProps.story
 
+    if (story === this.props.story && subChapter === this.props.subChapter) return
+
+    this.animateBrussels(nextProps.story)
+    this.animateHealth(nextProps.story)
+    this.animateAirQuality(nextProps.story)
+    this.animateQuestion(nextProps.story)
+
+    if (story === 0 && chapter === 0 && subChapter === 3) {
+      d3.select(this.imgElement.current)
+        .transition()
+        .style("opacity", 1)
+        .duration(500)
+    } else if (story === 1 && subChapter === 0) {
       d3.select(this.imgElement.current)
         .transition()
         .style("opacity", 0)
-        .duration(500);
+        .duration(500)
     }
   }
 
@@ -278,11 +316,10 @@ class Text extends Component {
     return (
       <div>
         <svg className="top" ref={this.svgElement} />
-        <img
+        <Influencair
           alt="influencair"
           className="background_img"
           ref={this.imgElement}
-          src={influencair}
         />
       </div>
     );

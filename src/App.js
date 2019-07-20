@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import SideBar from "./Sidebar";
 import FloatingParticles from "./FloatingParticles";
+import Explanations from './Explanations'
 import Text from "./Text";
 import story from "./story.json";
 
-const scrollHeight = 15000;
+const scrollHeight = window.innerHeight * story.length;
 const sideBarWidth = 300;
 
 const minSupportedHeight = 300;
@@ -31,12 +32,20 @@ export default class App extends Component {
         window.scrollTo(0, this.state.scroll)
         return
       }
+      const currentStory = story[Math.floor(window.scrollY / (scrollHeight / story.length))]
+      const isBackwardScroll = window.scrollY < this.state.scroll
+      if (currentStory.story === this.state.currentStory.story && currentStory.chapter === this.state.currentStory.chapter && currentStory.subChapter === this.state.currentStory.subChapter) return
       this.setState({
-        currentStory: story[Math.floor(window.scrollY / (scrollHeight / story.length))],
+        currentStory,
         scroll: window.scrollY,
-        isBackwardScroll: window.scrollY < this.state.scroll
-      });
-    });
+        isBackwardScroll
+      })
+    })
+    if (window.scrollY === 0) {
+      setTimeout(() => {
+        window.scrollTo(0, window.innerHeight)
+      }, 500);
+    }
     window.addEventListener("resize", () => {
       this.setState({
         storyWidth: window.innerWidth - sideBarWidth,
@@ -82,6 +91,7 @@ export default class App extends Component {
                   isBackwardScroll={this.state.isBackwardScroll}
                   blockScroll={this.blockScroll}
                 />
+                <Explanations story={this.state.currentStory} />
               </div>
               )}
             </div>

@@ -41,6 +41,7 @@ class FloatingParticles extends Component {
       .force("collide", this.forceCollide)
       .force("x", this.xForce)
       .force("y", this.yForce)
+      .force('notHere', null)
     this.simulation.nodes(particles).on("tick", () => {
       this.node
         .attr("cx", d => isNaN(d.x) ? 0 : d.x)
@@ -51,7 +52,7 @@ class FloatingParticles extends Component {
     this.yCompositionScale = d3
       .scaleLinear()
       .domain([height, 0])
-      .range([margin.top * 4, height - margin.bottom])
+      .range([margin.top * 6, height - margin.bottom])
 
     this.yCausesScale = d3
       .scalePoint()
@@ -225,292 +226,314 @@ class FloatingParticles extends Component {
       .attr("text-anchor", "middle")
       .attr('transform', 'translate(92.5,0) scale(0.035)')
 
+    // this.bol = this.svg
+    //   .append('circle')
+    //   .attr('cy', height)
+    //   .attr('cx', width - height / 1.6)
+    //   .attr('r', height / 1.6)
+    //   .attr('opacity', 0)
+
   }
 
   componentWillReceiveProps(nextProps) {
     const { story } = nextProps;
-    const { isBackwardScroll } = this.props
-    let useForce = true
-
-    // this is when we go back to previous story
-    if (story && story.story === 0 && isBackwardScroll) {
-      this.node
-        .transition()
-        .duration(100)
-        .ease(d3.easeLinear)
-        .attr("opacity", 0)
-    }
-
-    // only run this part in story 1
-    if (!story || story.story !== 1) return
 
     // Don't run anything if we still in the same chapter or subchapter
-    if (story.chapter === this.props.story.chapter && story.subChapter === this.props.story.subChapter) return
+    if (story.story === this.props.story.story && story.chapter === this.props.story.chapter && story.subChapter === this.props.story.subChapter) return
+
+    const { isBackwardScroll } = this.props
+    let xForce, yForce, forceCollide, chargeForce
+    let useForce = true
 
     const width = this.props.width - this.margin.left - this.margin.right;
     const height = this.props.height - this.margin.top - this.margin.bottom;
 
-    let xForce, yForce, forceCollide, chargeForce
-
-    if (story.chapter === 0) {
-
-      // Particle manipulation
-      xForce = d3.forceX(d => d.posX)
-      yForce = d3.forceY(d => d.posY)
-      forceCollide = this.forceCollide
-      chargeForce = this.chargeForce
-
-
-      this.compositionTypesLabels
-        .attr("text-anchor", "middle")
-        .transition()
-        .attr("opacity", 0)
-
+    // this is when we go back to previous story
+    if (story && story.story === 0) {
       this.node
         .transition()
-        .duration(200)
-        .ease(d3.easeLinear)
-        .attr("opacity", 1)
-        .attr('fill', d => d.compositionColor)
+        .duration(800)
+        .attr("opacity", d => Math.random() / 2)
+        .attr('fill', '#81CDC1')
 
-    } else if (story.chapter === 1) {
-
-      // Particle manipulation
       xForce = d3.forceX(d => {
-        // step by step we go through the story 
-        if (d.compositionTypeIndex > story.subChapter) {
-          // Make sure all particles are on the right side of the sorting line
-          if (d.posX < this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])) {
-            return this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) + (Math.random() * (width - this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])))
-          } else {
-            return d.posX
-          }
-        } else {
-          return this.compositionTypeScale(d.compositionType)
+        let newX = d.x
+        while (this.isWithinACircle(newX, d.posY, width - height / 1.6, height, height / 1.6)) {
+          newX = Math.random() * width
         }
-
+        return newX
       })
-      yForce = d3.forceY(d => this.yCompositionScale(d.posY))
+      yForce = d3.forceY(d => {
+        let newY = d.y
+        while (this.isWithinACircle(d.posX, newY, width - height / 1.6, height, height / 1.6)) {
+          newY = Math.random() * height
+        }
+        return newY
+      })
       forceCollide = this.forceCollide
       chargeForce = this.chargeForce
 
-      // Node styling
-      this.node
-        .transition()
-        .attr('fill', d => {
-          if (d.compositionTypeIndex === story.subChapter) {
-            return d.compositionColor
-          }
-          return '#bfbfbf'
-        })
-        .attr("r", d => d.r)
-        .attr('opacity', 1)
+    } else if (story.story === 1) {
+      if (story.chapter === 0) {
 
-
-      this.compositionTypesLabels
-        .attr("text-anchor", "middle")
-        .transition()
-        .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
-        .attr("opacity", 1)
-        .style("font-weight", d => d === this.compositionTypes[story.subChapter] ? 'bold' : 'normal')
-
-      this.causesLabels
-        .transition()
-        .attr("y", height - height / 2)
-        .attr("opacity", 0)
-
-      // Bar chart Animation & Styling
-      this.barchart
-        .transition()
-        .duration(100)
-        .ease(d3.easeLinear)
-        .attr("opacity", 0)
-
-    } else if (story.chapter === 2) {
-      // Chapter 2:
-      // Show all the particles into the barchart
-
-      // Particle manipulation
-      xForce = d3.forceX(d => {
-        const barPos = compositionTypes[d.compositionTypeIndex].barChart
-        const rawPosX = this.barChartTypeScale(this.generateRandomInteger(barPos.start, barPos.end))
-        const minmaxedPosX = Math.min(Math.max(rawPosX, this.barChartTypeScale(barPos.start) + 10), this.barChartTypeScale(barPos.end) - 10)
-        return minmaxedPosX
-      })
-      yForce = d3.forceY(d => height / 3)
-      forceCollide = null
-      chargeForce = null
-
-      // Particle styling
-      this.node
-        .attr('fill', d => d.compositionColor)
-        .transition()
-        .duration(500)
-        .ease(d3.easeLinear)
-        .attr("r", d => 10)
-        .attr('opacity', 1)
-        .on('start', () => { this.props.blockScroll(true) })
-
-      // Bar chart Animation & Styling
-      this.barchart
-        .transition()
-        .delay(500)
-        .duration(200)
-        .ease(d3.easeLinear)
-        .attr("opacity", 1)
-        .on('end', () => { this.props.blockScroll(false) })
-
-      // Label styling
-      this.compositionTypesLabels
-        .attr("text-anchor", "start")
-        .transition()
-        .style("font-weight", 'bold')
-        .attr('transform', d => {
-          const pos = compositionTypes.find(c => c.name === d).barChart
-          return `translate(${this.barChartTypeScale(pos.mid)}, ${(height / 3) - 30}) rotate(-45)`
-        })
-        .attr('opacity', 1)
-
-      this.causesLabels
-        .transition()
-        .attr("y", d => this.yCausesScale(d))
-        .attr('opacity', 0)
-
-    } else if (story.chapter === 3) {
-      if (story.subChapter === 0) {
-        // Chapter 3:
-        // Show all the particles into the air
-        yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
-        xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
+        // Particle manipulation
+        xForce = d3.forceX(d => d.posX)
+        yForce = d3.forceY(d => d.posY)
         forceCollide = this.forceCollide
         chargeForce = this.chargeForce
 
+
+        this.compositionTypesLabels
+          .attr("text-anchor", "middle")
+          .transition()
+          .attr("opacity", 0)
+
         this.node
+          .transition()
+          .duration(200)
+          .ease(d3.easeLinear)
+          .attr("opacity", 1)
           .attr('fill', d => d.compositionColor)
+
+      } else if (story.chapter === 1) {
+
+        // Particle manipulation
+        xForce = d3.forceX(d => {
+          // step by step we go through the story 
+          if (d.compositionTypeIndex > story.subChapter) {
+            // Make sure all particles are on the right side of the sorting line
+            if (d.posX < this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])) {
+              return this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) + (Math.random() * (width - this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])))
+            } else {
+              return d.posX
+            }
+          } else {
+            return this.compositionTypeScale(d.compositionType)
+          }
+
+        })
+        yForce = d3.forceY(d => this.yCompositionScale(d.posY))
+        forceCollide = this.forceCollide
+        chargeForce = this.chargeForce
+
+        // Node styling
+        this.node
+          .transition()
+          .attr('fill', d => {
+            if (d.compositionTypeIndex === story.subChapter) {
+              return d.compositionColor
+            }
+            return '#bfbfbf'
+          })
           .attr("r", d => d.r)
           .attr('opacity', 1)
 
+
+        this.compositionTypesLabels
+          .attr("text-anchor", "middle")
+          .transition()
+          .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
+          .attr("opacity", 1)
+          .style("font-weight", d => d === this.compositionTypes[story.subChapter] ? 'bold' : 'normal')
+
+        this.causesLabels
+          .transition()
+          .attr("y", height - height / 2)
+          .attr("opacity", 0)
+
+        // Bar chart Animation & Styling
         this.barchart
           .transition()
           .duration(100)
           .ease(d3.easeLinear)
           .attr("opacity", 0)
 
-        this.compositionTypesLabels
-          .attr("text-anchor", "middle")
+      } else if (story.chapter === 2) {
+        // Chapter 2:
+        // Show all the particles into the barchart
+
+        // Particle manipulation
+        xForce = d3.forceX(d => {
+          const barPos = compositionTypes[d.compositionTypeIndex].barChart
+          const rawPosX = this.barChartTypeScale(this.generateRandomInteger(barPos.start, barPos.end))
+          const minmaxedPosX = Math.min(Math.max(rawPosX, this.barChartTypeScale(barPos.start) + 10), this.barChartTypeScale(barPos.end) - 10)
+          return minmaxedPosX
+        })
+        yForce = d3.forceY(d => height / 3)
+        forceCollide = null
+        chargeForce = null
+
+        // Particle styling
+        this.node
+          .attr('fill', d => d.compositionColor)
           .transition()
-          .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
-          .style("font-weight", 'normal')
-          .attr('opacity', 0)
+          .duration(500)
+          .ease(d3.easeLinear)
+          .attr("r", d => 10)
+          .attr('opacity', 1)
+          .on('start', () => { this.props.blockScroll(true) })
+
+        // Bar chart Animation & Styling
+        this.barchart
+          .transition()
+          .delay(500)
+          .duration(200)
+          .ease(d3.easeLinear)
+          .attr("opacity", 1)
+          .on('end', () => { this.props.blockScroll(false) })
+
+        // Label styling
+        this.compositionTypesLabels
+          .attr("text-anchor", "start")
+          .transition()
+          .style("font-weight", 'bold')
+          .attr('transform', d => {
+            const pos = compositionTypes.find(c => c.name === d).barChart
+            return `translate(${this.barChartTypeScale(pos.mid)}, ${(height / 3) - 30}) rotate(-45)`
+          })
+          .attr('opacity', 1)
 
         this.causesLabels
           .transition()
           .attr("y", d => this.yCausesScale(d))
-          .attr('opacity', 1)
-
-        this.hair
-          .transition()
-          .duration(100)
           .attr('opacity', 0)
-          .attr('transform', d => `translate(0, ${- height})`)
 
-        this.causesBars
-          .attr('opacity', 0)
-          .transition()
-          .duration(20)
-          .attr('width', 0)
+      } else if (story.chapter === 3) {
+        if (story.subChapter === 0) {
+          // Chapter 3:
+          // Show all the particles into the air
+          yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
+          xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
+          forceCollide = this.forceCollide
+          chargeForce = this.chargeForce
 
-      } else if (story.subChapter === 1) {
+          this.node
+            .attr('fill', d => d.compositionColor)
+            .attr("r", d => d.r)
+            .attr('opacity', 1)
 
-        const scaler = d3.scaleLinear().domain([0, 1]).range([0.01, 0.05])
-        yForce = d3.forceY(d => this.yCausesScale(d.cause)).strength(0.08)
-        xForce = d3.forceX(d => this.xScaleForCauses(0)).strength(d => scaler(d.causeNumber))
+          this.barchart
+            .transition()
+            .duration(100)
+            .ease(d3.easeLinear)
+            .attr("opacity", 0)
+
+          this.compositionTypesLabels
+            .attr("text-anchor", "middle")
+            .transition()
+            .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
+            .style("font-weight", 'normal')
+            .attr('opacity', 0)
+
+          this.causesLabels
+            .transition()
+            .attr("y", d => this.yCausesScale(d))
+            .attr('opacity', 1)
+
+          this.hair
+            .transition()
+            .duration(100)
+            .attr('opacity', 0)
+            .attr('transform', d => `translate(0, ${- height})`)
+
+          this.causesBars
+            .attr('opacity', 0)
+            .transition()
+            .duration(20)
+            .attr('width', 0)
+
+        } else if (story.subChapter === 1) {
+
+          const scaler = d3.scaleLinear().domain([0, 1]).range([0.01, 0.05])
+          yForce = d3.forceY(d => this.yCausesScale(d.cause)).strength(0.08)
+          xForce = d3.forceX(d => this.xScaleForCauses(0)).strength(d => scaler(d.causeNumber))
+          forceCollide = null
+          chargeForce = d3.forceManyBody().strength(-0.001)
+
+          this.node
+            .transition()
+            .duration(600)
+            .attr('fill', '#bfbfbf')
+
+          this.causesBars
+            .attr('opacity', 1)
+            .transition()
+            .ease(d3.easeSinIn)
+            .duration(2000)
+            .attr('width', d => causes.find(c => c.name === d).amount * 10)
+            .on('start', d => this.props.blockScroll(true))
+            .on('end', d => this.props.blockScroll(false))
+
+        } else if (story.subChapter === 2) {
+          yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
+          xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
+          forceCollide = this.forceCollide
+          chargeForce = this.chargeForce
+
+          this.causesBars
+            .transition()
+            .duration(300)
+            .attr('opacity', 1)
+            .attr('width', 0)
+        }
+
+      } else if (story.chapter === 4) {
+        // Particle manipulation
+        yForce = d3.forceY(d => height / 2)
+        xForce = d3.forceX(d => d.size === 2.5 ? (width / 2) + 12.5 : (width / 2))
         forceCollide = null
-        chargeForce = d3.forceManyBody().strength(-0.001)
+        chargeForce = null
 
-        this.node
-          .transition()
-          .duration(600)
-          .attr('fill', '#bfbfbf')
+        if (story.subChapter === 0) {
+          // Particle styling
+          this.node
+            .transition()
+            .duration(300)
+            .attr('fill', '#bfbfbf')
+            .attr("r", d => d.size)
+            .attr('opacity', 1)
 
-        this.causesBars
-          .attr('opacity', 1)
-          .transition()
-          .ease(d3.easeSinIn)
-          .duration(2000)
-          .attr('width', d => causes.find(c => c.name === d).amount * 10)
-          .on('start', d => this.props.blockScroll(true))
-          .on('end', d => this.props.blockScroll(false))
+          // Hair animation + styling
+          this.hair
+            .transition()
+            .delay(300)
+            .duration(500)
+            .attr('opacity', 1)
+            .ease(d3.easeQuadIn)
+            .attr('transform', d => `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(1)`)
 
-      } else if (story.subChapter === 2) {
-        yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
-        xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
-        forceCollide = this.forceCollide
-        chargeForce = this.chargeForce
+          // Remove causesLabels
+          this.causesLabels
+            .transition()
+            .attr('opacity', 0)
 
-        this.causesBars
-          .transition()
-          .duration(300)
-          .attr('opacity', 1)
-          .attr('width', 0)
-      }
+        } else if (story.subChapter === 1) {
+          // Particle styling
+          this.node
+            .transition()
+            .attr('opacity', 0)
 
-    } else if (story.chapter === 4) {
-      // Particle manipulation
-      yForce = d3.forceY(d => height / 2)
-      xForce = d3.forceX(d => d.size === 2.5 ? (width / 2) + 12.5 : (width / 2))
-      forceCollide = null
-      chargeForce = null
+          // Hair animation + styling
+          this.hair
+            .transition()
+            .duration(300)
+            .ease(d3.easeSinIn)
+            .attr('transform', `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(2)`)
 
-      if (story.subChapter === 0) {
-        // Particle styling
-        this.node
-          .transition()
-          .duration(300)
-          .attr('fill', '#bfbfbf')
-          .attr("r", d => d.size)
-          .attr('opacity', 1)
+          this.hairMeasurements
+            .transition()
+            .attr('opacity', 0)
+        } else if (story.subChapter === 2) {
 
-        // Hair animation + styling
-        this.hair
-          .transition()
-          .delay(300)
-          .duration(500)
-          .attr('opacity', 1)
-          .ease(d3.easeQuadIn)
-          .attr('transform', d => `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(1)`)
-
-        // Remove causesLabels
-        this.causesLabels
-          .transition()
-          .attr('opacity', 0)
-
-      } else if (story.subChapter === 1) {
-        // Particle styling
-        this.node
-          .transition()
-          .attr('opacity', 0)
-
-        // Hair animation + styling
-        this.hair
-          .transition()
-          .duration(300)
-          .ease(d3.easeSinIn)
-          .attr('transform', `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(2)`)
-
-        this.hairMeasurements
-          .transition()
-          .attr('opacity', 0)
-      } else if (story.subChapter === 2) {
-
-        // Hair animation + styling
-        this.hairMeasurements
-          .transition()
-          .attr('opacity', 1)
-      } else if (story.subChapter === 6) {
-        this.hair
-          .transition()
-          .attr('opacity', 0)
+          // Hair animation + styling
+          this.hairMeasurements
+            .transition()
+            .attr('opacity', 1)
+        } else if (story.subChapter === 6) {
+          this.hair
+            .transition()
+            .attr('opacity', 0)
+        }
       }
     }
 
@@ -530,6 +553,11 @@ class FloatingParticles extends Component {
   }
   generateRandomFloat(min, max) {
     return min + Math.random() * (max + 1 - min)
+  }
+  isWithinACircle(x, y, cx, cy, r) {
+    const absX = Math.pow(Math.abs(x - cx), 2)
+    const absY = Math.pow(Math.abs(y - cy), 2)
+    return Math.sqrt(absX + absY) < r
   }
   invertColor(hex, bw) {
     // https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
@@ -614,7 +642,7 @@ class FloatingParticles extends Component {
 
   render() {
     return (
-      <div>
+      <div className='top'>
         <svg ref={this.svgElement} />
       </div>
     );

@@ -21,6 +21,8 @@ class Explanations extends Component {
 
   componentWillReceiveProps(nextProps) {
     let { story } = nextProps;
+    if (!story) return
+
     if (story.story > 1) {
       this.setState({ text: story.text, isVisible: true });
     } else {
