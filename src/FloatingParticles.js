@@ -41,7 +41,6 @@ class FloatingParticles extends Component {
       .force("collide", this.forceCollide)
       .force("x", this.xForce)
       .force("y", this.yForce)
-      .force('notHere', null)
     this.simulation.nodes(particles).on("tick", () => {
       this.node
         .attr("cx", d => isNaN(d.x) ? 0 : d.x)
@@ -52,7 +51,7 @@ class FloatingParticles extends Component {
     this.yCompositionScale = d3
       .scaleLinear()
       .domain([height, 0])
-      .range([margin.top * 6, height - margin.bottom])
+      .range([margin.top * 8, height - margin.bottom * 2])
 
     this.yCausesScale = d3
       .scalePoint()
@@ -72,14 +71,14 @@ class FloatingParticles extends Component {
 
     this.compositionTypeScale = d3
       .scalePoint()
-      .range([margin.left * 3, width - margin.right * 4])
+      .range([margin.left, width - margin.right * 2])
       .domain(compositionTypes.map(a => a.name))
       .padding(0.5);
 
     this.barChartTypeScale = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([margin.left * 3, width - margin.right * 4])
+      .range([margin.left, width - margin.right * 4])
 
     // SVG
     this.svg = d3
@@ -106,7 +105,7 @@ class FloatingParticles extends Component {
 
       this.barchart
         .append('rect')
-        .attr('transform', d => `translate(${this.barChartTypeScale(pos.start)}, ${(height / 3) - 10})`)
+        .attr('transform', d => `translate(${this.barChartTypeScale(pos.start)}, ${(height / 2) - 10})`)
         .attr('height', 20)
         .attr('width', this.barChartTypeScale(pos.end) - this.barChartTypeScale(pos.start))
         .attr('rx', '5px')
@@ -114,7 +113,7 @@ class FloatingParticles extends Component {
       this.barchart.append('text')
         .text(d => `${composition.amount}%`)
         .attr("text-anchor", "middle")
-        .attr('transform', d => `translate(${this.barChartTypeScale(pos.mid)}, ${(height / 3) + 5})`)
+        .attr('transform', d => `translate(${this.barChartTypeScale(pos.mid)}, ${(height / 2) + 5})`)
         .attr('fill', d => this.invertColor(composition.color, true))
     }
 
@@ -126,10 +125,10 @@ class FloatingParticles extends Component {
       .attr("class", "typeLabels")
       .text(d => d)
       .attr("text-anchor", "middle")
-      .attr("fill", "#777")
+      .attr("fill", "#439483")
       .attr('opacity', 0)
       .attr('dominant-baseline', "central")
-      .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
+      .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 4}) rotate(0)`)
 
 
     this.xCompositionTypeForce = d3.forceX(d =>
@@ -257,14 +256,14 @@ class FloatingParticles extends Component {
         .attr('fill', '#81CDC1')
 
       xForce = d3.forceX(d => {
-        let newX = d.x
+        let newX = d.posX
         while (this.isWithinACircle(newX, d.posY, width - height / 1.6, height, height / 1.6)) {
           newX = Math.random() * width
         }
         return newX
       })
       yForce = d3.forceY(d => {
-        let newY = d.y
+        let newY = d.posY
         while (this.isWithinACircle(d.posX, newY, width - height / 1.6, height, height / 1.6)) {
           newY = Math.random() * height
         }
@@ -275,10 +274,13 @@ class FloatingParticles extends Component {
 
     } else if (story.story === 1) {
       if (story.chapter === 0) {
+        const scaleY = d3.scaleLinear()
+          .domain([this.margin.top, height])
+          .range([this.margin.top * 5, height])
 
         // Particle manipulation
         xForce = d3.forceX(d => d.posX)
-        yForce = d3.forceY(d => d.posY)
+        yForce = d3.forceY(d => scaleY(d.posY))
         forceCollide = this.forceCollide
         chargeForce = this.chargeForce
 
@@ -303,7 +305,7 @@ class FloatingParticles extends Component {
           if (d.compositionTypeIndex > story.subChapter) {
             // Make sure all particles are on the right side of the sorting line
             if (d.posX < this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])) {
-              return this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) + (Math.random() * (width - this.compositionTypeScale(this.compositionTypes[story.subChapter + 1])))
+              return this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) + (Math.random() * (width - this.compositionTypeScale(this.compositionTypes[story.subChapter + 1]) - this.margin.right * 2))
             } else {
               return d.posX
             }
@@ -332,9 +334,13 @@ class FloatingParticles extends Component {
         this.compositionTypesLabels
           .attr("text-anchor", "middle")
           .transition()
-          .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 2}) rotate(0)`)
+          .attr('transform', d => `translate(${this.compositionTypeScale(d)}, ${this.margin.top * 4}) rotate(0)`)
           .attr("opacity", 1)
           .style("font-weight", d => d === this.compositionTypes[story.subChapter] ? 'bold' : 'normal')
+          .attr('fill', d => {
+            const compositionIndex = compositionTypes.findIndex(c => c.name === d)
+            return compositionIndex <= story.subChapter ? '#439483' : '#999'
+          })
 
         this.causesLabels
           .transition()
@@ -359,7 +365,7 @@ class FloatingParticles extends Component {
           const minmaxedPosX = Math.min(Math.max(rawPosX, this.barChartTypeScale(barPos.start) + 10), this.barChartTypeScale(barPos.end) - 10)
           return minmaxedPosX
         })
-        yForce = d3.forceY(d => height / 3)
+        yForce = d3.forceY(d => height / 2)
         forceCollide = null
         chargeForce = null
 
@@ -389,7 +395,7 @@ class FloatingParticles extends Component {
           .style("font-weight", 'bold')
           .attr('transform', d => {
             const pos = compositionTypes.find(c => c.name === d).barChart
-            return `translate(${this.barChartTypeScale(pos.mid)}, ${(height / 3) - 30}) rotate(-45)`
+            return `translate(${this.barChartTypeScale(pos.mid)}, ${(height / 2) - 30}) rotate(-45)`
           })
           .attr('opacity', 1)
 

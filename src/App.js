@@ -21,10 +21,12 @@ export default class App extends Component {
       storyWidth: window.innerWidth - sideBarWidth,
       storyHeight: window.innerHeight,
       isBackwardScroll: false,
-      blockScroll: false
+      blockScroll: false,
+      clearBox: new Map()
     }
 
     this.blockScroll = this.blockScroll.bind(this)
+    this.clearBoxHandler = this.clearBoxHandler.bind(this)
   }
   componentDidMount() {
     window.addEventListener("scroll", (e) => {
@@ -58,6 +60,19 @@ export default class App extends Component {
       blockScroll
     })
   }
+  clearBoxHandler(e, id, box) {
+    const clearBox = this.state.clearBox
+    // if (e === 'set') {
+    //   clearBox.set(id, box)
+    // } else if (e === 'delete' && clearBox.has('id')) {
+    //   clearBox.delete(id)
+    // } else {
+    //   return
+    // }
+    this.setState({
+      clearBox
+    })
+  }
   render() {
     return (
       <div className="App" style={{ height: scrollHeight }}>
@@ -82,6 +97,7 @@ export default class App extends Component {
                   height={this.state.storyHeight}
                   isBackwardScroll={this.state.isBackwardScroll}
                   blockScroll={this.blockScroll}
+                  clearBoxHandler={this.clearBoxHandler}
                 />
 
                 <FloatingParticles
@@ -90,6 +106,7 @@ export default class App extends Component {
                   height={this.state.storyHeight}
                   isBackwardScroll={this.state.isBackwardScroll}
                   blockScroll={this.blockScroll}
+                  clearBox={[...this.state.clearBox.values()]}
                 />
                 <Explanations story={this.state.currentStory} />
               </div>

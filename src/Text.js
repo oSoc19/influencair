@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 import { ReactComponent as Influencair } from "./resources/images/influencair.svg";
-
 import "d3-force";
 import "./App.css";
 
@@ -96,16 +95,23 @@ class Text extends Component {
       .attr('opacity', 0)
 
     this.airComponents = this.groupText
-      .append("text")
-      .text("Air consists of gasses and particles.")
-      .attr("opacity", 0)
-      .attr('x', this.airQualityX)
+      .append('text')
+      .text('Air consists of gasses and particles.')
+      .attr('opacity', 0)
+      .attr('text-anchor', 'start')
       .attr('y', (height / 6) + this.airQualityBox.height + spacing)
+    this.airComponentsBox = this.airComponents
+      .node()
+      .getBBox()
+    this.airComponentsWidth = this.airComponentsBox.width
+    this.airComponents
+      .attr('x', this.airQualityX - this.airComponentsWidth / 2)
 
     this.animateBrussels(this.props.story)
     this.animateHealth(this.props.story)
     this.animateAirQuality(this.props.story)
     this.animateQuestion(this.props.story)
+    this.animateAirComponents(this.props.story)
   }
   animateBrussels(storyObj) {
     const { story, chapter, subChapter } = storyObj
@@ -288,16 +294,151 @@ class Text extends Component {
         .attr('transform', `translate(0,${this.height})`)
     }
   }
+  animateAirComponents(storyObj) {
+    const { story, chapter, subChapter } = storyObj
+    if (story === 0) {
+      if (chapter === 0) {
+        if (subChapter < 2) {
+          this.airComponents
+            .attr('opacity', 0)
+            .attr('x', this.airQualityX - this.airComponentsWidth / 2)
+            .attr('y', (this.height / 6) + this.airQualityBox.height + this.spacing)
+        } else if (subChapter === 2) {
+          this.airComponents
+            .attr('x', this.airQualityX - this.airComponentsWidth / 2)
+            .attr('y', (this.height / 6) + this.airQualityBox.height + this.spacing)
+            .transition()
+            .duration(500)
+            .attr('opacity', 0)
+        } else if (subChapter === 3) {
+          this.airComponents
+            .text('Air consists of gasses and particles.')
+            .transition()
+            .duration(500)
+            .attr('opacity', 1)
+            .attr('x', this.airQualityX - this.airComponentsWidth / 2)
+            .attr('y', (this.height / 6) + this.airQualityBox.height + this.spacing)
+            .ease(d3.easeLinear)
+            .tween('text', function () {
+              const text = 'Air consists of gasses and particles.'
+              const textLength = text.length - 10
+              return (t) => {
+                this.textContent = text.slice(Math.round((1 - t) * textLength))
+              }
+            })
+        }
+      }
+    } else if (story === 1) {
+      if (chapter === 0) {
+        if (subChapter === 0) {
+          this.airComponents
+            .transition()
+            .duration(400)
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .attr('opacity', 1)
+            .ease(d3.easeExpIn)
+            .tween('text', function () {
+              const text = 'Air consists of gasses and particles.'
+              const textLength = text.length - 10
+              return (t) => {
+                this.textContent = text.slice(Math.round(t * textLength))
+              }
+            })
+            .on('end', function () {
+              this.textContent = 'Particles'
+            })
+        }
+      } else if (chapter === 1) {
+        if (subChapter === 0) {
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .transition()
+            .duration(300)
+            .attr('opacity', 1)
+            .ease(d3.easeLinear)
+            .tween('text', function () {
+              const text = 'Particulate matter (PM) consist of:'
+              const textLength = text.length - 6
+              return (t) => {
+                this.textContent = text.slice(0, 6 + Math.round(t * textLength))
+              }
+            })
+        } else if (subChapter > 0) {
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .attr('opacity', 1)
+            .text('Particulate matter (PM) consist of:')
+        }
+      } else if (chapter === 2) {
+        this.airComponents
+          .attr('x', this.margin.left)
+          .attr('y', this.margin.top * 3)
+          .transition()
+          .duration(600)
+          .attr('opacity', 1)
+          .ease(d3.easeLinear)
+          .tween('text', function () {
+            const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
+            const newText = 'Particulate matter (PM) consist of:' // 41
+            const text = 'Particulate matter (PM)' // 24
+            const posList = []
+            for (let index = originText.length; index >= text.length; index--) {
+              posList.push(index)
+            }
+            for (let index = text.length + 1; index < newText.length; index++) {
+              posList.push(index)
+            }
+            const turningPoint = originText.length - text.length
+            return (t) => {
+              const pos = Math.round(t * posList.length)
+              this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
+            }
+          })
+      } else if (chapter === 3) {
+        if (subChapter === 0) {
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .transition()
+            .duration(600)
+            .attr('opacity', 1)
+            .ease(d3.easeLinear)
+            .tween('text', function () {
+              const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
+              const newText = 'Particulate matter (PM) originates from:' // 41
+              const text = 'Particulate matter (PM)' // 24
+              const posList = []
+              for (let index = originText.length; index >= text.length; index--) {
+                posList.push(index)
+              }
+              for (let index = text.length + 1; index < newText.length; index++) {
+                posList.push(index)
+              }
+              const turningPoint = originText.length - text.length
+              return (t) => {
+                const pos = Math.round(t * posList.length)
+                this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
+              }
+            })
+        }
+      }
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!nextProps.story) return;
     const { story, chapter, subChapter } = nextProps.story
 
-    if (story === this.props.story && subChapter === this.props.subChapter) return
+    if (story === this.props.story && chapter === this.props.chapter && subChapter === this.props.subChapter) return
 
     this.animateBrussels(nextProps.story)
     this.animateHealth(nextProps.story)
     this.animateAirQuality(nextProps.story)
     this.animateQuestion(nextProps.story)
+    this.animateAirComponents(nextProps.story)
 
     if (story === 0 && chapter === 0 && subChapter === 3) {
       d3.select(this.imgElement.current)
