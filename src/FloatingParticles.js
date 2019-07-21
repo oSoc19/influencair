@@ -143,7 +143,7 @@ class FloatingParticles extends Component {
       .attr("class", "causesLabels")
       .text(d => d)
       .attr("x", margin.left * 4)
-      .attr("y", height - height / 2)
+      .attr("y", d => this.yCausesScale(d))
       .attr("text-anchor", "end")
       .attr("fill", "#777")
       .attr('opacity', 0)
@@ -157,8 +157,18 @@ class FloatingParticles extends Component {
       .attr("fill", "#777")
       .attr('height', 24)
       .attr('width', 0)
-      .attr('rx', '12px')
+      .attr('rx', '6px')
       .attr('opacity', 0)
+      
+    this.causesBarsPercentText = this.svg
+      .selectAll("bar.causesbar")
+      .data(this.yCausesScale.domain())
+      .enter()
+      .append('text')
+      .attr('transform', d => `translate(${(margin.left * 4) + 8}, ${this.yCausesScale(d) + 2})`)
+      .text('0%')
+      .attr('opacity', 0)
+
 
     this.hair = this.svg
       .append('g')
@@ -436,17 +446,17 @@ class FloatingParticles extends Component {
             .attr("y", d => this.yCausesScale(d))
             .attr('opacity', 1)
 
-          this.hair
-            .transition()
-            .duration(100)
-            .attr('opacity', 0)
-            .attr('transform', d => `translate(0, ${- height})`)
-
           this.causesBars
             .attr('opacity', 0)
             .transition()
             .duration(20)
             .attr('width', 0)
+
+          this.causesBarsPercentText
+            .transition()
+            .duration(300)
+            .attr('opacity', 0)
+            .attr('opacity', 0).attr('transform', d => `translate(${(this.margin.left * 4) + 16}, ${this.yCausesScale(d) + 2})`)
 
         } else if (story.subChapter === 1) {
 
@@ -460,6 +470,13 @@ class FloatingParticles extends Component {
             .transition()
             .duration(600)
             .attr('fill', '#bfbfbf')
+            .attr('opacity', 1)
+
+          this.causesLabels
+            .transition()
+            .duration(500)
+            .attr("y", d => this.yCausesScale(d))
+            .attr('opacity', 1)
 
           this.causesBars
             .attr('opacity', 1)
@@ -470,17 +487,53 @@ class FloatingParticles extends Component {
             .on('start', d => this.props.blockScroll(true))
             .on('end', d => this.props.blockScroll(false))
 
+          this.causesBarsPercentText
+            .attr('opacity', 1)
+            .transition()
+            .ease(d3.easeSinIn)
+            .duration(2000)
+            .attr('transform', d => `translate(${(this.margin.left * 4) + 16 + causes.find(c => c.name === d).amount * 10}, ${this.yCausesScale(d) + 2})`)
+            .ease(d3.easeLinear)
+            .tween('text', function (d) {
+              return (t) => {
+                this.textContent = `${Math.round(t * causes.find(c => c.name === d).amount)}%`
+              }
+            })
+
         } else if (story.subChapter === 2) {
           yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
-          xForce = d3.forceX(d => this.xScaleForCauses(d.posX))
+          xForce = d3.forceX(d => d.posX)
           forceCollide = this.forceCollide
           chargeForce = this.chargeForce
+          this.node
+            .transition()
+            .duration(300)
+            .attr('fill', '#bfbfbf')
+            .attr("r", d => d.size)
+            .attr('opacity', 1)
 
           this.causesBars
             .transition()
             .duration(300)
             .attr('opacity', 1)
             .attr('width', 0)
+          
+          this.causesLabels
+            .transition()
+            .duration(300)
+            .attr('opacity', 0)
+          
+          this.causesBarsPercentText
+            .transition()
+            .duration(300)
+            .attr('opacity', 0).attr('transform', d => `translate(${(this.margin.left * 4) + 16}, ${this.yCausesScale(d) + 2})`)
+
+          this.hair
+            .transition()
+            .duration(100)
+            .attr('opacity', 0)
+            .attr('transform', d => `translate(0, ${- height})`)
+            
         }
 
       } else if (story.chapter === 4) {

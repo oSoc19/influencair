@@ -425,6 +425,49 @@ class Text extends Component {
                 this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
               }
             })
+        } else if (subChapter === 1) {
+          // same as subchapter 0
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .transition()
+            .duration(600)
+            .attr('opacity', 1)
+            .ease(d3.easeLinear)
+            .tween('text', function () {
+              const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
+              const newText = 'Particulate matter (PM) originates from:' // 41
+              const text = 'Particulate matter (PM)' // 24
+              const posList = []
+              if (originText === newText) return
+              for (let index = originText.length; index >= text.length; index--) {
+                posList.push(index)
+              }
+              for (let index = text.length + 1; index < newText.length; index++) {
+                posList.push(index)
+              }
+              const turningPoint = originText.length - text.length
+              return (t) => {
+                const pos = Math.round(t * posList.length)
+                this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
+              }
+            })
+        } else if (subChapter === 2) {
+          // How big is 
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .transition()
+            .duration(600)
+            .attr('opacity', 1)
+            .ease(d3.easeLinear)
+            .tween('text', function () {
+              const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
+              return (t) => {
+                const pos = originText.length - Math.round(t * originText.length)
+                this.textContent = originText.slice(0, pos)
+              }
+            })
         }
       }
     }
@@ -452,6 +495,9 @@ class Text extends Component {
         .transition()
         .style("opacity", 0)
         .duration(500)
+    } else if ((story === 1 && subChapter > 0) || story > 1) {
+      d3.select(this.imgElement.current)
+        .style("opacity", 0)
     }
   }
 
