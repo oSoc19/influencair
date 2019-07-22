@@ -305,5 +305,21 @@
     "description": "The particles move back to fullscreen over the entire page and in the header of the page (centered) the next sentence will show. This sentence will be visible the entire story.",
     "text": "Particulate matter Then and Now",
     "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 0,
+    "subChapter": 1,
+    "description": "graph 1: yearly visualisation of Pm2.5 -> Let's go back in the past to see how Pm2.5 has evolved from 2005.",
+    "text": "This graph shows a yearly mean of pm 2.5 in Brussels. This data comes from the sensors of Irceline (2005 - 2018)",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 0,
+    "subChapter": 2,
+    "description": "This graph shows the measurements of the sensors of Influencair in Brussels.",
+    "text": "This graph shows the daily mean of pm 2.5 from measurements of the sensors of Influencair in Brussels. (2018 - 2019)",
+    "info": ""
   }
 ]

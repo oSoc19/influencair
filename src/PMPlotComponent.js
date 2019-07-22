@@ -65,7 +65,7 @@ class PMPlotComponent extends Component{
     prepareDataLineGraph(nextProps) {
       const {story} = nextProps;
       console.log("PrepareDataLineGraph - story: ", story.story);
-      if(story && story.story === 2  && story.chapter === 0 && story.subChapter === 0)
+      if(story && story.story === 3  && story.chapter === 0 && story.subChapter === 1)
       {
         console.log("Change to yearly");
         let lineGraphData = [];
@@ -91,7 +91,7 @@ class PMPlotComponent extends Component{
           }
         });
       }
-      else if (story && story.story === 2 && story.chapter === 0 && story.subChapter ===1)
+      else if (story && story.story === 3 && story.chapter === 0 && story.subChapter === 2)
       {
         console.log("Change to daily");
         let lineGraphData = [];
@@ -123,13 +123,11 @@ class PMPlotComponent extends Component{
         const { rangeY} = this.state;
         console.log("Render");
         console.log(this.state);
-        if(this.props.story && this.props.story.story !== 2 )
+        if(this.props.story && this.props.story.story === 3 && this.props.story.chapter === 0 && (this.props.story.subChapter === 1 || this.props.story.subChapter === 2))
         {
-          return null
-        }
 
         return (
-          <div className="top">
+          <div className="plot">
             <XYPlot
             xType="ordinal"
             animation={'noWobble'}
@@ -216,7 +214,7 @@ class PMPlotComponent extends Component{
               text={this.state.graphData.XText}
               includeMargin={false}
               xPercent={0.5}
-              yPercent={1.4}
+              yPercent={1.6}
               style={{
                 className: "axis-label"
               }}
@@ -261,6 +259,11 @@ class PMPlotComponent extends Component{
           </div>
         
         );
+          }
+          else 
+          {
+            return null;
+          }
     }
 }
 
