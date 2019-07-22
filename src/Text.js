@@ -445,6 +445,8 @@ class Text extends Component {
             .tween('text', textTween('How small is particulate matter?'))
         }
       }
+    } else {
+    this.airComponents.style("opacity", 0);
     }
   }
 
