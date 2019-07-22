@@ -1,8 +1,36 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 import { ReactComponent as Influencair } from "./resources/images/influencair.svg";
-import "d3-force";
-import "./App.css";
+import "d3-force"
+import "./App.css"
+
+const textTween = (newText = '') => {
+  return function () {
+    const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
+    //const newText = 'How small is particulate matter?' // 41
+    let text = ''
+    for (let index = 0; index < originText.length; index++) {
+      if (originText[index] === newText[index]) {
+        text = text + originText[index]
+      }
+    }
+    const turningPoint = originText.length - text.length
+    //const text = 'Particulate matter (PM)' // 24
+    const posList = []
+    if (originText === newText) return
+    for (let index = originText.length; index >= text.length; index--) {
+      posList.push(index)
+    }
+    for (let index = text.length + 1; index < newText.length; index++) {
+      posList.push(index)
+    }
+
+    return (t) => {
+      const pos = Math.round(t * posList.length)
+      this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
+    }
+  }
+}
 
 class Text extends Component {
   svgElement = React.createRef();
@@ -358,13 +386,7 @@ class Text extends Component {
             .duration(300)
             .attr('opacity', 1)
             .ease(d3.easeLinear)
-            .tween('text', function () {
-              const text = 'Particulate matter (PM) consist of:'
-              const textLength = text.length - 6
-              return (t) => {
-                this.textContent = text.slice(0, 6 + Math.round(t * textLength))
-              }
-            })
+            .tween('text', textTween('Particulate matter (PM) consist of:'))
         } else if (subChapter > 0) {
           this.airComponents
             .attr('x', this.margin.left)
@@ -380,24 +402,7 @@ class Text extends Component {
           .duration(600)
           .attr('opacity', 1)
           .ease(d3.easeLinear)
-          .tween('text', function () {
-            const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
-            const newText = 'Particulate matter (PM) consist of:' // 41
-            const text = 'Particulate matter (PM)' // 24
-            const posList = []
-            if (originText === newText) return
-            for (let index = originText.length; index >= text.length; index--) {
-              posList.push(index)
-            }
-            for (let index = text.length + 1; index < newText.length; index++) {
-              posList.push(index)
-            }
-            const turningPoint = originText.length - text.length
-            return (t) => {
-              const pos = Math.round(t * posList.length)
-              this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
-            }
-          })
+          .tween('text', textTween('Particulate matter (PM) consist of:'))
       } else if (chapter === 3) {
         if (subChapter === 0) {
           this.airComponents
@@ -407,24 +412,7 @@ class Text extends Component {
             .duration(600)
             .attr('opacity', 1)
             .ease(d3.easeLinear)
-            .tween('text', function () {
-              const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
-              const newText = 'Particulate matter (PM) originates from:' // 41
-              const text = 'Particulate matter (PM)' // 24
-              const posList = []
-              if (originText === newText) return
-              for (let index = originText.length; index >= text.length; index--) {
-                posList.push(index)
-              }
-              for (let index = text.length + 1; index < newText.length; index++) {
-                posList.push(index)
-              }
-              const turningPoint = originText.length - text.length
-              return (t) => {
-                const pos = Math.round(t * posList.length)
-                this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
-              }
-            })
+            .tween('text', textTween('Particulate matter (PM) originates from:'))
         } else if (subChapter === 1) {
           // same as subchapter 0
           this.airComponents
@@ -434,25 +422,18 @@ class Text extends Component {
             .duration(600)
             .attr('opacity', 1)
             .ease(d3.easeLinear)
-            .tween('text', function () {
-              const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
-              const newText = 'Particulate matter (PM) originates from:' // 41
-              const text = 'Particulate matter (PM)' // 24
-              const posList = []
-              if (originText === newText) return
-              for (let index = originText.length; index >= text.length; index--) {
-                posList.push(index)
-              }
-              for (let index = text.length + 1; index < newText.length; index++) {
-                posList.push(index)
-              }
-              const turningPoint = originText.length - text.length
-              return (t) => {
-                const pos = Math.round(t * posList.length)
-                this.textContent = (pos < turningPoint) ? originText.slice(0, posList[pos]) : newText.slice(0, posList[pos])
-              }
-            })
+            .tween('text', textTween('Particulate matter (PM) originates from:'))
         } else if (subChapter === 2) {
+          // How big is 
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .transition()
+            .duration(1000)
+            .attr('opacity', 1)
+            .ease(d3.easeLinear)
+            .tween('text', textTween('How small is particulate matter?'))
+        } else if (subChapter === 3) {
           // How big is 
           this.airComponents
             .attr('x', this.margin.left)
@@ -461,13 +442,7 @@ class Text extends Component {
             .duration(600)
             .attr('opacity', 1)
             .ease(d3.easeLinear)
-            .tween('text', function () {
-              const originText = this.textContent // 'Particulate matter (PM) consist of:' // 36
-              return (t) => {
-                const pos = originText.length - Math.round(t * originText.length)
-                this.textContent = originText.slice(0, pos)
-              }
-            })
+            .tween('text', textTween('How small is particulate matter?'))
         }
       }
     }
