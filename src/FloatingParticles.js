@@ -159,7 +159,7 @@ class FloatingParticles extends Component {
       .attr('width', 0)
       .attr('rx', '6px')
       .attr('opacity', 0)
-      
+
     this.causesBarsPercentText = this.svg
       .selectAll("bar.causesbar")
       .data(this.yCausesScale.domain())
@@ -460,8 +460,8 @@ class FloatingParticles extends Component {
 
         } else if (story.subChapter === 1) {
 
-          const scaler = d3.scaleLinear().domain([0, 1]).range([0.02, 0.05])
-          yForce = d3.forceY(d => this.yCausesScale(d.cause) - 5).strength(0.09)
+          const scaler = d3.scaleLinear().domain([0, 1]).range([0.05, 0.09])
+          yForce = d3.forceY(d => this.yCausesScale(d.cause) - 5).strength(0.1)
           xForce = d3.forceX(d => this.xScaleForCauses(0)).strength(d => scaler(d.causeNumber))
           forceCollide = null
           chargeForce = d3.forceManyBody().strength(-0.001)
@@ -481,8 +481,8 @@ class FloatingParticles extends Component {
           this.causesBars
             .attr('opacity', 1)
             .transition()
-            .ease(d3.easeSinIn)
-            .duration(2000)
+            .ease(d3.easeSinOut)
+            .duration(1200)
             .attr('width', d => causes.find(c => c.name === d).amount * 10)
             .on('start', d => this.props.blockScroll(true))
             .on('end', d => this.props.blockScroll(false))
@@ -490,10 +490,9 @@ class FloatingParticles extends Component {
           this.causesBarsPercentText
             .attr('opacity', 1)
             .transition()
-            .ease(d3.easeSinIn)
-            .duration(2000)
+            .ease(d3.easeSinOut)
+            .duration(1200)
             .attr('transform', d => `translate(${(this.margin.left * 4) + 16 + causes.find(c => c.name === d).amount * 10}, ${this.yCausesScale(d) + 2})`)
-            .ease(d3.easeLinear)
             .tween('text', function (d) {
               return (t) => {
                 this.textContent = `${Math.round(t * causes.find(c => c.name === d).amount)}%`
@@ -509,7 +508,7 @@ class FloatingParticles extends Component {
             .transition()
             .duration(300)
             .attr('fill', '#bfbfbf')
-            .attr("r", d => d.size)
+            .attr("r", d => d.r)
             .attr('opacity', 1)
 
           this.causesBars
@@ -517,12 +516,12 @@ class FloatingParticles extends Component {
             .duration(300)
             .attr('opacity', 1)
             .attr('width', 0)
-          
+
           this.causesLabels
             .transition()
             .duration(300)
             .attr('opacity', 0)
-          
+
           this.causesBarsPercentText
             .transition()
             .duration(300)
@@ -533,7 +532,7 @@ class FloatingParticles extends Component {
             .duration(100)
             .attr('opacity', 0)
             .attr('transform', d => `translate(0, ${- height})`)
-            
+
         }
 
       } else if (story.chapter === 4) {
