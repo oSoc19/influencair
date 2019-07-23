@@ -4,6 +4,7 @@ import SideBar from "./Sidebar";
 import FloatingParticles from "./FloatingParticles";
 import Explanations from "./Explanations";
 import { PMPlotComponent } from "./PMPlotComponent";
+import Tweets from "./Tweets";
 import Text from "./Text";
 import story from "./story.json";
 
@@ -116,6 +117,7 @@ export default class App extends Component {
                 clearBox={[...this.state.clearBox.values()]}
               />
               <Explanations story={this.state.currentStory} />
+              <Tweets story={this.state.currentStory} />
               <PMPlotComponent story={this.state.currentStory} />
             </div>
             )}
