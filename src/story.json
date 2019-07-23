@@ -305,5 +305,45 @@
     "description": "This graph shows the measurements of all sensors of Influencair in Brussels.",
     "text": "This graph shows the daily mean per sensor of PM 2.5 from measurements of (2018 - 2019)",
     "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 0,
+    "description": "Show tweet 1",
+    "text": "Tweet 1",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 1,
+    "description": "Show tweet 2",
+    "text": "Tweet 2",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 2,
+    "description": "Show tweet 3",
+    "text": "Tweet 3",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 3,
+    "description": "Show tweet 4",
+    "text": "Tweet 4",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 4,
+    "description": "",
+    "text": "",
+    "info": ""
   }
 ]
