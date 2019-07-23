@@ -433,7 +433,9 @@ class Text extends Component {
             .attr('opacity', 1)
             .ease(d3.easeLinear)
             .tween('text', textTween('How small is particulate matter?'))
-        } else if (subChapter === 3) {
+        }
+      } else if (chapter === 4) {
+        if (subChapter === 0) {
           // How big is 
           this.airComponents
             .attr('x', this.margin.left)
@@ -443,10 +445,20 @@ class Text extends Component {
             .attr('opacity', 1)
             .ease(d3.easeLinear)
             .tween('text', textTween('How small is particulate matter?'))
+        } else if (subChapter === 1) {
+          this.airComponents
+            .attr('x', this.margin.left)
+            .attr('y', this.margin.top * 3)
+            .transition()
+            .duration(300)
+            .attr('opacity', 0)
+        } else if (subChapter > 1) {
+          this.airComponents
+            .attr('opacity', 0)
         }
       }
     } else {
-    this.airComponents.style("opacity", 0);
+      this.airComponents.style("opacity", 0);
     }
   }
 

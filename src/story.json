@@ -167,30 +167,6 @@
     "chapter": 4,
     "subChapter": 3,
     "description": "We keep the screen locked on this screen for the following information. Still with all the neccessary particles in view.   ",
-    "text": "Particulate matter is measured as PM10 and PM2.5.",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 4,
-    "subChapter": 4,
-    "description": "We zoom further to the first PM10 particle (you can still see the 4 PM2.5 particles. Because we visualize further on them witht the next scroll-move.   ",
-    "text": "PM10 is 5 to 7 times smaller than the diameter of a human hair.",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 4,
-    "subChapter": 6,
-    "description": "We zoom further to the PM2.5 particles.",
-    "text": "And the PM2.5 is 4 times smaller than the PM10 particles.",
-    "info": ""
-  },
-  {
-    "story": 1,
-    "chapter": 4,
-    "subChapter": 7,
-    "description": "We zoom out and see the PM2.5 particles moving towards a nose on the left. There you see them being inhaled through the nose towards some cells (in the body) and they go through one of the cells (which is through the bloodstream) This movement can take a few seconds. ",
     "text": "So small, that when we breath them, it could enter our bloodstream, through our cell membrane.",
     "info": ""
   },
