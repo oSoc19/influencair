@@ -91,6 +91,8 @@ class FloatingParticles extends Component {
 
 
     this.node = this.svg
+      .append('g')
+      .attr("class", "particles")
       .selectAll("circle")
       .data(particles)
       .enter()
@@ -99,7 +101,7 @@ class FloatingParticles extends Component {
       .attr("fill", d => d.compositionColor)
       .attr("opacity", 0)
 
-    this.barchart = this.svg.append("g").attr('opacity', 0)
+    this.barchart = this.svg.append("g").attr("class", "barchart").attr('opacity', 0)
     for (let index = 0; index < compositionTypes.length; index++) {
       const composition = compositionTypes[index]
       const pos = composition.barChart
@@ -119,6 +121,8 @@ class FloatingParticles extends Component {
     }
 
     this.compositionTypesLabels = this.svg
+      .append('g')
+      .attr("class", "compositionTypesLabels")
       .selectAll("text.typeLabels")
       .data(this.compositionTypeScale.domain())
       .enter()
@@ -137,11 +141,13 @@ class FloatingParticles extends Component {
     )
 
     this.causesLabels = this.svg
+      .append('g')
+      .attr("class", "causesLabels")
       .selectAll("text.causesLabels")
       .data(this.yCausesScale.domain())
       .enter()
       .append("text")
-      .attr("class", "causesLabels")
+      .attr("class", "label")
       .text(d => d)
       .attr("x", margin.left * 4)
       .attr("y", d => this.yCausesScale(d))
@@ -150,6 +156,8 @@ class FloatingParticles extends Component {
       .attr('opacity', 0)
 
     this.causesBars = this.svg
+      .append('g')
+      .attr("class", "causesBars")
       .selectAll("bar.causesbar")
       .data(this.yCausesScale.domain())
       .enter()
@@ -176,9 +184,34 @@ class FloatingParticles extends Component {
       .attr('opacity', 0)
       .attr('transform', `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(1)`)
 
+    const hairArc = d3.arc()
+      .innerRadius(60)
+      .outerRadius(60)
+      .startAngle(- Math.PI / 2)
+      .endAngle(Math.PI / 2);
+
+
     this.hair.append("circle")
       .attr('r', 70)
       .attr('fill', colors.primary)
+    this.hair
+      .append('path')
+      .attr('d', hairArc)
+      .attr('opacity', 0)
+      .attr('id', 'hairArc')
+
+    this.pmMeasurementText = this.hair
+      .append('g')
+      .attr('opacity', 1)
+      .append('text')
+      .attr("text-anchor", "middle")
+      .append("textPath")
+      .attr("xlink:href", '#hairArc')
+      .attr("startOffset", "25%")
+      .text('Particulate Matter is measured for PM10 and PM2.5')
+      .attr('font-size', '45%')
+      .attr('fill', '#fff')
+
     this.hair.append('circle')
       .attr('r', 10)
       .attr('fill', colors.primaryMid)
@@ -191,16 +224,39 @@ class FloatingParticles extends Component {
     this.hairMeasurements = this.hair
       .append('g')
       .attr('class', 'hairMeasurements')
+      .attr('fill', colors.black)
 
     this.hairMeasurements
       .append('text')
-      .text('Human hair')
+      .text('Diameter of a')
       .attr("text-anchor", "middle")
+      .attr('transform', 'translate(0, -15)')
+      .attr('font-size', '50%')
     this.hairMeasurements
       .append('text')
-      .text('70 μm')
+      .text('HUMAN HAIR')
+      .attr('transform', 'translate(0, 2)')
+      .attr("text-anchor", "middle")
+      .attr('font-weight', 'bold')
+    this.hairMeasurements
+      .append('text')
+      .text('50 - 70 μm (micron)')
       .attr("text-anchor", "middle")
       .attr('transform', 'translate(0, 15)')
+      .attr('font-size', '70%')
+    this.hairMeasurements
+      .append('text')
+      .text('or')
+      .attr("text-anchor", "middle")
+      .attr('transform', 'translate(0, 22)')
+      .attr('font-size', '40%')
+    this.hairMeasurements
+      .append('text')
+      .text('0.7 mm')
+      .attr("text-anchor", "middle")
+      .attr('transform', 'translate(0, 32)')
+      .attr('font-size', '60%')
+
     this.hairMeasurements
       .append('text')
       .text('PM10')
@@ -222,13 +278,14 @@ class FloatingParticles extends Component {
       .attr("text-anchor", "middle")
       .attr('transform', 'translate(92.5, 0.6) scale(0.035)')
 
+
+    // Need this as a reference for this.isWithinACircle
     // this.bol = this.svg
     //   .append('circle')
     //   .attr('cy', height)
     //   .attr('cx', width - height / 1.6)
     //   .attr('r', height / 1.6)
     //   .attr('opacity', 0)
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -250,23 +307,26 @@ class FloatingParticles extends Component {
         .duration(800)
         .attr("opacity", d => Math.random() / 2)
         .attr('fill', colors.primaryMid)
+        .selectAll(d => {
+          let homeX = d.posX
+          let homeY = d.posY
+          while (this.isWithinACircle(homeX, homeY, width - height / 1.6, height, height / 1.6)) {
+            homeX = this.generateRandomInteger(Math.max(0, homeX - width / 3), Math.min(width, homeX + width / 3))
+            homeY = this.generateRandomInteger(Math.max(0, homeY - height / 3), Math.min(height, homeY + height / 3))
+          }
+          d.homeX = homeX
+          d.homeY = homeY
+          return d
+        })
 
       xForce = d3.forceX(d => {
-        let newX = d.posX
-        while (this.isWithinACircle(newX, d.posY, width - height / 1.6, height, height / 1.6)) {
-          newX = Math.random() * width
-        }
-        return newX
-      })
+        return d.homeX
+      }).strength(0.01)
       yForce = d3.forceY(d => {
-        let newY = d.posY
-        while (this.isWithinACircle(d.posX, newY, width - height / 1.6, height, height / 1.6)) {
-          newY = Math.random() * height
-        }
-        return newY
-      })
+        return d.homeY
+      }).strength(0.01)
       forceCollide = this.forceCollide
-      chargeForce = this.chargeForce
+      chargeForce = this.chargeForce.strength(1)
 
     } else if (story.story === 1) {
       if (story.chapter === 0) {
@@ -275,8 +335,8 @@ class FloatingParticles extends Component {
           .range([this.margin.top * 5, height])
 
         // Particle manipulation
-        xForce = d3.forceX(d => d.posX)
-        yForce = d3.forceY(d => scaleY(d.posY))
+        xForce = d3.forceX(d => d.posX).strength(0.05)
+        yForce = d3.forceY(d => scaleY(d.posY)).strength(0.05)
         forceCollide = this.forceCollide
         chargeForce = this.chargeForce
 
@@ -557,6 +617,13 @@ class FloatingParticles extends Component {
             .transition()
             .attr('opacity', 0)
 
+          this.pmMeasurementText
+            .transition()
+            .duration(300)
+            .attr('opacity', 0)
+            .attr('x', width / 2)
+            .attr('y', height / 4)
+
         } else if (story.subChapter === 1) {
           // Particle styling
           this.node
@@ -570,6 +637,13 @@ class FloatingParticles extends Component {
             .ease(d3.easeSinIn)
             .attr('opacity', 1)
             .attr('transform', `translate(${(width / 2) - 70 - 10}, ${height / 2}) scale(${scaleHairBig(height)})`)
+
+          this.pmMeasurementText
+            .transition()
+            .duration(300)
+            .attr('opacity', 1)
+            .attr('x', width / 2)
+            .attr('y', height / 4)
 
 
         } else if (story.subChapter === 2) {
@@ -590,6 +664,12 @@ class FloatingParticles extends Component {
             .attr('opacity', 1)
             .attr('transform', `translate(${(width / 2) - 70 - 10 - (scaleHairBig(height * 11) * 90)}, ${height / 2}) scale(${scaleHairBig(height * 11)})`)
         } else if (story.subChapter >= 4) {
+
+        }
+      }
+    } else if (story.story === 2) {
+      if (story.chapter === 0) {
+        if (story.subChapter === 0) {
           yForce = d3.forceY(d => this.yScaleForCauses(d.posY))
           xForce = d3.forceX(d => d.posX)
           forceCollide = this.forceCollide
