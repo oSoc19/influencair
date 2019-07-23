@@ -13,6 +13,7 @@ import {
 import { YearlyAverageDataPM25 } from "./YearlyAverageData.js";
 import { DailyAverageDataPM25 } from "./dailyAverageData.js";
 import dailyAverages from "./resources/data/dailyAveragesPerSensor.json";
+import colors from './colors';
 
 class PMPlotComponent extends Component {
   constructor() {
@@ -184,6 +185,22 @@ class PMPlotComponent extends Component {
       }
   }
 
+  zoomToTime(subChapter)
+  { 
+    
+    if(subChapter === 4)
+    {
+      return [this.toDate("01-01-2018").getTime(), this.toDate("01-01-2019").getTime()];
+    }
+    else
+    {
+      return ([this.state.graphData.Data[0].x, this.state.graphData.Data[
+        this.state.graphData.Data.length - 1
+      ].x]);
+    }
+    
+  }
+
   render() {
     const { rangeY, XType } = this.state;
     let { story } = this.props;
@@ -198,9 +215,7 @@ class PMPlotComponent extends Component {
           <XYPlot
             xType={XType}
             animation={"noWobble"}
-            // xDomain={[this.state.graphData.Data[0].x, this.state.graphData.Data[
-            //   this.state.graphData.Data.length - 1
-            // ].x]}
+            xDomain={this.zoomToTime(story.subChapter)}
             yDomain={rangeY && [rangeY.bottom, rangeY.top]}
             height={250}
             width={1200}
@@ -208,19 +223,54 @@ class PMPlotComponent extends Component {
           >
             <GradientDefs>
                  <linearGradient id="BelowGradient" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="green" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="green" stopOpacity={0.3} />
+                  <stop offset="0%" stopColor={colors.primaryMid} stopOpacity={0.3} />
+                  <stop offset="100%" stopColor={colors.primaryMid} stopOpacity={0.3} />
                 </linearGradient>
               </GradientDefs>
 
             <GradientDefs>
                <linearGradient id="TopGradient" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="red" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="red" stopOpacity={0.3} />
+                <stop offset="0%" stopColor={colors.accent} stopOpacity={0.3} />
+                <stop offset="100%" stopColor={colors.accent} stopOpacity={0.3} />
               </linearGradient>
             </GradientDefs>
               
-            
+            <AreaSeries
+                color={'url(#BelowGradient)'}
+                data={[
+                  {
+                    x: this.state.graphData.Data[0].x,
+                    y0: 0,
+                    y: this.state.graphData.WHOGuideline
+                  },
+                  {
+                    x: this.state.graphData.Data[
+                      this.state.graphData.Data.length - 1
+                    ].x,
+                    y0: 0,
+                    y: this.state.graphData.WHOGuideline
+                  }
+
+                ]}
+              />
+              <AreaSeries
+              color={'url(#TopGradient)'}
+              data={[
+                {
+                  x: this.state.graphData.Data[0].x,
+                  y0: this.state.graphData.WHOGuideline,
+                  y: rangeY.top
+                },
+                {
+                  x: this.state.graphData.Data[
+                    this.state.graphData.Data.length - 1
+                  ].x,
+                  y0: this.state.graphData.WHOGuideline,
+                  y: rangeY.top
+                }
+              ]}
+              
+              />
 
             <YAxis
               style={{
@@ -270,51 +320,11 @@ class PMPlotComponent extends Component {
               }}
             />
 
-              <AreaSeries
-                color={'url(#BelowGradient)'}
-                data={[
-                  {
-                    x: this.state.graphData.Data[0].x,
-                    y0: 0,
-                    y: this.state.graphData.WHOGuideline
-                  },
-                  {
-                    x: this.state.graphData.Data[
-                      this.state.graphData.Data.length - 1
-                    ].x,
-                    y0: 0,
-                    y: this.state.graphData.WHOGuideline
-                  }
-
-                ]}
-              />
-              <AreaSeries
-              color={'url(#TopGradient)'}
-              data={[
-                {
-                  x: this.state.graphData.Data[0].x,
-                  y0: this.state.graphData.WHOGuideline,
-                  y: rangeY.top
-                },
-                {
-                  x: this.state.graphData.Data[
-                    this.state.graphData.Data.length - 1
-                  ].x,
-                  y0: this.state.graphData.WHOGuideline,
-                  y: rangeY.top
-                }
-              ]}
               
-              />
 
-            <LineSeries
-              animation={"noWobble"}
-              className="series"
-              color="blue"
-              data={this.state.graphData.Data}
-            />
             
-            {story.subChapter === 3 &&
+            
+            {/* {story.subChapter > 2 &&
               Object.entries(this.state.sensorData).map(([key, value]) => {
                 let sensorLine = [];
                 value.map(element => {
@@ -332,7 +342,14 @@ class PMPlotComponent extends Component {
                     strokeWidth="0.1px"
                   />
                 );
-              })}
+              })} */}
+
+            <LineSeries
+              animation={"noWobble"}
+              className="series"
+              color={colors.primary}
+              data={this.state.graphData.Data}
+            />
 
               <LineSeries
               animation={"noWobble"}
