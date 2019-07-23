@@ -13,15 +13,6 @@ const sideBarWidth = 300;
 const minSupportedHeight = 300;
 const minSupportedWidth = 1000;
 
-window.colorPalette = {
-  accent: '#F15740',
-  primary: '#0E9782',
-  primaryMid: '#81CDC1',
-  primaryLight: '#F3F9F8',
-  black: '#1d2e2b',
-  grey: '#7e918e'
-}
-
 export default class App extends Component {
   constructor() {
     super();
