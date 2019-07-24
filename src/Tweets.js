@@ -55,6 +55,12 @@ export default class Tweets extends Component {
 
   render() {
     let { story } = this.props;
+    if (
+      !story ||
+      story.story !== 3 ||
+      (story.chapter === 0)
+    )
+      return null;
     return (
       <div className="tweet">
         <div className={this.firstClassname}>
