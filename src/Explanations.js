@@ -33,17 +33,35 @@ class Explanations extends Component {
     return (
       <div className="explanations">
         {this.props.story.story === 2 &&
-          this.state.text.split("\n").map(line => (
-            <p>
-              <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
-                {line}
-              </SplitText>
-            </p>
-          ))}
+          this.state.text.split("\n").map(line =>
+            line.includes("What about your health") ? (
+              <p className="accent-text">
+                <SplitText
+                  initialPose="exit"
+                  pose="enter"
+                  charPoses={charPoses}
+                >
+                  {line}
+                </SplitText>
+              </p>
+            ) : (
+              <p>
+                <SplitText
+                  initialPose="exit"
+                  pose="enter"
+                  charPoses={charPoses}
+                >
+                  {line}
+                </SplitText>
+              </p>
+            )
+          )}
         {this.props.story.story === 3 && (
-          <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
-            {this.state.text}
-          </SplitText>
+          <div className="titles-accent">
+            <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+              {this.state.text}
+            </SplitText>
+          </div>
         )}
       </div>
     );

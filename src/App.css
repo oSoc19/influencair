@@ -17,6 +17,18 @@
   display: block;
   margin: auto;
   width: 75%;
+  cursor: pointer;
+}
+
+.accent-text {
+  color: #f15740;
+  font-size: 45px;
+}
+
+.titles-accent {
+  color: #f15740;
+  font-size: 45px;
+  padding-right: 20px;
 }
 
 .Col2 {
@@ -51,7 +63,8 @@ text {
   font-size: 30px;
   color: #439483;
   opacity: 0.9;
-  padding: 40px;
+  padding: 1%;
+  padding-left: 3%;
 }
 
 .explanations p {
