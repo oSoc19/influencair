@@ -28,6 +28,7 @@ export default class App extends Component {
     };
 
     this.blockScroll = this.blockScroll.bind(this);
+    this.changeStory = this.changeStory.bind(this);
     this.clearBoxHandler = this.clearBoxHandler.bind(this);
   }
   componentDidMount() {
@@ -68,6 +69,11 @@ export default class App extends Component {
       blockScroll
     });
   }
+
+  changeStory(currentStory) {
+    this.setState({ currentStory });
+  }
+
   clearBoxHandler(e, id, box) {
     const clearBox = this.state.clearBox;
     // if (e === 'set') {
@@ -86,7 +92,7 @@ export default class App extends Component {
       <div className="App" style={{ height: scrollHeight }}>
         {window.innerWidth < minSupportedWidth ||
         window.innerHeight < minSupportedHeight ? (
-          <div> We don\'t support this size</div>
+          <div> We don't support this size</div>
         ) : (
           <div
             className="GridContainer"
@@ -96,6 +102,7 @@ export default class App extends Component {
               <SideBar
                 story={this.state.currentStory}
                 scroll={this.state.scroll}
+                changeStory={this.changeStory}
               />
             </div>
             <div className="Col2">
@@ -120,7 +127,6 @@ export default class App extends Component {
               <Tweets story={this.state.currentStory} />
               <PMPlotComponent story={this.state.currentStory} />
             </div>
-            )}
           </div>
         )}
       </div>
