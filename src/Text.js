@@ -471,8 +471,6 @@ class Text extends Component {
           this.airComponents.attr("opacity", 0);
         }
       }
-    } else {
-      this.airComponents.style("opacity", 0);
     }
   }
 
