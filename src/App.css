@@ -144,3 +144,29 @@ text {
   font-size: 30px;
   padding-bottom: 20px;
 }
+
+.info-box
+{
+  text-align: justify;
+  text-justify: inter-word;
+  position: relative; 
+  left: -60%; 
+  border: solid  #439483 1px;
+  padding: 5%;
+  font-size: 25px;
+  color: #439483;
+  opacity: 1;
+  animation: fadeIn 1s linear;
+}
+
+.info-box-wrapper
+{
+  position: absolute; 
+  left: 60%;
+  top: 20%;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0}
+  100% { opacity: 1 }
+}
