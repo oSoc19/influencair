@@ -8,7 +8,8 @@ import {
   LineSeries,
   ChartLabel,
   GradientDefs,
-  AreaSeries
+  AreaSeries,
+  VerticalRectSeries
 } from "react-vis";
 import { YearlyAverageDataPM25 } from "./YearlyAverageData.js";
 import { DailyAverageDataPM25 } from "./dailyAverageData.js";
@@ -170,7 +171,7 @@ class PMPlotComponent extends Component {
       } else if (story.subChapter === 3) {
         return [
           this.toDate("01-01-2019").getTime(),
-          this.toDate("01-03-2019").getTime()
+          this.toDate("22-03-2019").getTime()
         ];
       } else if (story.subChapter === 4) {
         return [
@@ -183,6 +184,33 @@ class PMPlotComponent extends Component {
       this.state.graphData.Data[0].x,
       this.state.graphData.Data[this.state.graphData.Data.length - 1].x
     ];
+  }
+
+  getGridLines()
+  {
+    return (
+      [ {
+          x0 : this.toDate("03-03-2018").getTime(),
+          x : this.toDate("03-03-2018").getTime() + 1,
+          y : 50
+        },
+        {
+          x0: this.toDate("21-04-2018").getTime(),
+          x : this.toDate("21-04-2018").getTime() + 1,
+          y : 50
+        },
+        {
+          x0: this.toDate("28-02-2019").getTime(),
+          x : this.toDate("28-02-2019").getTime() + 1,
+          y : 50
+        },
+        {
+          x0: this.toDate("23-03-2019").getTime(),
+          x : this.toDate("23-03-2019").getTime() + 1,
+          y : 50
+        }
+      ]
+    )
   }
 
   render() {
@@ -356,6 +384,7 @@ class PMPlotComponent extends Component {
               }
             ]}
           />
+          <VerticalRectSeries data={this.getGridLines()} style={{stroke: colors.accent}} />
         </XYPlot>
       </div>
     );
