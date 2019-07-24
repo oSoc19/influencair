@@ -56,8 +56,15 @@ class Explanations extends Component {
               </p>
             )
           )}
-        {this.props.story.story === 3 && (
+        {this.props.story.story === 3 && this.props.story.chapter === 0 && this.props.story.subChapter === 0 && (
           <div className="titles-accent">
+            <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+              {this.state.text}
+            </SplitText>
+          </div>
+        )}
+        {this.props.story.story === 3 && !(this.props.story.chapter === 0 && this.props.story.subChapter === 0) && (
+          <div className="subtitles-accent">
             <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
               {this.state.text}
             </SplitText>
