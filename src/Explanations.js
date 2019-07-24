@@ -32,9 +32,19 @@ class Explanations extends Component {
   render() {
     return (
       <div className="explanations">
-        <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
-          {this.state.text}
-        </SplitText>
+        {this.props.story.story === 2 &&
+          this.state.text.split("\n").map(line => (
+            <p>
+              <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+                {line}
+              </SplitText>
+            </p>
+          ))}
+        {this.props.story.story === 3 && (
+          <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+            {this.state.text}
+          </SplitText>
+        )}
       </div>
     );
   }
