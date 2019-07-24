@@ -175,8 +175,8 @@ class PMPlotComponent extends Component {
         ];
       } else if (story.subChapter === 4) {
         return [
-          this.toDate("01-02-2019").getTime(),
-          this.toDate("01-04-2019").getTime()
+          this.toDate("01-03-2019").getTime(),
+          this.toDate("01-05-2019").getTime()
         ];
       }
     }
@@ -225,6 +225,7 @@ class PMPlotComponent extends Component {
     return (
       <div className="plot">
         <XYPlot
+          className={"xy-plot"}
           xType={XType}
           animation={"noWobble"}
           xDomain={this.zoomToTime(story)}
