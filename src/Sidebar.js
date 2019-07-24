@@ -27,7 +27,11 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div className="sidebar">
-        <Logo alt="logo" className="logo" />
+        <Logo
+          alt="logo"
+          className="logo"
+          onClick={() => this.props.changeStoryAndScroll(story[0])}
+        />
         <div
           className={this.state.isFirstStory ? "active" : "sidebar-text"}
           onClick={() => this.props.changeStoryAndScroll(story[4])}
