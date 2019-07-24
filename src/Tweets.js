@@ -18,6 +18,12 @@ export default class Tweets extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.story.story === 3 && nextProps.story.chapter === 1) {
+      if (nextProps.story.subChapter === 0) {
+        this.firstClassname = "tweet-hide";
+        this.secondClassname = "tweet-hide";
+        this.thirdClassname = "tweet-hide";
+        this.fourthClassname = "tweet-hide";
+      }
       if (nextProps.story.subChapter === 1) {
         this.firstClassname = "tweet-show";
         this.secondClassname = "tweet-right";
