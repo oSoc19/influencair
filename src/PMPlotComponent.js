@@ -213,6 +213,30 @@ class PMPlotComponent extends Component {
     )
   }
 
+  getInfoboxText(story)
+  {
+    if (story.chapter === 0) {
+      if (story.subChapter === 1) {
+        return (
+          <p className="info-box">
+            Irceline or Ircel-Celine is a Belgian Interregional Environment Agency informing citizens on ambient air quality in the Belgian regions.
+          </p>
+        );
+      }
+    }
+    if (story.chapter === 1) {
+      if (story.subChapter === 0) {
+        return (
+          <p className="info-box">
+            Influencair is a group of citizens who are concerned about the air quality in Brussels. 
+            They wants to raise awareness by measuring and mapping local pollution levels.
+            The aim is to build a comprehensive sensor network covering the whole Brussels region.
+          </p>
+        );
+      }
+    }
+  }
+
   render() {
     const { rangeY, XType } = this.state;
     let { story } = this.props;
@@ -224,6 +248,11 @@ class PMPlotComponent extends Component {
       return null;
     return (
       <div className="plot">
+        <div className="info-box-wrapper">
+          {this.getInfoboxText(story)}
+        </div>
+
+
         <XYPlot
           className={"xy-plot"}
           xType={XType}
