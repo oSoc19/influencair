@@ -42,7 +42,7 @@ class Sidebar extends React.Component {
         </div>
         <div
           className={this.state.isThirdStory ? "active" : "sidebar-text"}
-          onClick={() => this.props.changeStoryAndScroll(story[30])}
+          onClick={() => this.props.changeStoryAndScroll(story[24])}
         >
           History
         </div>

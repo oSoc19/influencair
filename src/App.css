@@ -100,13 +100,13 @@ text {
 
 .tweet-left {
   position: fixed;
-  opacity: 0;
-  transform: translate(-600px, 0px);
+  opacity: 0.6;
+  transform: translate(-300%, 0px);
   transition-duration: 1s;
 }
 
 .tweet-right {
-  opacity: 0;
+  opacity: 0.6;
   position: fixed;
   transform: translate(1100px, 0px);
   transition-duration: 1s;
