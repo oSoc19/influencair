@@ -46,7 +46,6 @@ class Sidebar extends React.Component {
         >
           History
         </div>
-        <pre>{JSON.stringify(this.props.story, null, 2)}</pre>
       </div>
     );
   }
