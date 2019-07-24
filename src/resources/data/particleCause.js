@@ -20,7 +20,7 @@ const causes = [
         amount: 2
     },
     {
-        name: 'Industrial porcesses and product use',
+        name: 'Industrial processes and product use',
         amount: 10
     },
     {

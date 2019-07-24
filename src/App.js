@@ -72,7 +72,7 @@ export default class App extends Component {
 
   changeStoryAndScroll(newStory) {
     let index = story.indexOf(newStory);
-    let newScroll = index * (scrollHeight / story.length);
+    let newScroll = index * (scrollHeight / story.length) + 10;
     window.scrollTo(0, newScroll);
     this.setState({ currentStory: newStory, scroll: newScroll });
   }
