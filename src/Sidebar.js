@@ -1,14 +1,54 @@
-import React from 'react'
+import React from "react";
+import { ReactComponent as Logo } from "./resources/images/logo.svg";
+import story from "./story.json";
 
-const Sidebar = (props) => {
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.initial = {
+      isFirstStory: false,
+      isSecondStory: false,
+      isThirdStory: false
+    };
+    this.state = {
+      ...this.initial
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.story.story === 1) {
+      this.setState({ ...this.initial, isFirstStory: true });
+    } else if (nextProps.story.story === 2) {
+      this.setState({ ...this.initial, isSecondStory: true });
+    } else if (nextProps.story.story === 3) {
+      this.setState({ ...this.initial, isThirdStory: true });
+    }
+  }
+
+  render() {
     return (
-        <div>
-            <h1>Influencair logo</h1>
-            <h2>Brussels . Air-Quality . Health <br /> What about that?</h2>
-            <pre>{JSON.stringify(props.story, null, 2)}</pre>
-            {props.scroll}
+      <div className="sidebar">
+        <Logo alt="logo" className="logo" />
+        <div
+          className={this.state.isFirstStory ? "active" : "sidebar-text"}
+          onClick={() => this.props.changeStory(story[4])}
+        >
+          Particulate matter
         </div>
-    )
+        <div
+          className={this.state.isSecondStory ? "active" : "sidebar-text"}
+          onClick={() => this.props.changeStory(story[22])}
+        >
+          Health
+        </div>
+        <div
+          className={this.state.isThirdStory ? "active" : "sidebar-text"}
+          onClick={() => this.props.changeStory(story[30])}
+        >
+          History
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Sidebar
+export default Sidebar;
