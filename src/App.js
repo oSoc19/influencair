@@ -28,7 +28,7 @@ export default class App extends Component {
     };
 
     this.blockScroll = this.blockScroll.bind(this);
-    this.changeStory = this.changeStory.bind(this);
+    this.changeStoryAndScroll = this.changeStoryAndScroll.bind(this);
     this.clearBoxHandler = this.clearBoxHandler.bind(this);
   }
   componentDidMount() {
@@ -70,8 +70,11 @@ export default class App extends Component {
     });
   }
 
-  changeStory(currentStory) {
-    this.setState({ currentStory });
+  changeStoryAndScroll(newStory) {
+    let index = story.indexOf(newStory);
+    let newScroll = index * (scrollHeight / story.length);
+    window.scrollTo(0, newScroll);
+    this.setState({ currentStory: newStory, scroll: newScroll });
   }
 
   clearBoxHandler(e, id, box) {
@@ -102,7 +105,7 @@ export default class App extends Component {
               <SideBar
                 story={this.state.currentStory}
                 scroll={this.state.scroll}
-                changeStory={this.changeStory}
+                changeStoryAndScroll={this.changeStoryAndScroll}
               />
             </div>
             <div className="Col2">
@@ -114,7 +117,6 @@ export default class App extends Component {
                 blockScroll={this.blockScroll}
                 clearBoxHandler={this.clearBoxHandler}
               />
-
               <FloatingParticles
                 story={this.state.currentStory}
                 width={this.state.storyWidth}

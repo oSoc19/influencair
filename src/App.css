@@ -71,14 +71,14 @@ text {
   display: flex;
   flex-direction: column;
   z-index: 10;
-  margin-top:10%;
+  margin-top: 10%;
 }
 
-.xy-plot{
+.xy-plot {
   margin: auto;
 }
 
-.tweet{
+.tweet {
   display: flex;
   /* align-items: center; */
   justify-content: center;
@@ -86,7 +86,7 @@ text {
 }
 
 .tweet-show {
-  position: fixed; 
+  position: fixed;
   /* transform: translate(50%, 0px); */
   transition-duration: 1s;
   /* margin:auto; */
@@ -124,7 +124,8 @@ text {
 }
 
 .sidebar-text {
-  color: #0e9782;
+  color: #0e8a78;
+  cursor: pointer;
   font-family: "Roboto", sans-serif;
   font-size: 30px;
   padding-bottom: 20px;

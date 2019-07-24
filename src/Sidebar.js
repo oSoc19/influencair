@@ -30,22 +30,23 @@ class Sidebar extends React.Component {
         <Logo alt="logo" className="logo" />
         <div
           className={this.state.isFirstStory ? "active" : "sidebar-text"}
-          onClick={() => this.props.changeStory(story[4])}
+          onClick={() => this.props.changeStoryAndScroll(story[4])}
         >
           Particulate matter
         </div>
         <div
           className={this.state.isSecondStory ? "active" : "sidebar-text"}
-          onClick={() => this.props.changeStory(story[22])}
+          onClick={() => this.props.changeStoryAndScroll(story[22])}
         >
           Health
         </div>
         <div
           className={this.state.isThirdStory ? "active" : "sidebar-text"}
-          onClick={() => this.props.changeStory(story[30])}
+          onClick={() => this.props.changeStoryAndScroll(story[30])}
         >
           History
         </div>
+        <pre>{JSON.stringify(this.props.story, null, 2)}</pre>
       </div>
     );
   }
