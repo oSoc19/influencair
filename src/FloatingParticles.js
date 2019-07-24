@@ -269,7 +269,7 @@ class FloatingParticles extends Component {
       .attr('transform', 'translate(80, 2) scale(0.14)')
     this.hairMeasurements
       .append('text')
-      .text('PM25')
+      .text('PM2.5')
       .attr("text-anchor", "middle")
       .attr('transform', 'translate(92.5,0) scale(0.035)')
     this.hairMeasurements

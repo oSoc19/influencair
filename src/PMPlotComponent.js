@@ -14,6 +14,9 @@ import {
 import { YearlyAverageDataPM25 } from "./YearlyAverageData.js";
 import { DailyAverageDataPM25 } from "./dailyAverageData.js";
 import colors from "./colors";
+import { ReactComponent as LogoInfluencair } from "./resources/images/logo.svg";
+import { ReactComponent as LogoWHO } from "./resources/images/who.svg";
+import { ReactComponent as LogoIrceline } from "./resources/images/irceline.svg";
 
 class PMPlotComponent extends Component {
   constructor() {
@@ -240,12 +243,26 @@ class PMPlotComponent extends Component {
   render() {
     const { rangeY, XType } = this.state;
     let { story } = this.props;
+
+    if(story.story === 3 && story.chapter === 0 && story.subChapter === 0)
+    {
+      return (
+        <div className = "organization-logos">
+          <LogoInfluencair className="logoInfluencair"/>
+          <LogoWHO className="logoWHO"/>
+          <LogoIrceline className="logoIrceline"/>
+        </div>
+      )
+    }
+      
+
     if (
       !story ||
       story.story !== 3 ||
       (story.chapter === 0 && story.subChapter === 0)
     )
       return null;
+
     return (
       <div className="plot">
         <div className="info-box-wrapper">
