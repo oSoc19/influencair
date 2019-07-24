@@ -175,47 +175,7 @@
     "chapter": 0,
     "subChapter": 0,
     "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
-    "text": "What about your health?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 1,
-    "description": "In the fullscreen of particles a line appears. The line represents a lifetime of a human being.",
-    "text": "What about your health?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 2,
-    "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
-    "text": "What about your health?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 3,
-    "description": "We see the fullscreen of particles and the word World Health Organisation appears in the middle of the screen. The particles move from apart in the middle so there is a free space in the middle.  ",
-    "text": "Our health is closely being watched by the World Health Organisation, which is a specialized agency of the United Nations that is concerned with international public health.",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 4,
-    "description": "We still see the fullscreen with particles with the divided blank part, but there will apear a black line. the width like half of the screen and centered in the middle and the line should be 4px (black) But the next sentence will appear below the previous sentence and above the black line.",
-    "text": "The World Health organisation discovered that high Exposures of PM10 & PM2.5 shortens our life expectancies.",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 5,
-    "description": "The rest of the lines dissapear and the following sentence will appear with a chart giving a clear perspective about the annual percentage of acceptable MP values. ",
-    "text": "The WHO states a minimum of 10 Mg/m3 PM 10 per annual mean. The daily limit is 25 Mg/m3.",
+    "text": "What about your health? \nOur health is closely being watched by the World Health Organisation (WHO), which is a specialized agency of the United Nations that is concerned with international public health. \nThe WHO discovered that high Exposures of PM10 and PM2.5 shortens our life expectancies. \nThe WHO states a limit of 10 µg/m^3 PM 2.5 per year. The daily limit is 25 µg/m^3.",
     "info": ""
   },
   {
@@ -223,15 +183,7 @@
     "chapter": 1,
     "subChapter": 0,
     "description": "We go to chapter 2 of health where we discuss what PM particles can do to our body. We go back to the fullscreen with particles with the divided blank part. Within that blank part the next sentence will appear.",
-    "text": "But not only that!",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 1,
-    "subChapter": 1,
-    "description": "After the first sentence faded you get the next explanation with the following icon. There will be an incon with an exclamation mark. This exclamation mark emphatises the carcinogetic part. we will zoom in on this icon, while still keeping the text visible. This icon will be like a particle. So we still keep the particles-concept visisble. ",
-    "text": "PM 10 and PM 2.5 particles cause a number of diseases ranging from asthma, cancer, pumonary illness, respitorary & cardiovascular problems.",
+    "text": "But not only that! \nPM 10 and PM 2.5 particles cause a number of diseases ranging from asthma, cancer, pumonary illness, respitorary and cardiovascular problems. ",
     "info": ""
   },
   {

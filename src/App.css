@@ -54,6 +54,11 @@ text {
   padding: 40px;
 }
 
+.explanations p {
+  padding: 20px;
+  margin-right: 10%;
+}
+
 .background_img {
   position: fixed;
   right: 0;
@@ -80,16 +85,12 @@ text {
 
 .tweet {
   display: flex;
-  /* align-items: center; */
   justify-content: center;
-  /* width: 100%; */
 }
 
 .tweet-show {
   position: fixed;
-  /* transform: translate(50%, 0px); */
   transition-duration: 1s;
-  /* margin:auto; */
 }
 
 .tweet-hide {
