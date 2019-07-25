@@ -175,79 +175,7 @@
     "chapter": 0,
     "subChapter": 0,
     "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
-    "text": "What about your health?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 1,
-    "description": "In the fullscreen of particles a line appears. The line represents a lifetime of a human being.",
-    "text": "What about your health?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 2,
-    "description": "We zoom back out to the fullscreen of particles again. So no distinction between the PM particles. We are moving forward to the Health chapter.",
-    "text": "What about your health?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 3,
-    "description": "We see the fullscreen of particles and the word World Health Organisation appears in the middle of the screen. The particles move from apart in the middle so there is a free space in the middle.  ",
-    "text": "Our health is closely being watched by the World Health Organisation",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 4,
-    "description": "We still see the fullscreen with particles and the word World Health Orgisation. After this word the next sentence will appear. ",
-    "text": "The WHO is a specialized agency of the United Nations that is concerned with international public health.",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 5,
-    "description": "We still see the fullscreen with particles. But the next word will appear, and therefore the particles divide again with the blank space in between them. ",
-    "text": "What does their study reveal?",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 6,
-    "description": "We still see the fullscreen with particles with the divided blank part, but there will apear a black line. the width like half of the screen and centered in the middle and the line should be 4px (black) But the next sentence will appear below the previous sentence and above the black line.",
-    "text": "The World Health organisation discovered that high Exposures of PM10 & PM2.5 ",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 7,
-    "description": "That same line will be cut in half, so instead of the whole line you make it a little smaller. And then the next sentence after the previous sentence will appear. It will look like you add a few words to the rest of that sentence. ",
-    "text": "shortens our life expectancies. ",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 8,
-    "description": "The rest of the lines dissapear and the following sentence will appear with a chart giving a clear perspective about the annual percentage of acceptable MP values. ",
-    "text": "Therefore the WHO states a minimum of 10 Mg/m3 PM 10 per annual mean. Which is 25 Mg/m3 per 24-hours.",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 0,
-    "subChapter": 9,
-    "description": "The previous sentence and chart (created by Leenke?) will dissapear and the next sentence will appear",
-    "text": "So if you go above the limit per 24-hours, your life is slowly shortening.",
+    "text": "What about your health? \nOur health is closely being watched by the World Health Organisation (WHO), which is a specialized agency of the United Nations that is concerned with international public health. \nThe WHO discovered that high Exposures of PM10 and PM2.5 shortens our life expectancies. \nThe WHO states a limit of 10 µg/m^3 PM 2.5 per year. The daily limit is 25 µg/m^3.",
     "info": ""
   },
   {
@@ -255,23 +183,7 @@
     "chapter": 1,
     "subChapter": 0,
     "description": "We go to chapter 2 of health where we discuss what PM particles can do to our body. We go back to the fullscreen with particles with the divided blank part. Within that blank part the next sentence will appear.",
-    "text": "But not only that!",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 1,
-    "subChapter": 1,
-    "description": "After the first sentence faded you get the next explanation with the following icon. There will be an incon with an exclamation mark. This exclamation mark emphatises the carcinogetic part. we will zoom in on this icon, while still keeping the text visible. This icon will be like a particle. So we still keep the particles-concept visisble. ",
-    "text": "PM 10 and PM 2.5 particles have been classified as carcinogenic to humans.",
-    "info": ""
-  },
-  {
-    "story": 2,
-    "chapter": 1,
-    "subChapter": 2,
-    "description": "The entire sentence will come after the fading of the previous sentence. Still keep in mind the particles will be visible fullscreen the entire time (with a blank space in between them. After the sentence you will get a list which emphatises the different causes of PM particles. (maybe give the list a different color?) ",
-    "text": "These particles of air pollution cause a number of diseases ranging from; Asthma, cancer, pumonary illness, respitorary & cardiovascular problems.",
+    "text": "But not only that! \nPM 10 and PM 2.5 particles cause a number of diseases ranging from asthma, cancer, pulmonary illness, respitorary and cardiovascular problems. ",
     "info": ""
   },
   {
@@ -279,7 +191,7 @@
     "chapter": 0,
     "subChapter": 0,
     "description": "The particles move back to fullscreen over the entire page and in the header of the page (centered) the next sentence will show. This sentence will be visible the entire story.",
-    "text": "Particulate matter Then and Now",
+    "text": "Particulate matter then and now",
     "info": ""
   },
   {
@@ -287,23 +199,47 @@
     "chapter": 0,
     "subChapter": 1,
     "description": "graph 1: yearly visualisation of Pm2.5 -> Let's go back in the past to see how Pm2.5 has evolved from 2005.",
-    "text": "This graph shows a yearly mean of pm 2.5 in Brussels. This data comes from the sensors of Irceline (2005 - 2018)",
+    "text": "Yearly mean of PM 2.5 in Brussels from measurements of the sensors of Irceline",
     "info": ""
   },
   {
     "story": 3,
-    "chapter": 0,
-    "subChapter": 2,
+    "chapter": 1,
+    "subChapter": 0,
     "description": "This graph shows the measurements of the sensors of Influencair in Brussels.",
-    "text": "This graph shows the daily mean of pm 2.5 from measurements of the sensors of Influencair in Brussels. (2018 - 2019)",
+    "text": "Daily mean of PM 2.5 in Brussels from measurements of the sensors of Influencair",
     "info": ""
   },
   {
     "story": 3,
-    "chapter": 0,
+    "chapter": 1,
+    "subChapter": 1,
+    "description": "Show tweet 1 and zoom in on the graph",
+    "text": "Events tweeted by Irceline compared to Influencair data",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 2,
+    "description": "Show tweet 2 and zoom in on the graph",
+    "text": "Events tweeted by Irceline compared to Influencair data",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
     "subChapter": 3,
-    "description": "This graph shows the measurements of all sensors of Influencair in Brussels.",
-    "text": "This graph shows the daily mean per sensor of PM 2.5 from measurements of (2018 - 2019)",
+    "description": "Show tweet 3 and zoom in on the graph",
+    "text": "Events tweeted by Irceline compared to Influencair data",
+    "info": ""
+  },
+  {
+    "story": 3,
+    "chapter": 1,
+    "subChapter": 4,
+    "description": "Show tweet 4 and zoom in on the graph",
+    "text": "Events tweeted by Irceline compared to Influencair data",
     "info": ""
   }
 ]

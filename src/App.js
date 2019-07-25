@@ -4,6 +4,7 @@ import SideBar from "./Sidebar";
 import FloatingParticles from "./FloatingParticles";
 import Explanations from "./Explanations";
 import { PMPlotComponent } from "./PMPlotComponent";
+import Tweets from "./Tweets";
 import Text from "./Text";
 import story from "./story.json";
 
@@ -27,6 +28,7 @@ export default class App extends Component {
     };
 
     this.blockScroll = this.blockScroll.bind(this);
+    this.changeStoryAndScroll = this.changeStoryAndScroll.bind(this);
     this.clearBoxHandler = this.clearBoxHandler.bind(this);
   }
   componentDidMount() {
@@ -67,6 +69,15 @@ export default class App extends Component {
       blockScroll
     });
   }
+
+  changeStoryAndScroll(newStory) {
+    let index = story.indexOf(newStory);
+    let newScroll = index * (scrollHeight / story.length) + 10;
+    window.scrollTo(0, newScroll);
+    window.location.reload();
+    this.setState({ currentStory: newStory, scroll: newScroll });
+  }
+
   clearBoxHandler(e, id, box) {
     const clearBox = this.state.clearBox;
     // if (e === 'set') {
@@ -85,7 +96,7 @@ export default class App extends Component {
       <div className="App" style={{ height: scrollHeight }}>
         {window.innerWidth < minSupportedWidth ||
         window.innerHeight < minSupportedHeight ? (
-          <div> We don\'t support this size</div>
+          <div> We don't support this size</div>
         ) : (
           <div
             className="GridContainer"
@@ -95,6 +106,7 @@ export default class App extends Component {
               <SideBar
                 story={this.state.currentStory}
                 scroll={this.state.scroll}
+                changeStoryAndScroll={this.changeStoryAndScroll}
               />
             </div>
             <div className="Col2">
@@ -106,7 +118,6 @@ export default class App extends Component {
                 blockScroll={this.blockScroll}
                 clearBoxHandler={this.clearBoxHandler}
               />
-
               <FloatingParticles
                 story={this.state.currentStory}
                 width={this.state.storyWidth}
@@ -116,9 +127,9 @@ export default class App extends Component {
                 clearBox={[...this.state.clearBox.values()]}
               />
               <Explanations story={this.state.currentStory} />
+              <Tweets story={this.state.currentStory} />
               <PMPlotComponent story={this.state.currentStory} />
             </div>
-            )}
           </div>
         )}
       </div>

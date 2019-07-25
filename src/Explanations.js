@@ -21,7 +21,7 @@ class Explanations extends Component {
 
   componentWillReceiveProps(nextProps) {
     let { story } = nextProps;
-    if (!story) return
+    if (!story) return;
 
     if (story.story > 1) {
       this.setState({ text: story.text, isVisible: true });
@@ -32,16 +32,44 @@ class Explanations extends Component {
   render() {
     return (
       <div className="explanations">
-        <span className="explanations-span">
-          <SplitText
-            initialPose="exit"
-            pose="enter"
-            // pose={this.state.isVisible ? "enter" : "exit"}
-            charPoses={charPoses}
-          >
-            {this.state.text}
-          </SplitText>
-        </span>
+        {this.props.story.story === 2 &&
+          this.state.text.split("\n").map(line =>
+            line.includes("What about your health") ? (
+              <p className="accent-text">
+                <SplitText
+                  initialPose="exit"
+                  pose="enter"
+                  charPoses={charPoses}
+                >
+                  {line}
+                </SplitText>
+              </p>
+            ) : (
+              <p>
+                <SplitText
+                  initialPose="exit"
+                  pose="enter"
+                  charPoses={charPoses}
+                >
+                  {line}
+                </SplitText>
+              </p>
+            )
+          )}
+        {this.props.story.story === 3 && this.props.story.chapter === 0 && this.props.story.subChapter === 0 && (
+          <div className="titles-accent">
+            <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+              {this.state.text}
+            </SplitText>
+          </div>
+        )}
+        {this.props.story.story === 3 && !(this.props.story.chapter === 0 && this.props.story.subChapter === 0) && (
+          <div className="subtitles-accent">
+            <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+              {this.state.text}
+            </SplitText>
+          </div>
+        )}
       </div>
     );
   }

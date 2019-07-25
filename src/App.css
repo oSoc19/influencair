@@ -1,21 +1,50 @@
 .GridContainer {
-  display: grid;
-  grid-gap: 0px;
-  grid-template-columns: 200px auto;
-  grid-template-rows: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
   position: fixed;
-  top: 0;
   height: 100vh;
+  width: 100%;
 }
 
 .Col1 {
-  grid-column-start: 1;
-  grid-column-end: 1;
+  flex: 0 0 18em;
+  text-align: center;
+}
+
+.logo {
+  padding: 5%;
+  display: block;
+  margin: auto;
+  width: 75%;
+  cursor: pointer;
+}
+
+.accent-text {
+  color: #f15740;
+  font-size: 45px;
+}
+
+.titles-accent {
+  color: #f15740;
+  font-size: 45px;
+  padding-right: 20px;
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+.subtitles-accent {
+  color: #f15740;
+  font-size: 30px;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
 }
 
 .Col2 {
-  grid-column-start: 2;
-  grid-column-end: 2;
+  flex: 1;
+  padding-left: 5px;
+  width: 100%;
 }
 
 pre {
@@ -40,16 +69,19 @@ text {
   /* line-height: 600px; */
   /* text-align: center; */
   margin: auto;
+  width: 100%;
   font-size: 30px;
   color: #439483;
   opacity: 0.9;
-  padding: 40px;
+  padding: 1%;
+  padding-left: 3%;
 }
-.explanations-span {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
+
+.explanations p {
+  padding: 20px;
+  margin-right: 10%;
 }
+
 .background_img {
   position: fixed;
   right: 0;
@@ -64,9 +96,122 @@ text {
 .plot {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  right: 20%;
+  display: flex;
+  flex-direction: column;
   z-index: 10;
+  margin-top: 10%;
+}
+
+.xy-plot {
+  margin: auto;
+}
+
+.tweet {
+  display: flex;
+  justify-content: center;
+}
+
+.tweet-show {
+  position: fixed;
+  transition-duration: 1s;
+}
+
+.tweet-hide {
+  position: fixed;
+  opacity: 0;
+}
+
+.tweet-left {
+  position: fixed;
+  opacity: 0.6;
+  transform: translate(-300%, 0px);
+  transition-duration: 1s;
+}
+
+.tweet-right {
+  opacity: 0.6;
+  position: fixed;
+  transform: translate(1100px, 0px);
+  transition-duration: 1s;
+}
+
+.sidebar {
+  background-color: #a6cdc7;
+  height: 100%;
+}
+
+.active {
+  color: #f15740;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  padding-bottom: 20px;
+}
+
+.sidebar-text {
+  color: #0e8a78;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  padding-bottom: 20px;
+}
+
+.info-box
+{
+  text-align: justify;
+  text-justify: inter-word;
+  position: relative; 
+  left: -60%; 
+  border: solid  #439483 1px;
+  padding: 5%;
+  font-size: 25px;
+  color: #439483;
+  opacity: 1;
+  animation: fadeIn 1s linear;
+}
+
+.info-box-wrapper
+{
+  position: absolute; 
+  left: 60%;
+  top: 20%;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0}
+  100% { opacity: 1 }
+}
+
+.organization-logos
+{
+  margin: 10%;
+  margin-top: 10%;
+  display: flex;
+  opacity: 1;
+  animation: fadeIn 1s linear;
+}
+
+.logoInfluencair {
+  display: flex;
+  flex-direction: column;
+  width:90%;
+  height:90%;
+  margin: 2%;
+}
+
+.logoWHO{
+  width: 100%;
+  height: 100%;
+  margin: 2%;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+.logoIrceline{
+  width: 100%;
+  height: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
 }
