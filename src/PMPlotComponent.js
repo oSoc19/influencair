@@ -232,7 +232,7 @@ class PMPlotComponent extends Component {
         return (
           <p className="info-box">
             Influencair is a group of citizens who are concerned about the air quality in Brussels. 
-            They wants to raise awareness by measuring and mapping local pollution levels.
+            They want to raise awareness by measuring and mapping local pollution levels.
             The aim is to build a comprehensive sensor network covering the whole Brussels region.
           </p>
         );
